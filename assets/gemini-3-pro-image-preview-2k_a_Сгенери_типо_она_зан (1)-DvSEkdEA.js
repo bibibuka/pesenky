@@ -1,0 +1,1 @@
+const _="/pesenky/assets/gemini-3-pro-image-preview-2k_a_%D0%A1%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8_%D1%82%D0%B8%D0%BF%D0%BE_%D0%BE%D0%BD%D0%B0_%D0%B7%D0%B0%D0%BD%20(1)-DQ6bNwPJ.png";export{_ as default};
