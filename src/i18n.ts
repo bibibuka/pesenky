@@ -4,8 +4,11 @@ export const translations = {
   de: {
     nav: {
       home: 'Startseite',
+      lessons: 'Unterricht',
       adults: 'Für Erwachsene',
       kids: 'Für Kinder',
+      stageCreative: 'Bühne & Kreativ',
+      projects: 'Kreative Projekte',
       artist: 'Live & Bühne',
       about: 'Über mich',
       reviews: 'Bewertungen',
@@ -261,6 +264,7 @@ export const translations = {
       adults: 'Für Erwachsene',
       kids: 'Für Kinder',
       artist: 'Live & Bühne',
+      projects: 'Kreative Projekte',
       about: 'Über mich',
       reviews: 'Bewertungen',
       book: 'Buchen',
@@ -270,8 +274,11 @@ export const translations = {
   en: {
     nav: {
       home: 'Home',
+      lessons: 'Lessons',
       adults: 'For Adults',
       kids: 'For Kids',
+      stageCreative: 'Stage & Creative',
+      projects: 'Creative Projects',
       artist: 'Live & Stage',
       about: 'About Me',
       reviews: 'Reviews',
@@ -527,6 +534,7 @@ export const translations = {
       adults: 'For Adults',
       kids: 'For Kids',
       artist: 'Live & Stage',
+      projects: 'Creative Projects',
       about: 'About Me',
       reviews: 'Reviews',
       book: 'Book',
@@ -536,8 +544,11 @@ export const translations = {
   ru: {
     nav: {
       home: 'Главная',
+      lessons: 'Занятия',
       adults: 'Для взрослых',
       kids: 'Для детей',
+      stageCreative: 'Сцена и творчество',
+      projects: 'Творческие проекты',
       artist: 'Концерты',
       about: 'Обо мне',
       reviews: 'Отзывы',
@@ -546,7 +557,7 @@ export const translations = {
       book: 'Запись',
     },
     hero: {
-      title: 'Ваш голос — ваш самый',
+      title: 'Ваш голос — Ваш самый',
       titleHighlight: 'недооцененный инструмент влияния',
       subtitle: 'Премиальная вокальная академия для взрослых в Шаффхаузене. Уверенность. Присутствие. Сила звука.',
       cta: 'Записаться на диагностику',
@@ -556,9 +567,9 @@ export const translations = {
     notSchool: {
       badge: 'Наш подход',
       line1: 'Это не "школа вокала".',
-      line2: 'Речь о том, как вы звучите на переговорах.',
-      line3: 'Как вас воспринимают, когда вы входите в комнату.',
-      line4: 'Как ваш голос отражает вашу внутреннюю силу.',
+      line2: 'Речь о том, как Вы звучите на переговорах.',
+      line3: 'Как Вас воспринимают, когда Вы входите в комнату.',
+      line4: 'Как Ваш голос отражает Вашу внутреннюю силу.',
       quote: 'Голос — это капитал. И большинство лидеров его не используют.',
     },
     forWhom: {
@@ -613,7 +624,7 @@ export const translations = {
             'Выразительность и управление вниманием',
             'Финальное закрытое выступление с записью',
           ],
-          quote: '«После программы вы звучите глубже, чувствуете контроль и свободнее выражаете эмоции»',
+          quote: '«После программы Вы звучите глубже, чувствуете контроль и свободнее выражаете эмоции»',
         },
         {
           title: 'Stage Experience Weekend',
@@ -625,7 +636,7 @@ export const translations = {
             'Работа с микрофоном и сценой',
             'Каждый участник получает видео своего выступления',
           ],
-          quote: '«Это не курс. Это событие. За 48 часов вы почувствуете сцену и свою силу»',
+          quote: '«Это не курс. Это событие. За 48 часов Вы почувствуете сцену и свою силу»',
         },
         {
           title: 'Executive Voice Circle',
@@ -693,7 +704,7 @@ export const translations = {
     },
     whyVoice: {
       badge: 'Факты',
-      title: 'Звучите ли вы',
+      title: 'Звучите ли Вы',
       titleHighlight: 'так, как мыслите?',
       facts: [
         'Голос влияет на доверие, авторитет и восприятие компетентности',
@@ -712,7 +723,7 @@ export const translations = {
         { icon: 'target', text: 'Вы чувствуете контроль над голосом и речью' },
         { icon: 'strength', text: 'Вы свободнее выражаете эмоции' },
         { icon: 'zen', text: 'Вы меньше устаете от общения' },
-        { icon: 'tie', text: 'Окружающие начинают воспринимать вас серьезнее' },
+        { icon: 'tie', text: 'Окружающие начинают воспринимать Вас серьезнее' },
         { icon: 'mic', text: 'Вы больше не боитесь сцены и камеры' },
       ],
       quote: '«Это не просто навыки. Это изменение самовосприятия»',
@@ -769,12 +780,12 @@ export const translations = {
       badge: 'Контакты',
       title: 'Начните с',
       titleHighlight: 'диагностической сессии',
-      subtitle: 'Запишитесь на персональную 45-минутную встречу. Мы проанализируем ваш голос, выявим зоны роста и дадим конкретные рекомендации.',
+      subtitle: 'Запишитесь на персональную 45-минутную встречу. Мы проанализируем Ваш голос, выявим зоны роста и дадим конкретные рекомендации.',
       form: {
         name: 'Имя',
         email: 'Email',
         phone: 'Телефон',
-        format: 'Какой формат вас интересует?',
+        format: 'Какой формат Вас интересует?',
         formatOptions: ['Voice Diagnostic Session', 'Voice & Confidence Lab', 'Stage Experience Weekend', 'Executive Voice Circle', 'Private Voice Coaching', 'Signature Voice Experience', 'Другое'],
         comment: 'Комментарий',
         submit: 'Записаться',
@@ -793,6 +804,7 @@ export const translations = {
       adults: 'Для взрослых',
       kids: 'Для детей',
       artist: 'Концерты',
+      projects: 'Творческие проекты',
       about: 'Обо мне',
       reviews: 'Отзывы',
       book: 'Запись',

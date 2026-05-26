@@ -1,6 +1,6 @@
 ﻿import { Link } from 'react-router-dom';
 import { type Lang } from '../i18n';
-import { ArrowRight, Quote, Video } from 'lucide-react';
+import { ArrowRight, Quote, Sparkles } from 'lucide-react';
 import Animated from '../components/Animated';
 import SectionTitle from '../components/SectionTitle';
 import HeroSection from '../components/HeroSection';
@@ -10,105 +10,21 @@ import { getMediaImages } from '../utils/media';
 
 const pageT = {
   de: {
-    hero: { title: 'Bewertungen und', highlight: 'Kundengeschichten', subtitle: 'Wie Stimmarbeit, Programme und Auftritte Sicherheit, Stimme und Selbstausdruck beeinflussen.' },
-    adults: {
-      badge: 'Erwachsene', title: 'Stimmen von', highlight: 'Erwachsenen',
-      items: [
-        { name: 'Sarah M.', role: 'Unternehmerin', text: 'Nach wenigen Sitzungen habe ich meine Stimme völlig neu entdeckt. Ich spreche jetzt mit mehr Ruhe und Autorität.' },
-        { name: 'Andreas W.', role: 'Manager', text: 'Meine Kolleg:innen spüren den Unterschied. Ich klinge selbstsicherer und präsenter.' },
-        { name: 'Elena D.', role: 'Künstlerin', text: 'Die Mischung aus Technik, Emotion und Ästhetik ist einzigartig. Eine absolute Empfehlung.' },
-        { name: 'Michael B.', role: 'Expat', text: 'Endlich fühle ich mich wohl beim Singen. Professionell, warm und erstklassig.' },
-        { name: 'Laura K.', role: 'Unternehmerin', text: 'Meine Stimme war immer leise. Jetzt spreche ich mit Kraft und Überzeugung. Transformativ!' },
-        { name: 'Daniel F.', role: 'Berater', text: 'Diese Arbeit geht weit über Gesangsunterricht hinaus. Es ist persönliches Wachstum.' },
-      ],
-    },
-    parents: {
-      badge: 'Eltern', title: 'Stimmen von', highlight: 'Eltern',
-      items: [
-        { name: 'Anna K.', role: 'Mutter von Lena (9)', text: 'Lena war sehr schüchtern. Jetzt singt sie fröhlich vor der ganzen Familie. Wunderbar!' },
-        { name: 'Marco S.', role: 'Vater von Tim (12)', text: 'Tim hat hier nicht nur Singen gelernt, sondern auch gelernt, vor anderen aufzutreten.' },
-        { name: 'Julia R.', role: 'Mutter von Sophia (7)', text: 'Der behutsame Ansatz hat mich überzeugt. Sophia liebt jede Stunde.' },
-        { name: 'Stefan H.', role: 'Vater von Marie (10)', text: 'Marie ist selbstbewusster geworden. Die Musik hat ihr geholfen, sich zu öffnen.' },
-      ],
-    },
-    concerts: {
-      badge: 'Auftritte', title: 'Stimmen über', highlight: 'Auftritte',
-      items: [
-        { name: 'Claudia H.', role: 'Event-Managerin', text: 'Die Atmosphäre war atemberaubend. Jeder Gast war berührt von der Musik.' },
-        { name: 'Stefan M.', role: 'Galerie-Besitzer', text: 'Eine perfekte Verbindung von Kunst und Musik. Absolut professionell.' },
-        { name: 'Isabelle W.', role: 'Braut', text: 'Der schönste Moment unserer Hochzeit. Die Stimme hat alle zu Tränen gerührt.' },
-      ],
-    },
-    screenshots: { badge: 'Original-Nachrichten', title: 'Weitere', highlight: 'Kundenstimmen' },
-    video: { badge: 'Video & Social Proof', title: 'Eindrücke', highlight: 'in Bewegung', placeholder: 'Hier erscheinen bald Video-Testimonials und Social-Media-Beiträge unserer Kunden.' },
+    hero: { title: 'Bewertungen', highlight: 'unserer Kunden', subtitle: '' },
+    screenshots: { badge: 'Original-Nachrichten', title: 'Kunden-', highlight: 'stimmen' },
+    social: { title: 'Noch mehr Stimmen', text: 'Weitere Bewertungen und Einblicke in unsere Arbeit finden Sie in unseren sozialen Netzwerken — Stimmen, Momente und Inspiration aus unserer Schule.' },
     cta: { title: 'Bereit für Ihre eigene Geschichte?', cta1: 'Termin buchen', cta2: 'Auftritt anfragen' },
   },
   en: {
-    hero: { title: 'Reviews and', highlight: 'Client Stories', subtitle: 'How voice work, programs and performances impact confidence, voice and self-expression.' },
-    adults: {
-      badge: 'Adults', title: 'Voices from', highlight: 'Adults',
-      items: [
-        { name: 'Sarah M.', role: 'Entrepreneur', text: 'After a few sessions, I completely rediscovered my voice. I now speak with more calm and authority.' },
-        { name: 'Andreas W.', role: 'Manager', text: 'My colleagues notice the difference. I sound more confident and present.' },
-        { name: 'Elena D.', role: 'Artist', text: 'The blend of technique, emotion and aesthetics is unique. Absolute recommendation.' },
-        { name: 'Michael B.', role: 'Expat', text: 'Finally I feel comfortable singing. Professional, warm and first-class.' },
-        { name: 'Laura K.', role: 'CEO', text: 'My voice was always quiet. Now I speak with power and conviction. Transformative!' },
-        { name: 'Daniel F.', role: 'Consultant', text: 'This work goes far beyond singing lessons. It\'s personal growth.' },
-      ],
-    },
-    parents: {
-      badge: 'Parents', title: 'Voices from', highlight: 'Parents',
-      items: [
-        { name: 'Anna K.', role: 'Mother of Lena (9)', text: 'Lena was very shy. Now she sings happily in front of the whole family. Wonderful!' },
-        { name: 'Marco S.', role: 'Father of Tim (12)', text: 'Tim didn\'t just learn to sing — he learned to perform in front of others.' },
-        { name: 'Julia R.', role: 'Mother of Sophia (7)', text: 'The gentle approach won me over. Sophia loves every lesson.' },
-        { name: 'Stefan H.', role: 'Father of Marie (10)', text: 'Marie has become more confident. Music helped her open up.' },
-      ],
-    },
-    concerts: {
-      badge: 'Performances', title: 'Voices about', highlight: 'Performances',
-      items: [
-        { name: 'Claudia H.', role: 'Event Manager', text: 'The atmosphere was breathtaking. Every guest was moved by the music.' },
-        { name: 'Stefan M.', role: 'Gallery Owner', text: 'A perfect blend of art and music. Absolutely professional.' },
-        { name: 'Isabelle W.', role: 'Bride', text: 'The most beautiful moment of our wedding. The voice moved everyone to tears.' },
-      ],
-    },
-    screenshots: { badge: 'Original Messages', title: 'More', highlight: 'Feedback' },
-    video: { badge: 'Video & Social Proof', title: 'Impressions', highlight: 'in Motion', placeholder: 'Video testimonials and social media features from our clients coming soon.' },
+    hero: { title: 'Client', highlight: 'Reviews', subtitle: '' },
+    screenshots: { badge: 'Original Messages', title: 'Client', highlight: 'Feedback' },
+    social: { title: 'Even More Voices', text: 'You can find more reviews and behind-the-scenes moments from our school on our social media — stories, voices and inspiration every day.' },
     cta: { title: 'Ready for your own story?', cta1: 'Book a Session', cta2: 'Request Performance' },
   },
   ru: {
-    hero: { title: 'Отзывы и', highlight: 'истории клиентов', subtitle: 'Как занятия, программы и выступления влияют на уверенность, голос и самовыражение.' },
-    adults: {
-      badge: 'Взрослые', title: 'Голоса', highlight: 'взрослых',
-      items: [
-        { name: 'Сара М.', role: 'Предприниматель', text: 'После нескольких занятий я заново открыла свой голос. Теперь говорю спокойнее и увереннее.' },
-        { name: 'Андреас В.', role: 'Менеджер', text: 'Коллеги замечают разницу. Я звучу увереннее и присутственнее.' },
-        { name: 'Елена Д.', role: 'Художница', text: 'Сочетание техники, эмоции и эстетики уникально. Абсолютная рекомендация.' },
-        { name: 'Михаэль Б.', role: 'Экспат', text: 'Наконец-то чувствую себя комфортно при пении. Профессионально и душевно.' },
-        { name: 'Лаура К.', role: 'Руководитель', text: 'Мой голос всегда был тихим. Теперь я говорю с силой и убеждением.' },
-        { name: 'Даниэль Ф.', role: 'Консультант', text: 'Эта работа далеко за рамками уроков вокала. Это личностный рост.' },
-      ],
-    },
-    parents: {
-      badge: 'Родители', title: 'Голоса', highlight: 'родителей',
-      items: [
-        { name: 'Анна К.', role: 'Мама Лены (9 лет)', text: 'Лена была очень застенчивой. Теперь поёт перед всей семьёй. Чудесно!' },
-        { name: 'Марко С.', role: 'Папа Тима (12 лет)', text: 'Тим научился не только петь, но и выступать перед другими.' },
-        { name: 'Юлия Р.', role: 'Мама Софии (7 лет)', text: 'Бережный подход покорил меня. София обожает каждое занятие.' },
-        { name: 'Штефан Х.', role: 'Папа Мари (10 лет)', text: 'Мари стала увереннее. Музыка помогла ей раскрыться.' },
-      ],
-    },
-    concerts: {
-      badge: 'Выступления', title: 'Голоса о', highlight: 'выступлениях',
-      items: [
-        { name: 'Клаудия Х.', role: 'Организатор событий', text: 'Атмосфера была потрясающей. Каждый гость был тронут музыкой.' },
-        { name: 'Штефан М.', role: 'Владелец галереи', text: 'Идеальное соединение искусства и музыки. Абсолютно профессионально.' },
-        { name: 'Изабэль В.', role: 'Невеста', text: 'Самый красивый момент свадьбы. Голос тронул всех до слёз.' },
-      ],
-    },
-    screenshots: { badge: 'Оригинальные сообщения', title: 'Больше', highlight: 'отзывов' },
-    video: { badge: 'Видео', title: 'Впечатления', highlight: 'в движении', placeholder: 'Скоро здесь появятся видеоотзывы и публикации клиентов.' },
+    hero: { title: 'Отзывы', highlight: 'клиентов', subtitle: '' },
+    screenshots: { badge: 'Оригинальные сообщения', title: 'Отзывы', highlight: 'клиентов' },
+    social: { title: 'Ещё больше отзывов', text: 'Больше отзывов и закулисных моментов нашей школы вы найдёте в наших социальных сетях — истории, голоса и вдохновение каждый день.' },
     cta: { title: 'Готовы к своей истории?', cta1: 'Записаться', cta2: 'Запросить выступление' },
   },
 };
@@ -121,7 +37,7 @@ export default function ReviewsPage({ lang }: { lang: Lang }) {
   const screenshots = getMediaImages('reviews');
 
   return (
-    <main className="bg-white/20 backdrop-blur-sm relative z-10 min-h-screen">
+    <main className="relative z-10 min-h-screen">
       <HeroSection title={t.hero.title} titleHighlight={t.hero.highlight} subtitle={t.hero.subtitle}
         ctas={[{ label: t.cta.cta1, href: '/book', isRoute: true }]} />
 
@@ -152,14 +68,31 @@ export default function ReviewsPage({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      {/* VIDEO PLACEHOLDER */}
-      <section className="py-5 md:py-6">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle badge={t.video.badge} title={t.video.title} highlight={t.video.highlight} badgeIcon={<Video className="w-3.5 h-3.5" />} />
-          <Animated delay={100}>
-            <div className="featured-card rounded-2xl p-10 text-center">
-              <Video className="w-16 h-16 text-primary-300 mx-auto mb-4" />
-              <p className="text-gray-500 text-lg">{t.video.placeholder}</p>
+      {/* SOCIAL MEDIA BANNER */}
+      <section className="py-10 md:py-14">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Animated>
+            <div className="relative overflow-hidden rounded-3xl border border-primary-100/60 bg-gradient-to-br from-primary-50 via-white to-amber-50/50 p-8 md:p-12 text-center">
+              {/* Decorative accents */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-primary-100/30 to-transparent rounded-bl-full pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-amber-100/30 to-transparent rounded-tr-full pointer-events-none" />
+              
+              <div className="relative z-10">
+                {/* Icon */}
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary-200/50">
+                  <Sparkles className="w-8 h-8 text-white" />
+                </div>
+                
+                {/* Title */}
+                <h2 className="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                  {t.social.title}
+                </h2>
+                
+                {/* Description */}
+                <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+                  {t.social.text}
+                </p>
+              </div>
             </div>
           </Animated>
         </div>

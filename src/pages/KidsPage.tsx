@@ -109,6 +109,22 @@ const pageT = {
       ],
     },
 
+    /* ── section: pricing ── */
+    pricing: {
+      badge: 'Preise',
+      title: 'Unsere',
+      highlight: 'Preise',
+      trial: { label: 'Kennenlern-Stunde', price: 'Kostenlos', desc: 'Erstes Treffen zum Kennenlernen, 20–30 Minuten' },
+      single: { label: 'Einzelstunde', price: '90 CHF', desc: '30–45 Min. · individuell abgestimmt' },
+      subscriptions: [
+        { lessons: '5', price: '400 CHF', perLesson: '80 CHF / Stunde', badge: '', savings: '' },
+        { lessons: '10', price: '750 CHF', perLesson: '75 CHF / Stunde', badge: 'Beliebt', savings: '' },
+        { lessons: '20', price: '1\'400 CHF', perLesson: '70 CHF / Stunde', badge: 'Bester Preis', savings: '' },
+      ],
+      miniGroup: { label: 'Mini-Gruppe (3–4 Kinder)', price: '60 CHF', desc: 'pro Kind · 45 Min.' },
+      note: 'Alle Preise inkl. MwSt. Geschwister-Rabatt verfügbar.',
+    },
+
     /* ── section: for parents ── */
     forParents: {
       badge: 'Für Eltern',
@@ -234,6 +250,21 @@ const pageT = {
       ],
     },
 
+    pricing: {
+      badge: 'Pricing',
+      title: 'Our',
+      highlight: 'Prices',
+      trial: { label: 'Introductory Session', price: 'Free', desc: 'First meeting to get to know each other, 20–30 minutes' },
+      single: { label: 'Single Lesson', price: '90 CHF', desc: '30–45 min · individually tailored' },
+      subscriptions: [
+        { lessons: '5', price: '400 CHF', perLesson: '80 CHF / lesson', badge: '', savings: '' },
+        { lessons: '10', price: '750 CHF', perLesson: '75 CHF / lesson', badge: 'Popular', savings: '' },
+        { lessons: '20', price: '1\'400 CHF', perLesson: '70 CHF / lesson', badge: 'Best Value', savings: '' },
+      ],
+      miniGroup: { label: 'Mini Group (3–4 kids)', price: '60 CHF', desc: 'per child · 45 min' },
+      note: 'All prices incl. VAT. Sibling discounts available.',
+    },
+
     forParents: {
       badge: 'For Parents',
       title: 'What parents',
@@ -292,7 +323,7 @@ const pageT = {
       title: 'Каждый голос',
       highlight: 'уникален',
       text: 'Дети от природы музыкальны — они напевают, играют со звуками, поют просто так. Моя задача — бережно развивать этот природный импульс и превращать его в осознанный навык. Без давления, без страха перед ошибками, но с чёткой методикой и большой любовью к процессу.',
-      text2: 'На каждом занятии мы соединяем игровые элементы с профессиональной вокальной работой. Результат? Дети, которые не боятся использовать свой голос — и на сцене, и в жизни.',
+      text2: 'На каждом занятии мы соединяем игровые элементы с профессиональной вокальной работой. Результат? Дети, которые не боятся владеть своим голосом — и на сцене, и в жизни.',
     },
 
     forWhom: {
@@ -301,9 +332,9 @@ const pageT = {
       highlight: 'подходят занятия',
       cards: [
         { icon: 'baby', title: 'Дети от 6 до 16 лет', desc: 'Уроки адаптируются под возраст, развитие и темперамент каждого ребёнка индивидуально.' },
-        { icon: 'music', title: 'Дети, которые любят петь', desc: 'В душе, перед зеркалом или просто так — если ваш ребёнок любит петь, ему сюда.' },
-        { icon: 'eye', title: 'Застенчивые дети', desc: 'Именно тихие дети расцветают здесь. В безопасной обстановке они находят свою силу.' },
-        { icon: 'sparkles', title: 'Творческие натуры', desc: 'Дети с фантазией и любовью к самовыражению найдут здесь пространство для музыкального раскрытия.' },
+        { icon: 'music', title: 'Дети, которые любят петь', desc: 'Если Ваш ребенок часто поет про себя или перед зеркалом, мы с радостью поддержим его дальнейшее музыкальное развитие.' },
+        { icon: 'eye', title: 'Застенчивые дети', desc: 'В дружелюбной атмосфере даже самые застенчивые дети начинают раскрываться. Через пение они обретают уверенность, радость, самовыражение и внутреннюю силу.' },
+        { icon: 'sparkles', title: 'Творческие натуры', desc: 'Харизматичные дети и дети с ярким стремлением к самовыражению найдут пространство для раскрытия своего потенциала, творческой и сценической индивидуальности.' },
       ],
     },
 
@@ -312,11 +343,11 @@ const pageT = {
       title: 'Что дают',
       highlight: 'занятия',
       items: [
-        { icon: 'ear', title: 'Развитие слуха', desc: 'Дети учатся различать тоны, повторять мелодии и развивать тонкое чувство ритма.' },
-        { icon: 'voice', title: 'Раскрытие голоса', desc: 'Мы бережно работаем с тембром, дыханием и опорой — так, чтобы голос развивался свободно и естественно.' },
-        { icon: 'confidence', title: 'Уверенность', desc: 'С каждым занятием растёт доверие к своему голосу. Дети учатся выражать себя — без страха.' },
-        { icon: 'calm', title: 'Спокойствие на сцене', desc: 'Волнение превращается в драйв. Дети учатся направлять нервозность в позитивную энергию.' },
-        { icon: 'joy', title: 'Радость от процесса', desc: 'Никакого жёсткого плана — живые занятия с песнями, играми и творческими проектами.' },
+        { icon: 'ear', title: 'Развитие музыкальности', desc: 'Дети развивают слух и чувство ритма.' },
+        { icon: 'voice', title: 'Раскрытие голоса', desc: 'Бережная работа над тембром и дыханием так, чтобы голос развивался свободно и естественно.' },
+        { icon: 'confidence', title: 'Уверенность', desc: 'С каждым занятием растет доверие к своему голосу, дети учатся выражать себя без страха.' },
+        { icon: 'calm', title: 'Волнение превращается в потенциал', desc: 'Дети учатся управлять волнением и концентрироваться перед выступлением.' },
+        { icon: 'joy', title: 'Радость от процесса', desc: 'Вдохновляющая творческая атмосфера, где каждый ребенок с радостью открывает для себя мир музыки.' },
       ],
     },
 
@@ -324,12 +355,12 @@ const pageT = {
       badge: 'Занятие',
       title: 'Как проходит',
       highlight: 'урок',
-      intro: 'Каждое занятие — это маленькое музыкальное путешествие, от подготовки тела до радостного финала.',
+      intro: 'Каждое занятие — это маленькое музыкальное путешествие.',
       steps: [
-        { title: 'Приход и разминка', desc: 'Игровые упражнения на дыхание и тело, которые снимают напряжение и создают фокус.', time: '5–7 мин.' },
-        { title: 'Вокальная работа', desc: 'Целенаправленные упражнения на тон, тембр и опору — по возрасту и с удовольствием.', time: '15–20 мин.' },
-        { title: 'Песня и выражение', desc: 'Работа над песней: текст, эмоция, сценическое присутствие. Сердце каждого занятия.', time: '10–15 мин.' },
-        { title: 'Творческий финал', desc: 'Импровизационные игры, мини-записи или работа над своими песнями.', time: '5–10 мин.' },
+        { title: 'Разминка', desc: 'Упражнения для дыхания, дикции и красивого звучания голоса в игровой форме.', time: '5–7 мин.' },
+        { title: 'Вокальная работа', desc: 'Подготовка к песне специальными вокальными упражнениями — по возрасту и с удовольствием.', time: '15–20 мин.' },
+        { title: 'Репертуар', desc: 'Учимся проживать песню через текст, эмоцию, смысл и свое отношение и свое видение песни.', time: '10–15 мин.' },
+        { title: 'Творческий финал', desc: 'Подведение итогов урока, повторение пройденного материала и небольшие творческие задания для самостоятельной практики.', time: '5–10 мин.' },
       ],
     },
 
@@ -338,12 +369,27 @@ const pageT = {
       title: 'Наши',
       highlight: 'форматы',
       items: [
-        { title: 'Индивидуальные уроки', desc: 'Персональная работа с голосом. Урок полностью подстроен под ребёнка: его цели, темп, любимые песни.', icon: 'mic', meta: '1:1 · 30–45 мин.' },
+        { title: 'Индивидуальные уроки', desc: 'Персональная работа с голосом. Урок полностью подстроен под ребёнка: его цели, темп, любимые песни.', icon: 'mic', meta: '1:1 · 30–45 мин. и 1 час' },
         { title: 'Мини-группы', desc: 'Маленькие группы из 3–4 детей с общей динамикой, взаимной мотивацией и кучей веселья.', icon: 'users', meta: '3–4 ребёнка · 45 мин.' },
-        { title: 'Подготовка к выступлениям', desc: 'Целенаправленная подготовка к сцене: работа с микрофоном, сценическое присутствие, эмоциональный выразительность и работа со страхом сцены.', icon: 'star', meta: 'Индивидуально' },
-        { title: 'Творческие вокальные проекты', desc: 'Написать свою песню, записать её в студии и оставить на память — незабываемый опыт для каждого ребёнка.', icon: 'music', meta: 'Проектный формат' },
-        { title: 'Сезонные мастер-классы', desc: 'Короткие тематические воркшопы на каникулах: мюзикл, музыка из фильмов, импровизация или свои песни. Идеально, чтобы попробовать.', icon: 'sparkles', meta: 'Каникулярные воркшопы' },
+        { title: 'Культурные проекты', desc: 'Индивидуальные или групповые занятия, участие ребёнка в текущем творческом проекте.', icon: 'star', meta: 'Индивидуально / группа' },
+        { title: 'Своя песня на память', desc: 'Написать свою песню, записать её в студии и оставить на память — незабываемый опыт для каждого ребёнка.', icon: 'music', meta: 'Проектный формат' },
+        { title: 'Сезонные мастер-классы', desc: 'Короткие тематические воркшопы на каникулах.', icon: 'sparkles', meta: 'Каникулярные воркшопы' },
       ],
+    },
+
+    pricing: {
+      badge: 'Цены',
+      title: 'Наши',
+      highlight: 'цены',
+      trial: { label: 'Знакомство', price: 'Бесплатно', desc: 'Первая встреча, 20–30 минут' },
+      single: { label: 'Разовое занятие', price: 'от 65 CHF', desc: '30–45 мин. · индивидуально' },
+      subscriptions: [
+        { lessons: '5', price: '450 CHF', perLesson: '90 CHF / занятие', badge: '', savings: 'Экономия 25 CHF (−5%)' },
+        { lessons: '10', price: '855 CHF', perLesson: '85.50 CHF / занятие', badge: 'Популярно', savings: 'Экономия 95 CHF (−10%)' },
+        { lessons: '20', price: '1\'520 CHF', perLesson: '76 CHF / занятие', badge: 'Лучшая цена', savings: 'Экономия 380 CHF (−20%)' },
+      ],
+      miniGroup: { label: 'Мини-группа (3–4 ребёнка)', price: '60 CHF', desc: 'за ребёнка · 45 мин.' },
+      note: 'Все цены вкл. НДС. Для детей до 25 лет из кантона Шаффхаузен — занятия по специальным субвенционным ценам. Подробности уточняйте лично.',
     },
 
     forParents: {
@@ -352,8 +398,8 @@ const pageT = {
       highlight: 'родителям',
       blocks: [
         { icon: 'shield', title: 'Безопасность голоса', text: 'Детский голос хрупок. Поэтому я использую только методы, которые защищают голос и никогда не перегружают его. Никакого крика, никакого форсирования — только бережная, здоровая постановка голоса.' },
-        { icon: 'heart', title: 'Эмоциональное развитие', text: 'Пение — это гораздо больше, чем техника. Дети учатся выражать эмоции, отстаивать себя в группе и гордиться своими успехами. Многие родители замечают позитивные изменения в повседневной жизни.' },
-        { icon: 'book', title: 'Прозрачный процесс', text: 'Вы будете получать регулярную обратную связь и сможете следить за прогрессом. Я всегда на связи для вопросов — открытое общение для меня важно.' },
+        { icon: 'heart', title: 'Эмоциональное развитие', text: 'Пение — это гораздо больше, чем просто техника вокала. Дети учатся выражать эмоции, отстаивать своё мнение и гордиться своими успехами. Многие родители замечают позитивные изменения в повседневной жизни ребёнка.' },
+        { icon: 'book', title: 'Прозрачный процесс', text: 'Вы будете получать регулярную обратную связь и сможете следить за прогрессом ребенка. Я всегда на связи для любых Ваших вопросов — в тандеме с родителями поддерживаю путь ребенка к его мечте.' },
       ],
       extras: ['Больше уверенности в жизни', 'Лучше концентрация', 'Эмоциональная открытость и зрелость', 'Радость от творческого самовыражения'],
     },
@@ -375,17 +421,17 @@ const pageT = {
       highlight: 'вопросы',
       items: [
         { q: 'С какого возраста можно начать?', a: 'С 6 лет. Младшие дети — по индивидуальной договорённости. Иногда ребёнок готов в 5, иногда нужно чуть подождать.' },
-        { q: 'Нужен ли опыт?', a: 'Нет, абсолютные новички приветствуются. Мы начинаем оттуда, где стоит ребёнок, и строим шаг за шагом.' },
-        { q: 'Если ребёнок стесняется?', a: 'Именно тогда! Безопасная обстановка помогает раскрыться. Многие из самых застенчивых детей расцветают здесь особенно ярко.' },
-        { q: 'Есть ли выступления?', a: 'Да, но только когда ребёнок готов и ему это в радость. Никого не выталкивают на сцену.' },
-        { q: 'Сколько длится занятие?', a: '30–45 минут, в зависимости от возраста. Для самых маленьких часто достаточно 30 минут.' },
-        { q: 'Есть ли пробное занятие?', a: 'Да! Первое знакомство — лучший старт. Мы познакомимся, и я смогу оценить, что нужно вашему ребёнку.' },
+        { q: 'Нужен ли опыт?', a: 'Нет. Мы начинаем с того, что уже умеет ребенок, и шаг за шагом помогаем раскрыть его потенциал.' },
+        { q: 'Если ребёнок стесняется?', a: 'Бережная и дружелюбная атмосфера помогает раскрыться каждому ребенку. Часто именно самые застенчивые дети особенно ярко расцветают в творчестве.' },
+        { q: 'Есть ли выступления?', a: 'Да. Если ребенок сам готов и ему это в радость.' },
+        { q: 'Сколько длится занятие?', a: '30–45 минут, 1 час. В зависимости от возраста. Для самых маленьких часто достаточно 30 минут.' },
+        { q: 'Есть ли пробное занятие?', a: 'Первое знакомство — лучший старт. Здесь я знакомлюсь с ребенком, его желаниями и запросами, слушаю голос и подбираю индивидуальную программу.' },
       ],
     },
 
     cta: {
       title: 'Хотите записать ребёнка?',
-      subtitle: 'Запишитесь на бесплатное знакомство — и увидите, как ваш ребёнок расцветает в музыке.',
+      subtitle: 'Запишитесь на пробное занятие.',
       cta: 'Записать ребёнка',
     },
   },
@@ -426,7 +472,7 @@ export default function KidsPage({ lang }: { lang: Lang }) {
   const t = pageT[lang];
 
   return (
-    <main className="bg-white/20 backdrop-blur-sm relative z-10 min-h-screen">
+    <main className="relative z-10 min-h-screen">
       {/* ═══════ HERO ═══════ */}
       <HeroSection
         title={t.hero.title}
@@ -453,8 +499,7 @@ export default function KidsPage({ lang }: { lang: Lang }) {
             </Animated>
             <Animated delay={300} className="hidden lg:block">
               <div className="relative group">
-                <div className="absolute -inset-3 bg-gradient-to-tr from-pink-200 to-primary-200 rounded-3xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50">
+                <div className="relative rounded-3xl overflow-hidden">
                   <img
                     src={IMG.lesson}
                     alt="Kids vocal lesson"
@@ -479,7 +524,7 @@ export default function KidsPage({ lang }: { lang: Lang }) {
                     {cardIcons[card.icon]}
                   </div>
                   <div>
-                    <h3 className="font-display text-lg font-bold text-gray-900 mb-2">{card.title}</h3>
+                    <h3 className="font-display text-lg font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{card.title}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
                   </div>
                 </div>
@@ -498,7 +543,7 @@ export default function KidsPage({ lang }: { lang: Lang }) {
           <Animated delay={50}>
             <div className="relative rounded-3xl overflow-hidden shadow-xl mb-10 group h-64 md:h-80">
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10" />
-              <img src={IMG.group} alt="Kids singing group" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
+              <img src={IMG.group} alt="Kids singing group" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
               <div className="absolute bottom-6 left-6 z-20">
                 <span className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-primary-700 shadow-lg">
                   <Music className="w-4 h-4 inline mr-2" />
@@ -523,7 +568,7 @@ export default function KidsPage({ lang }: { lang: Lang }) {
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center text-green-500 mb-4">
                     {benefitIcons[item.icon]}
                   </div>
-                  <h3 className="font-display text-base font-bold text-gray-900 mb-2">{item.title}</h3>
+                  <h3 className="font-display text-base font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{item.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </Animated>
@@ -583,13 +628,62 @@ export default function KidsPage({ lang }: { lang: Lang }) {
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-50 to-pink-50 flex items-center justify-center text-primary-500 mb-4 group-hover:scale-105 transition-transform">
                     {formatIcons[f.icon]}
                   </div>
-                  <h3 className="font-display text-lg font-bold text-gray-900 mb-1">{f.title}</h3>
+                  <h3 className="font-display text-lg font-bold text-gray-900 mb-1 min-h-[2lh] text-balance">{f.title}</h3>
                   <span className="inline-flex w-fit items-center text-[0.65rem] text-primary-500 font-semibold uppercase tracking-[0.12em] bg-primary-50 px-3 py-1 rounded-full mb-3">{f.meta}</span>
                   <p className="text-gray-400 text-sm leading-relaxed flex-1">{f.desc}</p>
                 </div>
               </Animated>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════ PRICING ═══════ */}
+      <section className="py-6 md:py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle badge={t.pricing.badge} title={t.pricing.title} highlight={t.pricing.highlight} badgeIcon={<Star className="w-3.5 h-3.5" />} />
+
+          {/* Trial + Single + Mini-group */}
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
+            <Animated delay={100}>
+              <div className="featured-card rounded-2xl p-7 h-full flex flex-col">
+                <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.pricing.trial.label}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.pricing.trial.desc}</p>
+                <div className="font-display text-2xl font-bold gradient-text">{t.pricing.trial.price}</div>
+              </div>
+            </Animated>
+            <Animated delay={150}>
+              <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+                <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.pricing.single.label}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.pricing.single.desc}</p>
+                <div className="font-display text-2xl font-bold gradient-text">{t.pricing.single.price}</div>
+              </div>
+            </Animated>
+            <Animated delay={200}>
+              <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+                <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.pricing.miniGroup.label}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.pricing.miniGroup.desc}</p>
+                <div className="font-display text-2xl font-bold gradient-text">{t.pricing.miniGroup.price}</div>
+              </div>
+            </Animated>
+          </div>
+
+          {/* Subscriptions */}
+          <div className="grid sm:grid-cols-3 gap-6 mb-6">
+            {t.pricing.subscriptions.map((sub, i) => (
+              <Animated key={i} delay={250 + i * 100}>
+                <div className={`rounded-2xl p-7 h-full flex flex-col ${i === 1 ? 'featured-card ring-2 ring-primary-200' : 'premium-card'}`}>
+                  {sub.badge && <span className="badge mb-3 inline-flex text-xs"><Sparkles className="w-3 h-3" />{sub.badge}</span>}
+                  <h3 className="font-display text-xl font-bold text-gray-900 mb-2">{sub.lessons} {lang === 'de' ? 'Stunden' : lang === 'ru' ? 'занятий' : 'lessons'}</h3>
+                  <p className="text-gray-500 text-sm mb-4 flex-1">{sub.perLesson}</p>
+                  <div className="font-display text-2xl font-bold gradient-text">{sub.price}</div>
+                  {'savings' in sub && sub.savings && <p className="text-green-500 text-xs font-semibold mt-2">{sub.savings}</p>}
+                </div>
+              </Animated>
+            ))}
+          </div>
+
+          <p className="text-center text-gray-400 text-sm">{t.pricing.note}</p>
         </div>
       </section>
 
@@ -629,14 +723,14 @@ export default function KidsPage({ lang }: { lang: Lang }) {
             {/* Right: info cards */}
             <div className="space-y-6">
               {t.forParents.blocks.map((block, i) => (
-                <Animated key={i} delay={200 + i * 120}>
+                <Animated key={i}>
                   <div className="premium-card rounded-2xl p-7">
                     <div className="flex items-start gap-5">
                       <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-50 to-pink-50 flex items-center justify-center text-primary-500 shrink-0">
                         {parentIcons[block.icon]}
                       </div>
                       <div>
-                        <h3 className="font-display text-lg font-bold text-gray-900 mb-2">{block.title}</h3>
+                        <h3 className="font-display text-lg font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{block.title}</h3>
                         <p className="text-gray-500 text-sm leading-relaxed">{block.text}</p>
                       </div>
                     </div>

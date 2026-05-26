@@ -2,3 +2,8 @@ node_modules/
 dist/
 .env
 .env.local
+.claude/
+.tools/
+.vscode/
+.publish-gh-pages/
+public/images-original/

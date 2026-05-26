@@ -3,7 +3,7 @@ import { type Lang } from '../i18n';
 import {
   ArrowRight, CheckCircle2, Gem, Heart, Target,
   Mic, Users, Sparkles, Award, Shield, Play,
-  Zap, Brain, Volume2, Music, Camera, Headphones,
+  Zap, Brain, Music, Camera, Headphones,
   Star, Gift, Clock, Tag, Baby
 } from 'lucide-react';
 import Animated from '../components/Animated';
@@ -18,7 +18,6 @@ const IMG = {
   hero: getMediaImage('adults/hero') || '/images/placeholder.png',
   coaching: getMediaImage('adults/coaching') || '/images/placeholder.png',
   stage: getMediaImage('adults/stage') || '/images/placeholder.png',
-  breathwork: getMediaImage('adults/breathwork') || '/images/placeholder.png',
 };
 
 /* ─── translations ─── */
@@ -56,9 +55,9 @@ const pageT = {
           desc: 'Singen ist ein echtes intellektuelles und ästhetisches Vergnügen. Entdecken Sie Ihre Stimme und verwandeln Sie sie in eine Quelle der Freude und Inspiration.',
         },
         {
-          icon: 'baby',
-          title: 'Kinder & Jugendliche',
-          desc: 'Behutsame Stimmarbeit für Kinder von 6 bis 16 Jahren. Wir fördern Musikalität, Selbstbewusstsein und Bühnenfreude — spielerisch, geschützt und professionell.',
+          icon: 'mic',
+          title: 'Führungskräfte & Redner',
+          desc: 'Sie halten Vorträge, leiten Teams oder stehen vor Kunden. Ihre Stimme soll Kompetenz und Sicherheit ausstrahlen — ohne Anstrengung.',
         },
       ],
     },
@@ -71,13 +70,13 @@ const pageT = {
       single: {
         title: 'Einzelstunde (individuell)',
         price: 'ab 130 CHF',
-        duration: '60 Min. / offline und online',
+        duration: '60 Min. / online oder vor Ort. Individueller 1:1 Gesangsunterricht – klassisch oder Pop/Crossover. Ziele definieren, Technik entwickeln, Repertoire aufbauen.',
       },
       subscriptions: {
         title: 'Abonnements',
-        subtitle: 'Kursblöcke mit Rabatt, flexibler Zeitplan, Fortschrittskontrolle.',
+        subtitle: 'Strukturierter Unterricht mit Fortschrittsbegleitung.',
         items: [
-          { lessons: '5', price: '618 CHF', discount: '5%', perLesson: '123.50 CHF/Stunde', save: '32 CHF' },
+          { lessons: '5', price: '618 CHF', discount: '5%', perLesson: '123.60 CHF/Stunde', save: '32 CHF' },
           { lessons: '10', price: '1\'170 CHF', discount: '10%', perLesson: '117 CHF/Stunde', save: '130 CHF' },
           { lessons: '20', price: '2\'080 CHF', discount: '20%', perLesson: '104 CHF/Stunde', save: '520 CHF' },
         ],
@@ -88,36 +87,47 @@ const pageT = {
     /* ── packages ── */
     packages: {
       badge: 'Pakete',
-      title: 'Premium',
-      highlight: 'Pakete',
+      title: 'Zusätzliche',
+      highlight: 'Angebote',
       items: [
         {
           icon: 'stage',
-          title: 'Bühnen- & Wettbewerbsvorbereitung',
-          desc: 'Repertoireauswahl, Bühnenbewegung, Mikrofonarbeit, Image, psychologische Bühnenvorbereitung, Anmeldeformulare ausfüllen.',
+          title: 'Vorbereitung Bühne & Wettbewerbe',
+          desc: 'Repertoire, Bühnenpräsenz, Mikrofon, Image, mentale Vorbereitung.',
           price: '300 CHF',
-          bonus: 'Bei Kauf eines 10er-Abos: 50% Rabatt | Bei 20er-Abo: Bühnenpaket geschenkt',
+          bonus: '10 Lektionen Abo – 50% Rabatt | 20 Lektionen Abo – kostenlos',
         },
         {
           icon: 'headphones',
           title: 'Studioaufnahme',
-          desc: 'Aufnahme-Vorbereitung und Begleitung bei der Session.',
-          price: 'ab 200 CHF/Std.',
-          bonus: 'Studiomiete wird separat berechnet',
+          desc: 'Songauswahl, Vorbereitung, Organisation + Begleitung.',
+          price: 'ab 150 CHF/Stunde',
+          bonus: '10 Lektionen Abo – 25% Rabatt | 20 Lektionen Abo – 50% Rabatt',
         },
         {
           icon: 'camera',
-          title: 'Musikvideo-Dreh',
-          desc: 'Konzept, Video-/Fotoaufnahme, Basisschnitt und Studioaufnahme. Hilfe bei Location und Zeitplan.',
-          price: 'ab 2\'000 CHF/Tag',
-          bonus: 'Nachbearbeitung ab 400 CHF | Locations, Miete und Licht separat',
+          title: 'Videoclip-Produktion',
+          desc: 'Konzept, Dreh, Schnitt.',
+          price: 'nach Vereinbarung',
+          bonus: '',
         },
       ],
       online: {
-        title: 'Online-Kurs',
-        desc: '5 Videolektionen — bald verfügbar',
-        price: '99 CHF',
+        title: 'Gruppenunterricht',
+        desc: '3–6 Personen, Vocaltherapie. Abo ab 320 CHF',
+        price: '40–60 CHF / Person',
       },
+      events: {
+        title: 'Events / Auftritte',
+        desc: 'Solo / Duo / Band',
+        price: 'nach Vereinbarung',
+        bonus: '',
+      },
+      vouchers: {
+        title: 'Gutscheine',
+        desc: 'Verschenken Sie Freude an der Musik',
+        price: 'ab 130 CHF',
+      }
     },
 
     /* ── philosophy blocks ── */
@@ -137,10 +147,10 @@ const pageT = {
       title: 'Was unsere Kunden',
       highlight: 'erzählen',
       items: [
-        { name: 'Sarah M.', role: 'Unternehmerin', text: 'Nach wenigen Sitzungen habe ich meine Stimme völlig neu entdeckt. Es war wirklich eine Reise zu mir selbst — tiefgreifend und befreiend.' },
-        { name: 'Andreas W.', role: 'Manager', text: 'Meine Kolleg:innen bemerken den Unterschied. Ich klinge selbstsicherer, ruhiger und präsenter — und fühle mich auch so.' },
-        { name: 'Elena D.', role: 'Künstlerin', text: 'Die Mischung aus Technik, Emotion und Ästhetik ist einzigartig. Jede Stunde ist wertvoll und inspirierend.' },
-        { name: 'Michael B.', role: 'Expat', text: 'Endlich fühle ich mich wohl beim Singen. Professionell, warm und absolut erstklassig — hier bin ich genau richtig.' },
+        { name: 'Sarah M.', role: 'Unternehmerin', text: 'Ich kam mit Heiserkeit nach Meetings. Nach 8 Wochen Atem- und Stimmtraining spreche ich den ganzen Tag ohne Anstrengung — mein Team hört mir anders zu.' },
+        { name: 'Andreas W.', role: 'Manager', text: 'Vor dem Coaching haben meine Hände bei Präsentationen gezittert. Jetzt halte ich Vorträge vor 100 Leuten — ruhig, klar und mit Freude daran.' },
+        { name: 'Elena D.', role: 'Künstlerin', text: 'Meine Stimme brach bei hohen Tönen immer ab. Nach einem halben Jahr singe ich sauber über zwei Oktaven — und traue mich endlich auf die Bühne.' },
+        { name: 'Michael B.', role: 'Expat', text: 'Ich kam ohne jede Gesangserfahrung. Nach 10 Stunden singe ich eigene Songs auf Open-Mic-Abenden — meine Frau hat geweint vor Freude.' },
       ],
     },
 
@@ -198,9 +208,9 @@ const pageT = {
           desc: 'Singing is a genuine intellectual and aesthetic pleasure. Discover your voice and turn it into a source of joy and inspiration.',
         },
         {
-          icon: 'baby',
-          title: 'Children & Teens',
-          desc: 'Gentle vocal work for children ages 6 to 16. We nurture musicality, confidence and stage joy — playfully, safely and professionally.',
+          icon: 'mic',
+          title: 'Leaders & Public Speakers',
+          desc: 'You give presentations, lead teams or face clients. Your voice should project competence and confidence — effortlessly.',
         },
       ],
     },
@@ -212,13 +222,13 @@ const pageT = {
       single: {
         title: 'Single Session (individual)',
         price: 'from 130 CHF',
-        duration: '60 min / offline and online',
+        duration: '60 min / online or onsite. Individual 1:1 vocal lesson – classical or pop/crossover. Define goals, develop technique, build repertoire.',
       },
       subscriptions: {
         title: 'Subscriptions',
-        subtitle: 'Block of classes with discount, flexible schedule, progress monitoring.',
+        subtitle: 'Structured lessons with progress monitoring.',
         items: [
-          { lessons: '5', price: '618 CHF', discount: '5%', perLesson: '123.50 CHF/session', save: '32 CHF' },
+          { lessons: '5', price: '618 CHF', discount: '5%', perLesson: '123.60 CHF/session', save: '32 CHF' },
           { lessons: '10', price: '1,170 CHF', discount: '10%', perLesson: '117 CHF/session', save: '130 CHF' },
           { lessons: '20', price: '2,080 CHF', discount: '20%', perLesson: '104 CHF/session', save: '520 CHF' },
         ],
@@ -228,36 +238,47 @@ const pageT = {
 
     packages: {
       badge: 'Packages',
-      title: 'Premium',
-      highlight: 'Packages',
+      title: 'Additional',
+      highlight: 'Offers',
       items: [
         {
           icon: 'stage',
           title: 'Stage & Competition Prep',
-          desc: 'Repertoire selection, stage movement, microphone work, image, psychological stage preparation, filling out application forms.',
+          desc: 'Repertoire, stage presence, microphone, image, mental preparation.',
           price: '300 CHF',
-          bonus: 'With 10-lesson subscription: 50% off | With 20-lesson sub: stage prep free',
+          bonus: '10 lessons sub – 50% discount | 20 lessons sub – free',
         },
         {
           icon: 'headphones',
           title: 'Studio Recording',
-          desc: 'Recording preparation and session accompaniment.',
-          price: 'from 200 CHF/hr',
-          bonus: 'Studio rental charged separately',
+          desc: 'Song selection, preparation, organization + accompaniment.',
+          price: 'from 150 CHF/hr',
+          bonus: '10 lessons sub – 25% discount | 20 lessons sub – 50% discount',
         },
         {
           icon: 'camera',
           title: 'Music Video Shoot',
-          desc: 'Concept, video/photo shooting, basic editing and studio recording. Help with location and schedule.',
-          price: 'from 2,000 CHF/day',
-          bonus: 'Post-production from 400 CHF | Locations, rental and lighting separate',
+          desc: 'Concept, shooting, editing.',
+          price: 'upon agreement',
+          bonus: '',
         },
       ],
       online: {
-        title: 'Online Course',
-        desc: '5 video lessons — coming soon',
-        price: '99 CHF',
+        title: 'Group Lessons',
+        desc: '3–6 people, vocal therapy. Sub from 320 CHF',
+        price: '40–60 CHF / person',
       },
+      events: {
+        title: 'Events / Performances',
+        desc: 'Solo / Duo / Band',
+        price: 'upon agreement',
+        bonus: '',
+      },
+      vouchers: {
+        title: 'Vouchers',
+        desc: 'Give the gift of music',
+        price: 'from 130 CHF',
+      }
     },
 
     whyDifferent: {
@@ -276,10 +297,10 @@ const pageT = {
       title: 'What our clients',
       highlight: 'say',
       items: [
-        { name: 'Sarah M.', role: 'Entrepreneur', text: 'After just a few sessions, I completely rediscovered my voice. It was truly a journey to myself — profound and liberating.' },
-        { name: 'Andreas W.', role: 'Manager', text: 'My colleagues notice the difference. I sound more confident, calmer and more present — and I feel that way too.' },
-        { name: 'Elena D.', role: 'Artist', text: 'The blend of technique, emotion and aesthetics is unique. Every session is valuable and inspiring.' },
-        { name: 'Michael B.', role: 'Expat', text: 'Finally I feel comfortable singing. Professional, warm and absolutely first-class — this is exactly right for me.' },
+        { name: 'Sarah M.', role: 'Entrepreneur', text: 'I came with hoarseness after meetings. After 8 weeks of breath and voice training, I speak all day without strain — my team listens to me differently now.' },
+        { name: 'Andreas W.', role: 'Manager', text: 'Before coaching, my hands shook during presentations. Now I present to 100 people — calm, clear and actually enjoying it.' },
+        { name: 'Elena D.', role: 'Artist', text: 'My voice used to break on high notes. After six months, I sing cleanly across two octaves — and finally dare to go on stage.' },
+        { name: 'Michael B.', role: 'Expat', text: 'I came with zero singing experience. After 10 sessions, I perform my own songs at open-mic nights — my wife cried with joy.' },
       ],
     },
 
@@ -307,7 +328,7 @@ const pageT = {
   ru: {
     hero: {
       title: 'Ваш голос — это больше, чем',
-      highlight: 'вы думаете',
+      highlight: 'Вы думаете',
       subtitle: 'Голос раскрывает то, что невозможно выразить словами. Он отражает внутреннее состояние — и способен на него влиять.',
       cta1: 'Записаться',
       cta2: 'Запросить консультацию',
@@ -318,7 +339,7 @@ const pageT = {
       title: 'Там, где заканчивается привычный урок вокала,',
       highlight: 'начинается моя работа',
       text: 'Опираясь на большой сценический опыт и обучение у выдающихся вокальных мастеров, я помогаю раскрыть голос как целостное выражение личности — обрести силу и внутреннюю свободу.',
-      text2: 'Петь на сцене, говорить или просто звучать свободно — это путь к вашему новому голосу.',
+      text2: 'Петь на сцене, говорить или просто звучать свободно — это путь к Вашему новому голосу.',
     },
 
     forWhom: {
@@ -337,9 +358,9 @@ const pageT = {
           desc: 'Пение — настоящее интеллектуальное и эстетическое удовольствие. Откройте свой голос и превратите его в источник радости и вдохновения.',
         },
         {
-          icon: 'baby',
-          title: 'Дети и подростки',
-          desc: 'Бережная работа с голосом для детей от 6 до 16 лет. Развиваем музыкальность, уверенность и радость от сцены — игрово, бережно и профессионально.',
+          icon: 'mic',
+          title: 'Руководители и спикеры',
+          desc: 'Вы выступаете, ведёте команды или работаете с клиентами. Ваш голос должен звучать уверенно и убедительно — без напряжения.',
         },
       ],
     },
@@ -351,13 +372,13 @@ const pageT = {
       single: {
         title: 'Разовое занятие (индивидуально)',
         price: 'от 130 CHF',
-        duration: '60 мин. / офлайн и онлайн',
+        duration: '60 мин. / онлайн или офлайн. Индивидуальный 1:1 вокал – классика или поп/кроссовер. Постановка целей, развитие техники, подбор репертуара.',
       },
       subscriptions: {
         title: 'Абонементы',
-        subtitle: 'Блок занятий со скидкой, удобный график, мониторинг прогресса.',
+        subtitle: 'Структурированные занятия с контролем прогресса.',
         items: [
-          { lessons: '5', price: '618 CHF', discount: '5%', perLesson: '123.50 CHF/занятие', save: '32 CHF' },
+          { lessons: '5', price: '618 CHF', discount: '5%', perLesson: '123.60 CHF/занятие', save: '32 CHF' },
           { lessons: '10', price: '1 170 CHF', discount: '10%', perLesson: '117 CHF/занятие', save: '130 CHF' },
           { lessons: '20', price: '2 080 CHF', discount: '20%', perLesson: '104 CHF/занятие', save: '520 CHF' },
         ],
@@ -367,36 +388,47 @@ const pageT = {
 
     packages: {
       badge: 'Пакеты',
-      title: 'Премиальные',
-      highlight: 'пакеты',
+      title: 'Дополнительные',
+      highlight: 'предложения',
       items: [
         {
           icon: 'stage',
-          title: 'Подготовка к сцене и конкурсу',
-          desc: 'Подбор репертуара, сценическое движение, работа с микрофоном, имидж, психологическая подготовка к сцене, заполнение анкет.',
+          title: 'Подготовка к сцене и конкурсам',
+          desc: 'Подбор и подготовка репертуара, работа с микрофоном, сценическое мастерство, формирование артистического имиджа и уверенности на сцене.',
           price: '300 CHF',
-          bonus: 'При покупке 10 уроков — скидка 50% | При покупке 20 уроков — подготовка к сцене в подарок',
+          bonus: 'Абонемент на 10 уроков — скидка 50% | Абонемент на 20 уроков — бесплатно',
         },
         {
           icon: 'headphones',
           title: 'Запись в студии',
-          desc: 'Подготовлю к записи и сопровожу на сессии.',
-          price: 'от 200 CHF/час',
-          bonus: 'Аренда студии оплачивается отдельно',
+          desc: 'Выбор песни, подготовка, организация + сопровождение.',
+          price: 'от 150 CHF/час',
+          bonus: 'Абонемент на 10 уроков — скидка 25% | Абонемент на 20 уроков — скидка 50%',
         },
         {
           icon: 'camera',
-          title: 'Съёмка клипа',
-          desc: 'Концепт, съёмка видео/фото, базовый монтаж и запись в студии. Помогу с локацией и расписанием.',
-          price: 'от 2 000 CHF/день',
-          bonus: 'Монтаж от 400 CHF | Локации, аренда и свет оплачиваются отдельно',
+          title: 'Съёмка видеоклипа',
+          desc: 'Концепт, съёмка, монтаж.',
+          price: 'по договоренности',
+          bonus: '',
         },
       ],
       online: {
-        title: 'Онлайн-курс',
-        desc: '5 видеоуроков — скоро',
-        price: '99 CHF',
+        title: 'Групповые занятия',
+        desc: '3–6 человек, вокальная терапия. Абонемент от 320 CHF',
+        price: '40–60 CHF / человек',
       },
+      events: {
+        title: 'Индивидуальные короткие видеоуроки',
+        desc: 'Рекомендации для самостоятельных занятий дома и эффективной подготовки.',
+        price: '3 урока — 300 CHF\n5 уроков — 500 CHF',
+        bonus: 'Абонемент на 10 уроков — скидка 25% | Абонемент на 20 уроков — скидка 50%',
+      },
+      vouchers: {
+        title: 'Подарочные сертификаты',
+        desc: 'Подарите радость музыки',
+        price: 'от 130 CHF',
+      }
     },
 
     whyDifferent: {
@@ -404,9 +436,9 @@ const pageT = {
       title: 'Почему это не просто',
       highlight: 'уроки вокала',
       blocks: [
-        { title: 'Голос = Личность', text: 'Ваш голос — это отражение вашей личности, а не просто техника. Мы развиваем голос целостно, соединяя эмоции, характер и сценическое присутствие.' },
-        { title: 'Уверенность, а не только техника', text: 'Техника важна, но настоящая трансформация голоса начинается с внутренней уверенности. Мы развиваем и мастерство, и уверенность — шаг за шагом.' },
-        { title: 'Пение, которое меняет жизнь', text: 'Когда голос раскрыт, меняется и самоощущение, и мир вокруг вас. Я с радостью делюсь своим сценическим опытом, чтобы вы могли раскрыться полностью.' },
+        { title: 'Голос = Личность', text: 'Ваш голос — это отражение Вашей личности. Вы развиваете голос целостно, в единстве с эмоциями, мягко раскрывая его потенциал и помогая обрести свободу самовыражения.' },
+        { title: 'Уверенность и мастерство', text: 'Сильный голос рождается из уверенности и опоры. Мы помогаем обрести стабильность звучания, выразительность и свободу на сцене.' },
+        { title: 'Пение, которое меняет жизнь', text: 'Когда голос раскрыт, меняется и самоощущение, и мир вокруг Вас. Я с радостью делюсь своим сценическим опытом, чтобы Вы могли раскрыться полностью.' },
       ],
     },
 
@@ -415,10 +447,10 @@ const pageT = {
       title: 'Что говорят',
       highlight: 'наши клиенты',
       items: [
-        { name: 'Сара М.', role: 'Предприниматель', text: 'После нескольких занятий я заново открыла свой голос. Это было настоящее путешествие к себе — глубокое и освобождающее.' },
-        { name: 'Андреас В.', role: 'Менеджер', text: 'Коллеги замечают разницу. Я звучу увереннее, спокойнее и присутственнее — и чувствую себя так же.' },
-        { name: 'Елена Д.', role: 'Художница', text: 'Сочетание техники, эмоций и эстетики уникально. Каждое занятие ценно и вдохновляет.' },
-        { name: 'Михаэль Б.', role: 'Экспат', text: 'Наконец-то я чувствую себя комфортно при пении. Профессионально, душевно и абсолютно первоклассно — я на своём месте.' },
+        { name: 'Сара М.', role: 'Предприниматель', text: 'Я пришла с хрипотой после совещаний. После 8 недель дыхательной и голосовой работы говорю весь день без усилий — команда слушает меня по-другому.' },
+        { name: 'Андреас В.', role: 'Менеджер', text: 'До коучинга мои руки тряслись на презентациях. Теперь выступаю перед 100 людьми — спокойно, чётко и с удовольствием.' },
+        { name: 'Елена Д.', role: 'Художница', text: 'Мой голос срывался на высоких нотах. Через полгода я чисто пою в диапазоне двух октав — и наконец выхожу на сцену.' },
+        { name: 'Михаэль Б.', role: 'Экспат', text: 'Я пришёл без опыта пения. После 10 занятий пою свои песни на open-mic вечерах — жена плакала от радости.' },
       ],
     },
 
@@ -430,15 +462,15 @@ const pageT = {
         { q: 'Нужен ли опыт?', a: 'Нет. Программы созданы для взрослых без вокальной подготовки. Многие мои клиенты никогда не занимались раньше.' },
         { q: 'Обязательно ли петь на сцене?', a: 'Нет! Многие приходят развивать голос для себя — без каких-либо сценических амбиций.' },
         { q: 'Есть ли онлайн-формат?', a: 'Да, большая часть программ доступна в гибридном формате (онлайн + офлайн).' },
-        { q: 'На каком языке проходят занятия?', a: 'На немецком, английском и русском — в зависимости от ваших потребностей.' },
-        { q: 'Есть ли пробное занятие?', a: 'Да! Диагностика голоса — идеальный старт.' },
+        { q: 'На каком языке проходят занятия?', a: 'На немецком, английском и русском — в зависимости от Ваших потребностей.' },
+        { q: 'Есть ли пробное занятие?', a: 'Да, идеально начать со знакомства с Вашим голосом и Вашими пожеланиями.' },
       ],
     },
 
     cta: {
       title: 'Готовы раскрыть свой голос?',
-      subtitle: 'Запишитесь на диагностику голоса — и почувствуйте разницу, которую даёт осознанная работа с голосом.',
-      cta1: 'Записаться на встречу',
+      subtitle: 'Запишитесь на первое пробное занятие — начните со знакомства с Вашим голосом и подходящим форматом работы.',
+      cta1: 'Записаться на первое пробное занятие',
       cta2: 'Выбрать формат',
     },
   },
@@ -465,7 +497,7 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
   const t = pageT[lang];
 
   return (
-    <main className="bg-white/20 backdrop-blur-sm relative z-10 min-h-screen">
+    <main className="relative z-10 min-h-screen">
       {/* ═══════ HERO ═══════ */}
       <HeroSection
         title={t.hero.title}
@@ -487,16 +519,13 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
             {/* image */}
             <Animated delay={100} className="hidden lg:block">
               <div className="relative group">
-                <div className="absolute -inset-3 bg-gradient-to-tr from-primary-200 to-amber-200 blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50">
+                <div className="relative rounded-3xl overflow-hidden">
                   <img
                     src={IMG.coaching}
                     alt="Vocal coaching"
                     className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
-                {/* Angular decoration */}
-                <div className="absolute -bottom-3 -right-3 w-16 h-16 border-2 border-primary-200/50 rotate-45" />
               </div>
             </Animated>
             <Animated delay={200}>
@@ -520,7 +549,7 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
                   <div className="w-16 h-16 bg-gradient-to-br from-primary-50 to-amber-50 flex items-center justify-center text-primary-600 mb-5">
                     {cardIconMap[card.icon]}
                   </div>
-                  <h3 className="font-display text-xl font-bold text-gray-900 mb-3">{card.title}</h3>
+                  <h3 className="font-display text-xl font-bold text-gray-900 mb-3 min-h-[2lh] text-balance">{card.title}</h3>
                   <p className="text-gray-500 text-base leading-relaxed">{card.desc}</p>
                 </div>
               </Animated>
@@ -535,7 +564,7 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
           <Animated>
             <div className="relative rounded-3xl overflow-hidden shadow-xl group h-64 md:h-80">
               <div className="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-primary-900/40 to-transparent z-10" />
-              <img src={IMG.stage} alt="Stage presence" className="w-full h-full object-cover object-[center_35%] group-hover:scale-105 transition-transform duration-1000" />
+              <img src={IMG.stage} alt="Stage presence" loading="lazy" decoding="async" className="w-full h-full object-cover object-[center_35%] group-hover:scale-105 transition-transform duration-1000" />
               <div className="absolute top-1/2 left-8 md:left-12 -translate-y-1/2 z-20 max-w-md">
                 <p className="text-xl md:text-2xl font-display font-bold leading-snug" style={{ color: '#FFFFFF' }}>
                   {lang === 'de' ? '«Die Stimme verrät, wer wir wirklich sind.»' : lang === 'ru' ? '«Голос раскрывает то, что невозможно выразить словами.»' : '"The voice reveals what words cannot express."'}
@@ -548,141 +577,85 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      {/* ═══════ PRICING SECTION ═══════ */}
+      {/* ═══════ PRICING + PACKAGES (unified) ═══════ */}
       <section className="py-6 md:py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.pricing.badge} title={t.pricing.title} highlight={t.pricing.highlight} badgeIcon={<Mic className="w-3.5 h-3.5" />} />
 
-          {/* Single lesson — hero pricing card */}
-          <Animated delay={50}>
-            <div className="pricing-hero-card p-8 md:p-10 mb-10 max-w-4xl mx-auto">
-              <div className="pricing-shimmer absolute inset-0 pointer-events-none" />
-              <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div className="flex items-center gap-5">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center shrink-0">
-                    <Mic className="w-6 h-6 text-primary-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold text-gray-900 mb-1">{t.pricing.single.title}</h3>
-                    <p className="text-gray-400 text-sm">{t.pricing.single.duration}</p>
-                  </div>
-                </div>
-                <div className="flex items-baseline gap-1">
-                  <span className="pricing-number font-display text-4xl md:text-5xl font-extrabold text-primary-700">{t.pricing.single.price.replace(/[^\d]/g, '')}</span>
-                  <span className="text-lg text-gray-400 font-medium ml-1">CHF</span>
-                </div>
+          {/* Row 1: Single + Online + Events */}
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
+            <Animated delay={100}>
+              <div className="featured-card rounded-2xl p-7 h-full flex flex-col">
+                <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.pricing.single.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.pricing.single.duration}</p>
+                <div className="font-display text-2xl font-bold gradient-text">{t.pricing.single.price}</div>
               </div>
-            </div>
-          </Animated>
+            </Animated>
+            <Animated delay={150}>
+              <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+                <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.packages.online.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.packages.online.desc}</p>
+                <div className="font-display text-2xl font-bold gradient-text">{t.packages.online.price}</div>
+              </div>
+            </Animated>
+            <Animated delay={200}>
+              <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+                <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.packages.events.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.packages.events.desc}</p>
+                <div className="font-display text-2xl font-bold gradient-text whitespace-pre-line">{t.packages.events.price}</div>
+                {t.packages.events.bonus && <p className="text-gray-400 text-xs leading-relaxed mt-2">{t.packages.events.bonus}</p>}
+              </div>
+            </Animated>
+          </div>
 
           {/* Subscriptions header */}
           <Animated delay={100}>
-            <div className="text-center mb-10">
+            <div className="text-center mb-8">
               <h3 className="font-display text-2xl font-bold text-gray-900 mb-2">{t.pricing.subscriptions.title}</h3>
               <p className="text-gray-400 max-w-xl mx-auto">{t.pricing.subscriptions.subtitle}</p>
             </div>
           </Animated>
 
-          {/* Subscription cards */}
-          <div className="grid sm:grid-cols-3 gap-5 lg:gap-6 max-w-5xl mx-auto mb-8">
+          {/* Row 2: Subscriptions */}
+          <div className="grid sm:grid-cols-3 gap-6 mb-6">
             {t.pricing.subscriptions.items.map((sub, i) => (
-              <Animated key={i} delay={150 + i * 100}>
-                <div className={`${i === 2 ? 'pricing-card-featured' : 'pricing-card'} p-7 h-full flex flex-col relative`}>
-                  {/* Discount floating badge */}
-                  <div className="pricing-discount">-{sub.discount}</div>
-
-                  {/* Lessons ring */}
-                  <div className="pricing-lessons-ring mx-auto mb-5 mt-2">
-                    <span className="ring-number">{sub.lessons}</span>
-                  </div>
-                  <p className="text-[0.65rem] uppercase tracking-[0.15em] text-gray-300 font-semibold text-center mb-4">
-                    {lang === 'de' ? 'Stunden' : lang === 'ru' ? 'занятий' : 'lessons'}
+              <Animated key={i} delay={200 + i * 100}>
+                <div className={`rounded-2xl p-7 h-full flex flex-col ${i === 2 ? 'featured-card ring-2 ring-primary-200' : 'premium-card'}`}>
+                  <h3 className="font-display text-xl font-bold text-gray-900 mb-2">{sub.lessons} {lang === 'de' ? 'Stunden' : lang === 'ru' ? 'занятий' : 'lessons'}</h3>
+                  <p className="text-gray-500 text-sm mb-4 flex-1">{sub.perLesson}</p>
+                  <div className="font-display text-2xl font-bold gradient-text">{sub.price}</div>
+                  <p className="text-green-600 text-xs font-semibold mt-2">
+                    {lang === 'de' ? 'Sparen' : lang === 'ru' ? 'Экономия' : 'Save'} {sub.save}
                   </p>
-
-                  {/* Price */}
-                  <div className="text-center mb-1">
-                    <span className="pricing-number font-display text-3xl font-extrabold text-gray-900">{sub.price.replace(' CHF', '')}</span>
-                    <span className="text-sm text-gray-300 font-medium ml-1">CHF</span>
-                  </div>
-                  <p className="text-sm text-primary-500 font-medium text-center mb-4">{sub.perLesson}</p>
-
-                  {/* Savings */}
-                  <div className="mt-auto pt-4">
-                    <div className="pricing-savings mx-auto w-fit">
-                      <Gift className="w-3.5 h-3.5" />
-                      <span>{lang === 'de' ? 'Sparen' : lang === 'ru' ? 'Экономия' : 'Save'} {sub.save}</span>
-                    </div>
-                  </div>
                 </div>
               </Animated>
             ))}
           </div>
 
           <Animated delay={450}>
-            <p className="text-center text-gray-300 text-sm">{t.pricing.subscriptions.note}</p>
+            <p className="text-center text-gray-400 text-sm mb-10">{t.pricing.subscriptions.note}</p>
           </Animated>
-        </div>
-      </section>
 
-      {/* ═══════ PREMIUM PACKAGES ═══════ */}
-      <section className="py-5 md:py-6">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle badge={t.packages.badge} title={t.packages.title} highlight={t.packages.highlight} badgeIcon={<Award className="w-3.5 h-3.5" />} />
-
-          <div className="grid lg:grid-cols-3 gap-5 lg:gap-6 mb-10">
+          {/* Row 3: Stage + Studio + Video */}
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
             {t.packages.items.map((pkg, i) => (
               <Animated key={i} delay={i * 120}>
-                <div className="package-card p-8 h-full flex flex-col">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-50 to-amber-50 flex items-center justify-center text-primary-600 mb-5">
-                    {packageIconMap[pkg.icon]}
-                  </div>
-                  <h3 className="font-display text-lg font-bold text-gray-900 mb-2">{pkg.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-5 flex-1">{pkg.desc}</p>
-                  <div className="flex items-baseline gap-1 mb-3">
-                    <span className="pricing-number font-display text-2xl font-extrabold text-gray-900">{pkg.price.replace(' CHF', '').replace('/Std.', '').replace('/Tag', '')}</span>
-                    <span className="text-sm text-gray-300 font-medium">CHF{pkg.price.includes('/') ? '/' + pkg.price.split('/').pop() : ''}</span>
-                  </div>
-                  <p className="text-xs text-gray-300 leading-relaxed">{pkg.bonus}</p>
+                <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+                  <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{pkg.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{pkg.desc}</p>
+                  <div className="font-display text-2xl font-bold gradient-text">{pkg.price}</div>
+                  {pkg.bonus && <p className="text-gray-400 text-xs leading-relaxed mt-2">{pkg.bonus}</p>}
                 </div>
               </Animated>
             ))}
           </div>
 
-          {/* Online course teaser */}
-          <Animated delay={400}>
-            <div className="coming-soon-card p-7 max-w-xl mx-auto text-center">
-              <div className="flex items-center justify-center gap-3 mb-3">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center">
-                  <Clock className="w-4 h-4 text-amber-500" />
-                </div>
-                <span className="text-xs uppercase tracking-[0.15em] font-semibold text-amber-600">
-                  {lang === 'de' ? 'Demnächst' : lang === 'ru' ? 'Скоро' : 'Coming soon'}
-                </span>
-              </div>
-              <h4 className="font-display text-lg font-bold text-gray-900 mb-1">{t.packages.online.title}</h4>
-              <p className="text-gray-400 text-sm mb-3">{t.packages.online.desc}</p>
-              <div className="inline-flex items-baseline gap-1 bg-amber-50 px-4 py-2 rounded-full">
-                <span className="pricing-number font-display text-xl font-bold text-amber-700">{t.packages.online.price.replace(' CHF', '')}</span>
-                <span className="text-xs text-amber-400 font-medium">CHF</span>
-              </div>
-            </div>
-          </Animated>
-        </div>
-      </section>
-
-      {/* ═══════ BREATHWORK IMAGE BREAK ═══════ */}
-      <section className="py-3 md:py-5">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Animated>
-            <div className="relative rounded-3xl overflow-hidden shadow-xl group h-52">
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-900/40 to-transparent z-10" />
-              <img src={IMG.breathwork} alt="Breathwork" className="w-full h-full object-cover object-[center_20%] group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute bottom-4 left-4 z-20">
-                <span className="bg-white/90 backdrop-blur-sm px-4 py-2 text-sm font-semibold text-primary-700 shadow-lg">
-                  <Volume2 className="w-4 h-4 inline mr-2" />
-                  {lang === 'de' ? 'Atem & Klang' : lang === 'ru' ? 'Дыхание и звук' : 'Breath & Sound'}
-                </span>
-              </div>
+          {/* Row 4: Vouchers */}
+          <Animated delay={360}>
+            <div className="premium-card rounded-2xl p-7 max-w-md mx-auto text-center">
+              <h3 className="font-display text-xl font-bold text-gray-900 mb-2">{t.packages.vouchers.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed mb-4">{t.packages.vouchers.desc}</p>
+              <div className="font-display text-2xl font-bold gradient-text">{t.packages.vouchers.price}</div>
             </div>
           </Animated>
         </div>
@@ -699,7 +672,7 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
                   <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-amber-100 flex items-center justify-center text-primary-600 mx-auto mb-5">
                     {i === 0 ? <Mic className="w-7 h-7" /> : i === 1 ? <Shield className="w-7 h-7" /> : <Heart className="w-7 h-7" />}
                   </div>
-                  <h3 className="font-display text-lg font-bold text-gray-900 mb-3">{block.title}</h3>
+                  <h3 className="font-display text-lg font-bold text-gray-900 mb-3 min-h-[2lh] text-balance">{block.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{block.text}</p>
                 </div>
               </Animated>

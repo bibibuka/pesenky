@@ -42,16 +42,8 @@ export default function HeroSection({
   };
 
   return (
-    <section className={`relative flex items-center ${compact ? 'pt-20 pb-4 lg:pt-24 lg:pb-5' : 'pt-20 pb-5 lg:pt-24 lg:pb-6'} overflow-hidden`}>
-      {/* Angular Decoratives */}
-      <div className="absolute top-16 left-8 w-32 h-32 border-2 border-primary-100/40 rotate-45 hidden lg:block" />
-      <div className="absolute bottom-12 right-16 w-20 h-20 border-2 border-amber-200/30 rotate-45 hidden lg:block" />
-      <div className="absolute top-1/3 right-[10%] w-px h-40 bg-gradient-to-b from-transparent via-primary-200/40 to-transparent hidden lg:block" />
-
-      {/* Diagonal line decoration */}
-      <div className="absolute top-[20%] left-[5%] w-40 h-[2px] bg-gradient-to-r from-transparent via-primary-200/30 to-transparent -rotate-30 hidden lg:block" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10 w-full">
+    <section className={`relative flex items-center ${compact ? 'pt-[44px] pb-4 lg:pt-[60px] lg:pb-5' : 'pt-[44px] pb-5 lg:pt-[60px] lg:pb-6'} overflow-hidden`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 relative z-10 w-full">
         <div className={`grid ${image ? 'lg:grid-cols-2' : ''} gap-12 lg:gap-8 items-center`}>
           {/* Text Content */}
           <div className={`max-w-3xl mx-auto text-center ${image ? 'lg:mx-0 lg:text-left' : ''}`}>
@@ -104,13 +96,8 @@ export default function HeroSection({
           {image && (
             <Animated delay={600} className="hidden lg:block relative">
               <div className="relative w-full aspect-[4/5] max-w-lg mx-auto group">
-                {/* Background glow */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary-400/30 to-amber-300/30 blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
-                {/* Image with angular frame */}
-                <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50 z-10">
-                  <img src={image} alt={imageAlt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
-                  {/* Diagonal accent line */}
-                  <div className="absolute top-0 right-0 w-24 h-24" style={{ background: 'linear-gradient(135deg, rgba(200,160,78,0.4) 0%, transparent 60%)' }} />
+                <div className="relative w-full h-full rounded-3xl overflow-hidden z-10">
+                  <img src={image} alt={imageAlt} loading="eager" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
                 </div>
               </div>
             </Animated>

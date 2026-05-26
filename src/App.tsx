@@ -1,12 +1,60 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { translations, type Lang } from './i18n';
-import { Mic, Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import MouseWave from './components/MouseWave';
+
+// Один плавающий значок — позиция задаётся один раз при монтировании (stable ref),
+// анимация полностью через CSS: нота всплывает снизу (top:100vh) через весь экран
+// вверх (-130vh) и бесшовно зацикливается. Никакого JS-телепорта.
+type FloatingNoteProps = {
+  glyph: string;
+  color: string;
+  variant: 'a' | 'b' | 'c';
+  dur: string;
+  delay: string;
+  op: number;
+  size: number;
+  spinDur: string;
+  spinDir: 'normal' | 'reverse';
+  left: number; // 3…95 % — горизонтальная позиция (фиксированная)
+  hideOnMobile?: boolean;
+};
+
+function FloatingNote({ glyph, color, variant, dur, delay, op, size, spinDur, spinDir, left, hideOnMobile }: FloatingNoteProps) {
+  return (
+    <div
+      className={`decor-item note-float note-${variant}${hideOnMobile ? ' decor-hide-mobile' : ''}`}
+      style={{
+        left: `${left}%`,
+        top: '100vh',
+        width: `${size}px`,
+        height: `${size * 1.3}px`,
+        ['--note-dur' as never]: dur,
+        ['--note-delay' as never]: delay,
+        ['--note-opacity' as never]: op,
+      }}
+    >
+      <div
+        className="note-spin"
+        style={{
+          ['--spin-dur' as never]: spinDur,
+          ['--spin-dir' as never]: spinDir,
+          ['--note-opacity' as never]: op,
+        }}
+      >
+        <svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+          <text x="50" y="115" textAnchor="middle" fontFamily="Georgia, serif" fontSize="130" fill={color}>{glyph}</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const AdultsPage = lazy(() => import('./pages/AdultsPage'));
 const KidsPage = lazy(() => import('./pages/KidsPage'));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
 const ArtistPage = lazy(() => import('./pages/ArtistPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ReviewsPage = lazy(() => import('./pages/ReviewsPage'));
@@ -14,12 +62,45 @@ const BookPage = lazy(() => import('./pages/BookPage'));
 const ImpressumPage = lazy(() => import('./pages/ImpressumPage'));
 const DatenschutzPage = lazy(() => import('./pages/DatenschutzPage'));
 
+const LANG_STORAGE_KEY = 'pesenky.lang';
+const SUPPORTED_LANGS: readonly Lang[] = ['de', 'en', 'ru'];
+
+function readInitialLang(): Lang {
+  if (typeof window === 'undefined') return 'de';
+  try {
+    const stored = window.localStorage.getItem(LANG_STORAGE_KEY);
+    if (stored && (SUPPORTED_LANGS as readonly string[]).includes(stored)) {
+      return stored as Lang;
+    }
+  } catch {
+    // localStorage may be unavailable (private mode, blocked cookies) — fall through.
+  }
+  const browser = (window.navigator.language || '').slice(0, 2).toLowerCase();
+  if ((SUPPORTED_LANGS as readonly string[]).includes(browser)) {
+    return browser as Lang;
+  }
+  return 'de';
+}
+
 export default function App() {
-  const [lang, setLang] = useState<Lang>('de');
+  const [lang, setLangState] = useState<Lang>(readInitialLang);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const location = useLocation();
   const t = translations[lang];
+
+  const setLang = (next: Lang) => {
+    setLangState(next);
+    try {
+      window.localStorage.setItem(LANG_STORAGE_KEY, next);
+    } catch {
+      // Ignore storage errors — language still applies for the session.
+    }
+  };
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   useEffect(() => {
     let ticking = false;
@@ -42,47 +123,115 @@ export default function App() {
     setMobileMenu(false);
   }, [location.pathname]);
 
-  const navLinks = [
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+
+  const navItems = [
     { label: t.nav.home, href: '/' },
-    { label: t.nav.adults, href: '/adults' },
-    { label: t.nav.kids, href: '/kids' },
-    { label: t.nav.artist, href: '/artist' },
+    {
+      label: t.nav.lessons,
+      key: 'lessons',
+      children: [
+        { label: t.nav.adults, href: '/adults' },
+        { label: t.nav.kids, href: '/kids' },
+      ],
+    },
+    {
+      label: t.nav.stageCreative,
+      key: 'stageCreative',
+      children: [
+        { label: t.nav.projects, href: '/projects' },
+        { label: t.nav.artist, href: '/artist' },
+      ],
+    },
     { label: t.nav.about, href: '/about' },
     { label: t.nav.reviews, href: '/reviews' },
-    { label: t.nav.contact, href: '/book' },
   ];
 
   return (
     <div className="min-h-screen relative">
       <MouseWave />
 
-      {/* Lava Lamp Background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
-        <div className="absolute inset-0 bg-[#faf8f6]" />
-        <div className="absolute top-[10%] left-[10%] w-[35vw] h-[35vw] blur-[80px] animate-lava-1" style={{ background: 'radial-gradient(circle, rgba(139,21,56,0.35) 0%, rgba(139,21,56,0) 65%)' }} />
-        <div className="absolute top-[30%] right-[10%] w-[30vw] h-[30vw] blur-[70px] animate-lava-2" style={{ background: 'radial-gradient(circle, rgba(200,160,78,0.4) 0%, rgba(200,160,78,0) 65%)' }} />
-        <div className="absolute bottom-[10%] left-[30%] w-[40vw] h-[40vw] blur-[90px] animate-lava-3" style={{ background: 'radial-gradient(circle, rgba(185,28,61,0.3) 0%, rgba(185,28,61,0) 65%)' }} />
+      {/* Base background colour */}
+      <div className="fixed inset-0 pointer-events-none bg-[#faf8f6]" style={{ zIndex: 0 }} />
+
+      {/* Floating Music Notes — все варианты нотных знаков, всплывают, крутятся и рассасываются */}
+      <div className="decor-3d-layer" aria-hidden="true">
+        {/* 22 ноты, одинаковая скорость подъёма (22s), задержки равномерно через 1s */}
+        {([
+          { glyph: '♪',  size: 164, color: '#9e1a3b', variant: 'a', dur: '22s', delay: '0s',   op: 0.09, spinDur: '7s',  spinDir: 'normal',  left: 5  },
+          { glyph: '♫',  size: 200, color: '#ba9934', variant: 'b', dur: '22s', delay: '-1s',   op: 0.09, spinDur: '9s',  spinDir: 'reverse', left: 88, hideOnMobile: true },
+          { glyph: '♩',  size: 127, color: '#9e1a3b', variant: 'c', dur: '22s', delay: '-2s',   op: 0.10, spinDur: '5s',  spinDir: 'normal',  left: 35 },
+          { glyph: '𝄞', size: 237, color: '#ba9934', variant: 'a', dur: '22s', delay: '-3s',   op: 0.07, spinDur: '14s', spinDir: 'reverse', left: 72, hideOnMobile: true },
+          { glyph: '♭',  size: 146, color: '#9e1a3b', variant: 'b', dur: '22s', delay: '-4s',   op: 0.09, spinDur: '6s',  spinDir: 'normal',  left: 15 },
+          { glyph: '𝄢', size: 218, color: '#ba9934', variant: 'c', dur: '22s', delay: '-5s',   op: 0.08, spinDur: '12s', spinDir: 'reverse', left: 55, hideOnMobile: true },
+          { glyph: '♯',  size: 173, color: '#9e1a3b', variant: 'a', dur: '22s', delay: '-6s',   op: 0.09, spinDur: '10s', spinDir: 'normal',  left: 92 },
+          { glyph: '♮',  size: 155, color: '#ba9934', variant: 'b', dur: '22s', delay: '-7s',   op: 0.09, spinDur: '8s',  spinDir: 'reverse', left: 42, hideOnMobile: true },
+          { glyph: '♬',  size: 182, color: '#9e1a3b', variant: 'c', dur: '22s', delay: '-8s',   op: 0.08, spinDur: '11s', spinDir: 'normal',  left: 8  },
+          { glyph: '♪',  size: 137, color: '#ba9934', variant: 'a', dur: '22s', delay: '-9s',   op: 0.09, spinDur: '6s',  spinDir: 'reverse', left: 65, hideOnMobile: true },
+          { glyph: '𝄞', size: 209, color: '#9e1a3b', variant: 'b', dur: '22s', delay: '-10s',  op: 0.07, spinDur: '13s', spinDir: 'normal',  left: 28 },
+          { glyph: '♫',  size: 164, color: '#ba9934', variant: 'c', dur: '22s', delay: '-11s',  op: 0.09, spinDur: '7s',  spinDir: 'reverse', left: 80, hideOnMobile: true },
+          { glyph: '♬',  size: 173, color: '#9e1a3b', variant: 'a', dur: '22s', delay: '-12s',  op: 0.08, spinDur: '9s',  spinDir: 'normal',  left: 48 },
+          { glyph: '♭',  size: 146, color: '#ba9934', variant: 'b', dur: '22s', delay: '-13s',  op: 0.09, spinDur: '8s',  spinDir: 'normal',  left: 75, hideOnMobile: true },
+          { glyph: '♩',  size: 155, color: '#9e1a3b', variant: 'c', dur: '22s', delay: '-14s',  op: 0.09, spinDur: '6s',  spinDir: 'reverse', left: 3  },
+          { glyph: '♮',  size: 137, color: '#ba9934', variant: 'a', dur: '22s', delay: '-15s',  op: 0.09, spinDur: '7s',  spinDir: 'normal',  left: 58, hideOnMobile: true },
+          { glyph: '𝄢', size: 191, color: '#9e1a3b', variant: 'b', dur: '22s', delay: '-16s',  op: 0.08, spinDur: '11s', spinDir: 'reverse', left: 90 },
+          { glyph: '♪',  size: 127, color: '#ba9934', variant: 'c', dur: '22s', delay: '-17s',  op: 0.09, spinDur: '5s',  spinDir: 'normal',  left: 32, hideOnMobile: true },
+          { glyph: '♯',  size: 146, color: '#9e1a3b', variant: 'a', dur: '22s', delay: '-18s',  op: 0.09, spinDur: '6s',  spinDir: 'reverse', left: 68 },
+          { glyph: '♫',  size: 182, color: '#ba9934', variant: 'b', dur: '22s', delay: '-19s',  op: 0.08, spinDur: '8s',  spinDir: 'normal',  left: 12, hideOnMobile: true },
+          { glyph: '♬',  size: 173, color: '#9e1a3b', variant: 'c', dur: '22s', delay: '-20s',  op: 0.08, spinDur: '10s', spinDir: 'reverse', left: 50 },
+          { glyph: '𝄞', size: 195, color: '#ba9934', variant: 'a', dur: '22s', delay: '-21s',  op: 0.07, spinDur: '13s', spinDir: 'normal',  left: 22, hideOnMobile: true },
+        ] as const).map((n, i) => (
+          <FloatingNote key={i} {...n} />
+        ))}
       </div>
 
       <div className="relative" style={{ zIndex: 1 }}>
         {/* ═══════ NAVBAR ═══════ */}
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-nav shadow-sm' : 'bg-transparent'}`}>
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || location.pathname !== '/' ? 'glass-nav shadow-sm' : 'bg-transparent'}`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16 md:h-18">
-              <Link to="/" className="flex items-center gap-3">
-                <div className="w-10 h-10 border border-primary-200 rounded-full flex items-center justify-center bg-gray-900 text-white">
-                  <span className="text-xl font-serif">𝄞</span>
-                </div>
-                <div className="flex flex-col leading-none">
-                  <span className="font-display text-lg font-bold text-gray-900 tracking-wider uppercase">Académie</span>
-                  <span className="text-primary-700" style={{ fontFamily: "'Great Vibes', cursive", fontSize: '1.1rem', marginTop: '2px' }}>des Talents</span>
-                </div>
+              <Link to="/" className="flex items-center">
+                <img src={`${import.meta.env.BASE_URL}brand/logo.png`} alt="Académie des Talents" decoding="async" className="h-[60px] sm:h-[66px] w-auto object-contain" />
               </Link>
 
-              <div className="hidden lg:flex items-center gap-6">
-                {navLinks.map(l => (
-                  <Link key={l.href} to={l.href} className={`text-sm font-medium transition-colors ${location.pathname === l.href ? 'text-primary-700' : 'text-gray-600 hover:text-primary-700'}`}>{l.label}</Link>
-                ))}
+              <div className="hidden lg:flex items-center gap-5">
+                {navItems.map((item) => {
+                  if ('children' in item && item.children) {
+                    const isActive = item.children.some(c => location.pathname === c.href);
+                    return (
+                      <div
+                        key={item.key}
+                        className="relative z-50 group"
+                      >
+                        <button
+                          className={`flex items-center gap-1 text-sm font-medium transition-colors ${isActive ? 'text-primary-700' : 'text-gray-600 hover:text-primary-700'}`}
+                        >
+                          {item.label}
+                          <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" />
+                        </button>
+                        <div className="absolute top-full left-0 pt-2 min-w-[180px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[60]">
+                          <div className="bg-white rounded-xl shadow-lg border border-gray-100 py-2 overflow-hidden">
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                to={child.href}
+                                className={`block px-4 py-2.5 text-sm font-medium transition-colors ${location.pathname === child.href ? 'text-primary-700 bg-primary-50' : 'text-gray-600 hover:text-primary-700 hover:bg-gray-50'}`}
+                              >
+                                {child.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return (
+                    <Link key={item.href} to={item.href!}
+                      className={`text-sm font-medium transition-colors ${location.pathname === item.href ? 'text-primary-700' : 'text-gray-600 hover:text-primary-700'}`}>
+                      {item.label}
+                    </Link>
+                  );
+                })}
               </div>
 
               <div className="flex items-center gap-3">
@@ -103,11 +252,42 @@ export default function App() {
 
           {mobileMenu && (
             <div className="lg:hidden glass-nav border-t border-gray-100 shadow-lg">
-              <div className="px-4 py-4 space-y-2">
-                {navLinks.map(l => (
-                  <Link key={l.href} to={l.href} onClick={() => setMobileMenu(false)}
-                    className="block py-2.5 px-3 text-gray-700 font-medium rounded-lg hover:bg-primary-50 transition-colors">{l.label}</Link>
-                ))}
+              <div className="px-4 py-4 space-y-1">
+                {navItems.map((item) => {
+                  if ('children' in item && item.children) {
+                    const isExpanded = mobileExpanded === item.key;
+                    const isActive = item.children.some(c => location.pathname === c.href);
+                    return (
+                      <div key={item.key}>
+                        <button
+                          onClick={() => setMobileExpanded(isExpanded ? null : item.key!)}
+                          className={`w-full flex items-center justify-between py-2.5 px-3 font-medium rounded-lg transition-colors ${isActive ? 'text-primary-700 bg-primary-50' : 'text-gray-700 hover:bg-primary-50'}`}
+                        >
+                          <span>{item.label}</span>
+                          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
+                        </button>
+                        {isExpanded && (
+                          <div className="ml-4 mt-1 space-y-1 border-l-2 border-primary-100 pl-3">
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                to={child.href}
+                                onClick={() => { setMobileMenu(false); setMobileExpanded(null); }}
+                                className={`block py-2 px-3 text-sm font-medium rounded-lg transition-colors ${location.pathname === child.href ? 'text-primary-700 bg-primary-50' : 'text-gray-500 hover:text-primary-700 hover:bg-primary-50'}`}
+                              >
+                                {child.label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+                  return (
+                    <Link key={item.href} to={item.href!} onClick={() => setMobileMenu(false)}
+                      className="block py-2.5 px-3 text-gray-700 font-medium rounded-lg hover:bg-primary-50 transition-colors">{item.label}</Link>
+                  );
+                })}
                 <Link to="/book" onClick={() => setMobileMenu(false)}
                   className="block py-2.5 px-3 text-primary-700 font-semibold mt-2">{t.nav.cta} →</Link>
               </div>
@@ -120,6 +300,7 @@ export default function App() {
             <Route path="/" element={<HomePage lang={lang} />} />
             <Route path="/adults" element={<AdultsPage lang={lang} />} />
             <Route path="/kids" element={<KidsPage lang={lang} />} />
+            <Route path="/projects" element={<ProjectsPage lang={lang} />} />
             <Route path="/artist" element={<ArtistPage lang={lang} />} />
             <Route path="/about" element={<AboutPage lang={lang} />} />
             <Route path="/reviews" element={<ReviewsPage lang={lang} />} />
@@ -130,26 +311,26 @@ export default function App() {
         </Suspense>
 
         {/* ═══════ FOOTER ═══════ */}
-        <footer className="bg-white/60 backdrop-blur-md border-t border-primary-100/30 py-12">
+        <footer className="bg-white/75 backdrop-blur-md border-t border-primary-100/30 py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-4 gap-8 mb-8">
               <div className="md:col-span-1">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 border border-primary-100 rounded-full flex items-center justify-center bg-gray-900 text-white">
-                    <span className="text-sm">𝄞</span>
-                  </div>
-                  <div className="flex flex-col leading-none">
-                    <span className="font-display font-bold text-gray-900 text-sm tracking-wide uppercase">Académie</span>
-                    <span className="text-primary-700" style={{ fontFamily: "'Great Vibes', cursive", fontSize: '0.9rem' }}>des Talents</span>
-                  </div>
+                <div className="mb-4">
+                  <img src={`${import.meta.env.BASE_URL}brand/logo.png`} alt="Académie des Talents" loading="lazy" decoding="async" className="h-[60px] w-auto object-contain" />
                 </div>
                 <p className="text-sm text-gray-400">{t.footer.tagline}</p>
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 mb-3 text-sm">Navigation</h4>
+                <h4 className="font-semibold text-gray-800 mb-3 text-sm">{t.nav.lessons}</h4>
                 <div className="space-y-2">
                   <Link to="/adults" className="block text-sm text-gray-500 hover:text-primary-600 transition-colors">{t.footer.adults}</Link>
                   <Link to="/kids" className="block text-sm text-gray-500 hover:text-primary-600 transition-colors">{t.footer.kids}</Link>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-800 mb-3 text-sm">{t.nav.stageCreative}</h4>
+                <div className="space-y-2">
+                  <Link to="/projects" className="block text-sm text-gray-500 hover:text-primary-600 transition-colors">{t.footer.projects}</Link>
                   <Link to="/artist" className="block text-sm text-gray-500 hover:text-primary-600 transition-colors">{t.footer.artist}</Link>
                 </div>
               </div>

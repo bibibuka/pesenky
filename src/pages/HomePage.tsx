@@ -1,14 +1,14 @@
 ﻿import { Link } from 'react-router-dom';
 import { type Lang } from '../i18n';
 import {
-  Mic, ArrowRight, Sparkles, Star, CheckCircle2, Users, Award,
+  ArrowRight, Sparkles, Star, CheckCircle2, Users, Award,
   Music, Heart, MapPin, Mail, Phone, Quote, Briefcase, Baby, Volume2, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import Animated from '../components/Animated';
 import SectionTitle from '../components/SectionTitle';
 import { useRef, useState } from 'react';
 import ImageModal from '../components/ImageModal';
-import { getMediaImage, getMediaImages } from '../utils/media';
+import { getMediaNestedFolderPreviewImages, getMediaImage } from '../utils/media';
 
 const pageT = {
   de: {
@@ -20,12 +20,19 @@ const pageT = {
       cta1: 'Termin buchen',
       cta2: 'Richtung wählen',
     },
+    proofBar: [
+      { value: '20+', label: 'Jahre Erfahrung' },
+      { value: '15', label: 'Internationale Preise' },
+      { value: '500+', label: 'Schüler' },
+      { value: 'Voice of Germany', label: 'Viertelfinal' },
+      { value: '3', label: 'Sprachen' },
+    ],
     about: {
       badge: 'Philosophie',
       title: 'Stimme als Instrument',
       highlight: 'des Selbstausdrucks',
-      p1: 'Meine Arbeit dreht sich um die Stimme als Schlüssel zur Selbstentfaltung, Sicherheit und Präsenz. Ich glaube, dass jeder Mensch eine einzigartige stimmliche Identität besitzt — und dass es sich lohnt, sie zu entdecken.',
-      p2: 'Ob Sie singen, sprechen oder auftreten möchten: Ich begleite Sie auf einer persönlichen Reise zu mehr Freiheit, Ausdruck und Selbstvertrauen. In einem ästhetischen, unterstützenden Umfeld mit individuellem Ansatz.',
+      p1: 'Stimme ist mehr als Klang — sie bestimmt, wie Sie wahrgenommen werden. Ob im Meeting, auf der Bühne oder im Alltag: eine tragfähige Stimme verändert, wie andere Ihnen zuhören.',
+      p2: 'Ich arbeite mit Atem, Körper und Technik, damit Sie nach wenigen Stunden bereits klarer, ruhiger und überzeugender klingen. Ob Gesang oder Sprechen — die Methode passt sich Ihrem Ziel an.',
     },
     directions: {
       badge: 'Drei Richtungen',
@@ -63,10 +70,10 @@ const pageT = {
       title: 'Warum Kunden',
       highlight: 'uns wählen',
       items: [
-        'Individueller Ansatz — kein Schema, sondern echte persönliche Begleitung',
-        'Erfahrung in Pädagogik und auf der Bühne',
-        'Stimme als Teil der Persönlichkeit, nicht nur Technik',
-        'Komfortables, ästhetisches und unterstützendes Format',
+        'Individuelle Stimmdiagnostik beim ersten Treffen — Sie wissen sofort, wo Sie stehen',
+        '15+ Jahre Erfahrung auf der Bühne und im Unterricht',
+        'Hörbare Ergebnisse schon nach 3–5 Sitzungen',
+        'Flexibel: vor Ort in Schaffhausen oder online',
       ],
     },
     reviews: {
@@ -74,10 +81,10 @@ const pageT = {
       title: 'Was unsere Kunden',
       highlight: 'sagen',
       items: [
-        { name: 'Sarah M.', role: 'Unternehmerin', text: 'Nach wenigen Sitzungen habe ich meine Stimme völlig neu entdeckt. Ich spreche jetzt mit mehr Ruhe und Autorität.' },
-        { name: 'Thomas K.', role: 'Vater', text: 'Unsere Tochter blüht dort regelrecht auf. Sie singt jetzt mit Freude und Selbstvertrauen.' },
-        { name: 'Julia R.', role: 'Event-Organisatorin', text: 'Ein unvergesslicher Auftritt. Die Atmosphäre war magisch, die Stimme hat alle berührt.' },
-        { name: 'Michael B.', role: 'Expat', text: 'Endlich ein Ort, wo ich mich traue zu singen. Professionell, warm und absolut erstklassig.' },
+        { name: 'Sarah M.', role: 'Unternehmerin', text: 'Ich kam mit Lampenfieber und leiser Stimme. Nach 3 Monaten halte ich Präsentationen vor 50 Leuten — ruhig und selbstsicher.' },
+        { name: 'Thomas K.', role: 'Vater', text: 'Unsere Tochter traute sich nicht, vor der Klasse zu sprechen. Jetzt singt sie auf der Bühne — nach nur einem Halbjahr.' },
+        { name: 'Julia R.', role: 'Event-Organisatorin', text: 'Wir suchten eine Sängerin für 80 Gäste. Alina hat den Abend unvergesslich gemacht — drei Gäste haben danach selbst gebucht.' },
+        { name: 'Michael B.', role: 'Expat', text: 'Ich konnte keinen Ton halten. Nach 10 Stunden singe ich eigene Songs auf Open-Mic-Abenden. Unglaubliche Verwandlung.' },
       ],
     },
     aboutMe: {
@@ -113,12 +120,19 @@ const pageT = {
       cta1: 'Book a Session',
       cta2: 'Choose Direction',
     },
+    proofBar: [
+      { value: '20+', label: 'Years Experience' },
+      { value: '15', label: 'International Awards' },
+      { value: '500+', label: 'Students' },
+      { value: 'Voice of Germany', label: 'Quarter-finalist' },
+      { value: '3', label: 'Languages' },
+    ],
     about: {
       badge: 'Philosophy',
       title: 'Voice as an Instrument',
       highlight: 'of Self-Expression',
-      p1: 'My work revolves around voice as a key to self-expression, confidence and presence. I believe every person has a unique vocal identity — and it\'s worth discovering.',
-      p2: 'Whether you want to sing, speak or perform: I guide you on a personal journey toward more freedom, expression and self-confidence. In an aesthetic, supportive environment with an individual approach.',
+      p1: 'Voice is more than sound — it shapes how people perceive you. Whether in meetings, on stage or daily life: a supported voice changes how others listen to you.',
+      p2: 'I work with breath, body and technique so you sound clearer, calmer and more convincing after just a few sessions. Whether singing or speaking — the method adapts to your goal.',
     },
     directions: {
       badge: 'Three Directions',
@@ -156,10 +170,10 @@ const pageT = {
       title: 'Why Clients',
       highlight: 'Choose Us',
       items: [
-        'Individual approach — no templates, genuine personal guidance',
-        'Experience in teaching and on stage',
-        'Voice as part of personality, not just technique',
-        'Comfortable, aesthetic and supportive format',
+        'Personal voice diagnostics at the first session — you know exactly where you stand',
+        '15+ years of experience on stage and in teaching',
+        'Audible results after just 3–5 sessions',
+        'Flexible: in-person in Schaffhausen or online',
       ],
     },
     reviews: {
@@ -167,10 +181,10 @@ const pageT = {
       title: 'What Our Clients',
       highlight: 'Say',
       items: [
-        { name: 'Sarah M.', role: 'Entrepreneur', text: 'After just a few sessions, I completely rediscovered my voice. I now speak with more calm and authority.' },
-        { name: 'Thomas K.', role: 'Parent', text: 'Our daughter truly blossoms there. She now sings with joy and confidence.' },
-        { name: 'Julia R.', role: 'Event Organizer', text: 'An unforgettable performance. The atmosphere was magical, the voice touched everyone.' },
-        { name: 'Michael B.', role: 'Expat', text: 'Finally a place where I dare to sing. Professional, warm and absolutely first-class.' },
+        { name: 'Sarah M.', role: 'Entrepreneur', text: 'I came with stage fright and a quiet voice. After 3 months, I give presentations to 50 people — calm and confident.' },
+        { name: 'Thomas K.', role: 'Parent', text: 'Our daughter was afraid to speak in front of class. Now she sings on stage — after just one semester.' },
+        { name: 'Julia R.', role: 'Event Organizer', text: 'We needed a singer for 80 guests. Alina made the evening unforgettable — three guests booked sessions afterward.' },
+        { name: 'Michael B.', role: 'Expat', text: 'I couldn\'t hold a note. After 10 sessions, I\'m singing my own songs at open-mic nights. Incredible transformation.' },
       ],
     },
     aboutMe: {
@@ -199,41 +213,48 @@ const pageT = {
   },
   ru: {
     hero: {
-      badge: 'Шаффхаузен, Швейцария',
-      title: 'Голос, сцена,',
-      highlight: 'самовыражение',
-      subtitle: 'Вокальная педагогика и голосовой коучинг для взрослых, детей и артистических проектов. Индивидуально, профессионально, с душой.',
+      badge: 'Шаффхаузен · Цюрих, Швейцария',
+      title: 'Где талант',
+      highlight: 'становится искусством',
+      subtitle: 'Уроки вокала и постановка голоса для взрослых, детей и творческих проектов.\nИндивидуально. Профессионально. С душой.',
       cta1: 'Записаться',
       cta2: 'Выбрать направление',
     },
+    proofBar: [
+      { value: '20+', label: 'лет опыта' },
+      { value: '15', label: 'международных премий' },
+      { value: '500+', label: 'учеников' },
+      { value: 'Voice of Germany', label: 'четвертьфинал' },
+      { value: '3', label: 'языка' },
+    ],
     about: {
       badge: 'Философия',
       title: 'Голос как инструмент',
       highlight: 'самовыражения',
-      p1: 'Моя работа строится вокруг голоса как ключа к самовыражению, уверенности и присутствию. Я верю, что у каждого человека есть уникальная вокальная идентичность — и её стоит раскрыть.',
-      p2: 'Хотите ли вы петь, говорить или выступать — я сопровождаю вас на личном пути к большей свободе, выразительности и уверенности. В эстетичной, поддерживающей среде с индивидуальным подходом.',
+      p1: 'Голос — больше, чем просто звук. Это Ваше самовыражение и уникальность: на сцене, в деловом общении, в повседневной жизни. Красивый, уверенный голос привлекает внимание и вызывает доверие, говоря за Вас еще до слов.',
+      p2: 'Я работаю с эффективными техниками мирового уровня, направленными на то, чтобы уже через несколько занятий Ваш голос зазвучал увереннее и красивее. Вокал или постановка речи — мой метод точно подстраивается под Вашу задачу.',
     },
     directions: {
       badge: 'Три направления',
       title: 'Выберите',
       highlight: 'своё направление',
-      adults: { title: 'Для взрослых', desc: 'Голос, уверенность, вокальная техника, выступления. Индивидуально и в малых группах.', cta: 'Подробнее' },
-      kids: { title: 'Для детей', desc: 'Раскрытие голоса, музыкальность, радость от сцены. В бережном, заботливом формате.', cta: 'Подробнее' },
-      artist: { title: 'Концерты', desc: 'Выступления, артистические проекты, частные и культурные мероприятия.', cta: 'Подробнее' },
+      adults: { title: 'Для взрослых', desc: 'Индивидуальная и групповая работа с голосом для взрослых, которые хотят звучать свободно, уверенно и ярко — от первой встречи до уверенного выступления - в кругу друзей или на сцене.', cta: 'Подробнее' },
+      kids: { title: 'Для детей', desc: 'Бережная работа с голосом для детей от 6 до 16 лет: развитие музыкальности и слуха, сценического мастерства , уверенности в себе, и радость владения собственным голосом, сияя на сцене.', cta: 'Подробнее' },
+      artist: { title: 'Концерты', desc: 'Профессиональные вокальные выступления, создание авторских артистических проектов и коллабораций. Живое музыкальное оформление, задающее атмосферу для частных событий, фестивалей и культурных мероприятий.', cta: 'Подробнее' },
     },
     adultsPreview: {
       badge: 'Для взрослых',
-      title: 'Голос, присутствие',
-      highlight: 'и уверенность',
-      text: 'Индивидуальная работа с голосом для взрослых, которые хотят звучать свободнее, увереннее и выразительнее. От диагностики до сцены — в различных форматах.',
-      items: ['Диагностика голоса и работа с дыханием', 'Снятие зажимов и напряжения', 'Выразительность, сценическое присутствие', 'Премиальные форматы и малые группы'],
+      title: 'Голос, который',
+      highlight: 'хотят слушать',
+      text: 'Индивидуальная работа с голосом для взрослых, которые хотят звучать свободно, уверенно и ярко — от первой встречи до уверенного выступления — в кругу друзей или на сцене.',
+      items: ['Работа с голосом и дыханием', 'Снятие зажимов и напряжения', 'Выразительность и проявление себя', 'Премиальные форматы и малые группы'],
       cta: 'На страницу для взрослых',
     },
     kidsPreview: {
       badge: 'Для детей',
-      title: 'Голос, радость',
-      highlight: 'и раскрытие',
-      text: 'Бережная вокальная работа для детей от 6 до 16 лет. Музыкальность, уверенность и радость от сцены — без давления и с уважением.',
+      title: 'Голос, дарящий',
+      highlight: 'радость и восторг',
+      text: 'Бережная работа с голосом для детей от 6 до 16 лет: развитие музыкальности и слуха, сценического мастерства, уверенности в себе и радость владения собственным голосом, сияя на сцене.',
       items: ['Раскрытие голоса и развитие слуха', 'Уверенность и радость от сцены', 'Индивидуальные и групповые форматы', 'Творческие вокальные проекты'],
       cta: 'На страницу для детей',
     },
@@ -241,18 +262,19 @@ const pageT = {
       badge: 'Концерты',
       title: 'Живые',
       highlight: 'выступления',
-      text: 'Профессиональная живая музыка для частных, культурных и камерных событий. Эмоциональная глубина, качество исполнения и эстетический опыт.',
+      text: 'Профессиональная живая музыка для частных, культурных и камерных событий. Что-то особенное для Вашего мероприятия.',
       cta: 'На страницу Live',
     },
     whyUs: {
       badge: 'Почему мы',
       title: 'Почему выбирают',
-      highlight: 'нас',
+      highlight: 'Académie des Talents',
       items: [
-        'Индивидуальный подход — не шаблон, а настоящее сопровождение',
         'Опыт преподавания и сцены',
-        'Голос как часть личности, а не только техника',
-        'Комфортный, эстетичный и поддерживающий формат',
+        'Индивидуальный подход, сопровождение',
+        'Техники мастеров, собранные со всего мира',
+        'Комфортный эстетичный поддерживающий формат',
+        'Гарантия результата — если нет изменений, дополнительные бесплатные занятия',
       ],
     },
     reviews: {
@@ -260,23 +282,23 @@ const pageT = {
       title: 'Что говорят',
       highlight: 'наши клиенты',
       items: [
-        { name: 'Сара М.', role: 'Предприниматель', text: 'После нескольких занятий я заново открыла свой голос. Теперь я говорю спокойнее и увереннее.' },
-        { name: 'Томас К.', role: 'Отец', text: 'Наша дочь расцветает на занятиях. Она поёт с радостью и уверенностью.' },
-        { name: 'Юлия Р.', role: 'Организатор мероприятий', text: 'Незабываемое выступление. Атмосфера была волшебной, голос тронул всех.' },
-        { name: 'Михаэль Б.', role: 'Экспат', text: 'Наконец-то место, где я решаюсь петь. Профессионально, тепло и первоклассно.' },
+        { name: 'Сара М.', role: 'Предприниматель', text: 'Я пришла со страхом сцены и тихим голосом. Через 3 месяца выступаю перед 50 людьми — спокойно и уверенно.' },
+        { name: 'Томас К.', role: 'Отец', text: 'Дочь боялась говорить перед классом. Теперь поёт на сцене — всего через полгода занятий.' },
+        { name: 'Юлия Р.', role: 'Организатор мероприятий', text: 'Искали певицу для 80 гостей. Алина сделала вечер незабываемым — трое гостей потом записались на занятия.' },
+        { name: 'Михаэль Б.', role: 'Экспат', text: 'Я не мог удержать ноту. После 10 занятий пою свои песни на open-mic вечерах. Невероятная трансформация.' },
       ],
     },
     aboutMe: {
       badge: 'Коуч',
       title: 'Обо',
       highlight: 'мне',
-      bio: 'Профессиональная певица, вокальный педагог и голосовой коуч с опытом более 15 лет. Четвертьфиналистка шоу «Голос Германии» (The Voice of Germany). Соединяю педагогику, коучинг и сцену.',
-      points: ['Профессиональная вокалистка и коуч', 'Четвертьфиналистка «Голоса Германии»', 'Многоязычная: DE / EN / RU', 'Опыт на сцене и в студии'],
+      bio: 'Я профессиональная певица с более чем 30-летним сценическим опытом. Помогаю взрослым и детям раскрыть голос как инструмент внутренней свободы через профессиональную вокальную работу, поддержку, коучинг и собственный сценический опыт.',
+      points: ['Дипломированный педагог по вокалу', 'Обладательница 15 международных премий', 'Четвертьфиналистка «Голоса Германии»', 'Член Ассоциации музыкальных педагогов Швейцарии (SMPV)', 'Более 30 лет сценического опыта', 'Говорю на 3 языках'],
       more: 'Подробнее обо мне',
     },
     finalCta: {
       title: 'Не знаете, с чего начать?',
-      subtitle: 'Напишите мне — вместе подберём подходящий формат для вас или вашего ребёнка.',
+      subtitle: 'Напишите мне — вместе подберём подходящий формат для Вас или Вашего ребёнка.',
       cta: 'Записаться на консультацию',
       cta2: 'Связаться',
     },
@@ -312,7 +334,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
   const directionLinks = ['/adults', '/kids', '/artist'];
   const directions = [t.directions.adults, t.directions.kids, t.directions.artist];
 
-  const reviewImages = getMediaImages('home/reviews');
+  const reviewImages = getMediaNestedFolderPreviewImages('reviews').reverse();
 
   const scrollReviews = (direction: 'left' | 'right') => {
     const scroller = reviewsScrollerRef.current;
@@ -332,14 +354,19 @@ export default function HomePage({ lang }: { lang: Lang }) {
   return (
     <main className="relative z-10 min-h-screen">
       {/* ═══════ 1. HERO ═══════ */}
-      <section className="relative flex items-center min-h-[90vh] pt-24 pb-8 lg:pt-32 lg:pb-10 overflow-hidden">
+      <section className="relative flex items-center min-h-screen pt-24 pb-8 lg:pt-32 lg:pb-10 overflow-hidden">
         {/* Background Video */}
-        <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 z-0"
+          style={lang === 'ru' ? { transform: 'translateY(-20px)' } : undefined}
+        >
           <video
             autoPlay
             loop
             muted
             playsInline
+            preload="metadata"
+            poster={`${import.meta.env.BASE_URL}video/bg-poster.jpg`}
             className="w-full h-full object-cover"
             src={`${import.meta.env.BASE_URL}video/bg.mp4`}
           />
@@ -352,21 +379,37 @@ export default function HomePage({ lang }: { lang: Lang }) {
             <Animated><span className="badge mb-6 inline-flex shadow-sm bg-white/90 backdrop-blur-md border border-black/5"><Sparkles className="w-3.5 h-3.5" />{t.hero.badge}</span></Animated>
             <Animated delay={150}>
               <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#1D1D1F] leading-tight mb-8 tracking-tight drop-shadow-sm text-outline-white">
-                {t.hero.title}{' '}<span className="gradient-text">{t.hero.highlight}</span>
+                <span className={lang === 'ru' ? 'hero-title-outline' : undefined}>{t.hero.title}</span>{' '}<span className="gradient-text">{t.hero.highlight}</span>
               </h1>
             </Animated>
             <Animated delay={300}>
-              <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed mb-10 max-w-2xl mx-auto drop-shadow-sm text-outline-black">
+              <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed mb-10 max-w-2xl mx-auto drop-shadow-sm text-outline-black whitespace-pre-line">
                 {t.hero.subtitle}
               </p>
             </Animated>
             <Animated delay={450}>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 -translate-y-[10px]">
                 <Link to="/book" className="btn-primary text-lg px-8 py-4 shadow-lg shadow-primary-700/20">{t.hero.cta1}</Link>
                 <a href="#directions" className="btn-secondary text-lg px-8 py-4 bg-white/20 backdrop-blur-md shadow-sm border-white/60 text-[#1D1D1F] text-outline-white hover:bg-white/30 transition-all">{t.hero.cta2}</a>
               </div>
             </Animated>
           </div>
+        </div>
+      </section>
+
+      {/* ═══════ PROOF BAR ═══════ */}
+      <section className="py-6 md:py-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Animated>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
+              {t.proofBar.map((item, i) => (
+                <div key={i} className="text-center">
+                  <div className="font-display text-3xl md:text-4xl font-bold gradient-text mb-1">{item.value}</div>
+                  <div className="text-gray-500 text-sm md:text-base">{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </Animated>
         </div>
       </section>
 
@@ -393,13 +436,13 @@ export default function HomePage({ lang }: { lang: Lang }) {
                 <div className="premium-card rounded-3xl overflow-hidden h-full flex flex-col group">
                   <div className="h-52 relative overflow-hidden">
                     <div className="absolute inset-0 bg-primary-900/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                    <img src={HOME_IMAGES.directions[i]} alt={dir.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                    <img src={HOME_IMAGES.directions[i]} alt={dir.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
                     <div className="absolute bottom-4 left-4 z-20 w-12 h-12 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary-600 shadow-lg group-hover:-translate-y-1 transition-transform">
                       {directionIcons[i]}
                     </div>
                   </div>
                   <div className="p-8 flex-1 flex flex-col">
-                    <h3 className="font-display text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors">{dir.title}</h3>
+                    <h3 className="font-display text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors min-h-[2lh] text-balance">{dir.title}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed flex-1 mb-5">{dir.desc}</p>
                     <Link to={directionLinks[i]} className="btn-secondary text-sm inline-flex w-fit">{dir.cta}<ArrowRight className="w-4 h-4" /></Link>
                   </div>
@@ -428,7 +471,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
             </Animated>
             <Animated delay={300} className="hidden lg:block">
               <div className="rounded-3xl overflow-hidden shadow-xl group">
-                <img src={HOME_IMAGES.adultsPreview} alt="Adults vocal" className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={HOME_IMAGES.adultsPreview} alt="Adults vocal" loading="lazy" decoding="async" className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
             </Animated>
           </div>
@@ -442,7 +485,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <Animated delay={300} className="hidden lg:block order-1 lg:order-none">
               <div className="rounded-3xl overflow-hidden shadow-xl group">
-                <img src={HOME_IMAGES.kidsPreview} alt="Kids vocal" className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={HOME_IMAGES.kidsPreview} alt="Kids vocal" loading="lazy" decoding="async" className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
             </Animated>
             <Animated delay={100}>
@@ -470,7 +513,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
                 <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-2xl mb-6">{t.concertPreview.text}</p>
                 <Link to="/artist" className="btn-gold inline-flex w-fit">{t.concertPreview.cta}<ArrowRight className="w-4 h-4" /></Link>
               </div>
-              <img src={HOME_IMAGES.concertPreview} alt="Concert" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+              <img src={HOME_IMAGES.concertPreview} alt="Concert" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
             </div>
           </Animated>
         </div>
@@ -524,37 +567,31 @@ export default function HomePage({ lang }: { lang: Lang }) {
               ))}
             </div>
 
-            {/* Slider Controls - Centered below carousel */}
-            {reviewImages.length > 1 && (
-              <div className="flex items-center justify-center gap-4 mt-2 mb-8">
-                <button
-                  type="button"
-                  aria-label={lang === 'de' ? 'Nach links scrollen' : lang === 'ru' ? 'Прокрутить влево' : 'Scroll left'}
-                  onClick={() => scrollReviews('left')}
-                  className="w-12 h-12 rounded-full border border-black/5 bg-white/80 backdrop-blur-md text-gray-700 flex items-center justify-center shadow-sm transition-all hover:-translate-x-0.5 hover:border-primary-200 hover:text-primary-600 hover:shadow-md"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  type="button"
-                  aria-label={lang === 'de' ? 'Nach rechts scrollen' : lang === 'ru' ? 'Прокрутить вправо' : 'Scroll right'}
-                  onClick={() => scrollReviews('right')}
-                  className="w-12 h-12 rounded-full border border-black/5 bg-white/80 backdrop-blur-md text-gray-700 flex items-center justify-center shadow-sm transition-all hover:translate-x-0.5 hover:border-primary-200 hover:text-primary-600 hover:shadow-md"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </div>
-            )}
-          </>
-        )}
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Animated delay={500}>
-            <div className="text-center mt-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-2 mb-2 px-4">
+              {reviewImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    aria-label={lang === 'de' ? 'Nach links scrollen' : lang === 'ru' ? 'Прокрутить влево' : 'Scroll left'}
+                    onClick={() => scrollReviews('left')}
+                    className="w-12 h-12 rounded-full border border-black/5 bg-white/80 backdrop-blur-md text-gray-700 flex items-center justify-center shadow-sm transition-all hover:-translate-x-0.5 hover:border-primary-200 hover:text-primary-600 hover:shadow-md"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label={lang === 'de' ? 'Nach rechts scrollen' : lang === 'ru' ? 'Прокрутить вправо' : 'Scroll right'}
+                    onClick={() => scrollReviews('right')}
+                    className="w-12 h-12 rounded-full border border-black/5 bg-white/80 backdrop-blur-md text-gray-700 flex items-center justify-center shadow-sm transition-all hover:translate-x-0.5 hover:border-primary-200 hover:text-primary-600 hover:shadow-md"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                </>
+              )}
               <Link to="/reviews" className="btn-secondary inline-flex">{lang === 'de' ? 'Alle Bewertungen' : lang === 'ru' ? 'Все отзывы' : 'All Reviews'}<ArrowRight className="w-4 h-4" /></Link>
             </div>
-          </Animated>
-        </div>
+          </>
+        )}
       </section>
 
       <ImageModal 
@@ -569,14 +606,11 @@ export default function HomePage({ lang }: { lang: Lang }) {
           <SectionTitle badge={t.aboutMe.badge} title={t.aboutMe.title} highlight={t.aboutMe.highlight} badgeIcon={<Award className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
             <div className="premium-card rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
-              <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary-100 rounded-full blur-3xl opacity-50 pointer-events-none" />
               <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 relative z-10">
                 <div className="relative shrink-0 group">
-                  <div className="absolute -inset-2 bg-gradient-to-br from-primary-400 to-amber-400 rounded-3xl blur-xl opacity-30 group-hover:opacity-60 transition duration-500" />
-                  <div className="w-[230px] h-[270px] md:w-[270px] md:h-[315px] relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                    <img src={HOME_IMAGES.coachPortrait} alt="Alina" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="w-[230px] h-[270px] md:w-[270px] md:h-[315px] relative rounded-3xl overflow-hidden">
+                    <img src={HOME_IMAGES.coachPortrait} alt="Alina" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   </div>
-                  <div className="absolute -bottom-4 -right-4 bg-white p-3 rounded-2xl shadow-xl animate-float"><Mic className="w-6 h-6 text-primary-500" /></div>
                 </div>
                 <div className="flex-1 text-center md:text-left">
                   <p className="text-gray-600 leading-relaxed mb-6 text-lg">{t.aboutMe.bio}</p>

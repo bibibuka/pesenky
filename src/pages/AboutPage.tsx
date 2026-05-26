@@ -1,236 +1,269 @@
-﻿import { Link } from 'react-router-dom';
+﻿{/* eslint-disable @typescript-eslint/no-unused-vars */}
+import { Link } from 'react-router-dom';
 import { type Lang } from '../i18n';
-import { ArrowRight, CheckCircle2, Award, Heart, Users, Mic, Sparkles, Star, Music, Briefcase } from 'lucide-react';
+import {
+  ArrowRight, CheckCircle2, Award, Heart, Users, Mic, Sparkles, Star, Music, Briefcase, Globe, Baby, Play, FileText, ExternalLink
+} from 'lucide-react';
 import Animated from '../components/Animated';
 import SectionTitle from '../components/SectionTitle';
 import HeroSection from '../components/HeroSection';
-import ReviewCarousel from '../components/ReviewCarousel';
-import { getMediaImage } from '../utils/media';
+import PdfViewer from '../components/PdfViewer';
+import { getMediaImage, getDiplomaFiles } from '../utils/media';
 
 const pageT = {
   de: {
-    hero: { badge: 'Sängerin, Pädagogin, Vokal- & Musikcoach', title: 'Vocal Coaching', highlight: 'für innere Freiheit', subtitle: 'Ich helfe Erwachsenen und Kindern, ihre Stimme als Instrument der inneren Freiheit zu entdecken — durch professionelle Vokalarbeit, Coaching und Bühnenerfahrung.' },
-    whoAmI: {
-      badge: 'Wer ich bin', title: 'Über', highlight: 'mich',
-      p1: 'Meine Arbeit dreht sich um die Stimme als Schlüssel zur Selbstentfaltung, Sicherheit und Präsenz. Ich verbinde Unterricht, Coaching und Bühnenerfahrung zu einem einzigen transformierenden Prozess.',
-      p2: 'Neben der Gesangstechnik gewinnen Sie Klangfreiheit, Kontakt zu sich selbst, Vertrauen im Ausdruck und die Freude, gehört und gesehen zu werden.',
-      p3: 'Ich arbeite sowohl mit Erwachsenen als auch mit Kindern, einschließlich eines sanften und aufmerksamen Ansatzes für Kinder mit besonderen Bedürfnissen. Ob Sie als Erwachsener Ihre Stimme stärken oder das kreative Potenzial eines Kindes entfalten möchten — ich begleite Sie mit Professionalität und Herz.',
-      benefits: ['Freiheit des Klangs', 'Kontakt zu sich selbst', 'Sicherheit im Ausdruck', 'Freude, gehört und gesehen zu werden'],
+    hero: {
+      badge: 'Sängerin, Pädagogin, Vocal & Music Coach',
+      title: 'Mein Leben ist Musik,',
+      highlight: 'Bühne und Lehre',
+      subtitle: 'Mit über 15 Auszeichnungen in der Musikbranche teile ich meine Erfahrung mit der nächsten Generation.',
     },
-    experience: {
-      badge: 'Erfahrung', title: 'Qualifikation und', highlight: 'Erfahrung',
-      items: ['Musikalische Ausbildung im Bereich Vokalpädagogik', 'Viertelfinalistin bei "The Voice of Germany"', 'Über 15 Jahre Unterrichtserfahrung', 'Aktive Bühnenerfahrung als Sängerin', 'Arbeit mit Erwachsenen und Kindern jeder Altersgruppe', 'Internationaler und mehrsprachiger Kontext (DE/EN/RU)'],
-    },
-    approach: {
-      badge: 'Mein Ansatz', title: 'Wie ich', highlight: 'arbeite',
-      items: ['Stimme ist nicht nur Technik — sondern auch Körper, Atem und Emotion', 'Behutsam, aber professionell', 'Individuelles Format und Respekt vor der Persönlichkeit', 'Die Verbindung von Freude und Disziplin'],
+    qualifications: {
+      badge: 'Qualifikationen',
+      title: 'Qualifikation und',
+      highlight: 'Erfahrung',
+      intro: 'Mit über 15 internationalen Auszeichnungen in der Musikbranche teile ich meine Erfahrung mit der nächsten Generation.',
+      items: [
+        'Diplomierte Gesangspädagogin',
+        'Diplomierte Sängerin, SMPV anerkannt',
+        'Über 15 internationale Auszeichnungen',
+        'Viertelfinalistin bei "The Voice of Germany"',
+        'Über 20 Jahre Unterrichtserfahrung',
+        'Auf der Bühne seit dem 5. Lebensjahr',
+        'Arbeite in 3 Sprachen (DE / EN / RU)',
+      ],
     },
     whoIWorkWith: {
-      badge: 'Klientel', title: 'Mit wem ich', highlight: 'arbeite',
+      badge: 'Klientel',
+      title: 'Mit wem ich',
+      highlight: 'arbeite',
       items: [
-        { title: 'Erwachsene', desc: 'Unternehmer, Fachleute und alle, die ihre Stimme finden wollen.' },
-        { title: 'Kinder', desc: 'Von 6 bis 16 Jahren — behutsam und kreativ.' },
-        { title: 'Führungskräfte', desc: 'Executive Voice & Presence für Berufstätige.' },
-        { title: 'Kreative', desc: 'Künstler, Musiker und Bühnenmenschen.' },
-        { title: 'Auftrittssuchende', desc: 'Für alle, die auf die Bühne wollen oder sich einfach trauen möchten.' },
+        { title: 'Erwachsene', desc: 'Fachleute verschiedenster Berufe, die ihre Stimme entfalten und verbessern wollen.' },
+        { title: 'Kinder 6–16', desc: 'Behutsame und kreative Stimmarbeit, die das Potenzial jedes Kindes entfaltet.' },
+        { title: 'Führungskräfte', desc: 'Executive Voice — für professionelle Stimme und Präsenz.' },
+        { title: 'Kreative Menschen', desc: 'Künstler, Musiker und Menschen der Bühne.' },
+        { title: 'Auftrittssuchende', desc: 'Alle, die auftreten möchten oder sich einfach trauen wollen, es zu versuchen.' },
       ],
     },
-    whyThree: {
-      badge: 'Drei Richtungen', title: 'Warum drei Richtungen', highlight: 'zusammengehören',
-      p1: 'Unterricht für Erwachsene, behutsame Arbeit mit Kindern und Konzertarbeit — all das verbindet sich natürlich.',
-      p2: 'Die Bühne ist die lebendige Basis meines Könnens. Die Pädagogik gibt mir Tiefe. Und das Coaching bringt beides zusammen.',
-      items: ['Erwachsenenunterricht — Stimme und Sicherheit', 'Kinderarbeit — Entfaltung und Freude', 'Bühne — lebendiges Fundament'],
+    media: {
+      badge: 'Medien',
+      title: 'In den',
+      highlight: 'Medien',
+      items: [],
     },
-    achievements: {
-      badge: 'Meilensteine', title: 'Wichtige', highlight: 'Stationen',
-      items: [
-        { value: '15+', label: 'Jahre Erfahrung' },
-        { value: '500+', label: 'Schüler:innen' },
-        { value: '100+', label: 'Auftritte' },
-        { value: '3', label: 'Sprachen' },
-      ],
+    diplomas: {
+      badge: 'Diplome & Urkunden',
+      title: 'Diplome und',
+      highlight: 'Auszeichnungen',
+      intro: 'Eine Auswahl meiner Diplome, Zertifikate und Auszeichnungen aus über 20 Jahren Bühnen- und Lehrtätigkeit.',
+      empty: 'Diplome werden bald hinzugefügt.',
+      viewer: {
+        page: 'Seite',
+        of: 'von',
+        prev: 'Vorherige Seite',
+        next: 'Nächste Seite',
+        open: 'Original-PDF öffnen',
+        loading: 'PDF wird geladen…',
+        error: 'PDF konnte nicht geladen werden.',
+      },
     },
-    reviews: {
-      badge: 'Stimmen', title: 'Was andere', highlight: 'sagen',
-      items: [
-        { name: 'Sarah M.', role: 'Kundin', text: 'Elena hat mir geholfen, meine Stimme — und mich selbst — völlig neu zu entdecken.' },
-        { name: 'Thomas K.', role: 'Vater', text: 'Unsere Kinder blühen auf. Professionell und dennoch liebevoll.' },
-        { name: 'Claudia H.', role: 'Veranstalterin', text: 'Als Sängerin auf der Bühne: schlichtweg atemberaubend.' },
-      ],
+    cta: {
+      title: 'Bereit für eine Probe-Stunde?',
+      subtitle: 'Lernen Sie mich kennen und entdecken Sie, was Ihre Stimme kann.',
+      cta: 'Probe-Stunde buchen',
     },
-    cta: { title: 'Lassen Sie uns arbeiten', cta1: 'Termin buchen', cta2: 'Angebote ansehen' },
   },
+
   en: {
-    hero: { badge: 'Singer, Vocal Teacher & Music Coach', title: 'Vocal Coaching', highlight: 'for inner freedom', subtitle: 'I help adults and children discover their voice as an instrument of inner freedom — through professional vocal work, coaching and stage experience.' },
-    whoAmI: {
-      badge: 'Who I Am', title: 'About', highlight: 'Me',
-      p1: 'My work revolves around the voice as a key to self-expression, confidence, and presence. I combine teaching, coaching, and stage experience into a single transformative process.',
-      p2: 'In addition to vocal technique, you gain freedom of sound, connection with yourself, confidence in self-expression, and the joy of being heard and seen.',
-      p3: 'I work with both adults and children, including a gentle and attentive approach to children with special needs. Whether you want to strengthen your voice as an adult or unlock a child\'s creative potential — I accompany you with professionalism and heart.',
-      benefits: ['freedom of sound', 'connection with yourself', 'confidence in self-expression', 'joy of being heard and seen'],
+    hero: {
+      badge: 'Singer, Vocal Teacher & Music Coach',
+      title: 'My life is music,',
+      highlight: 'stage and teaching',
+      subtitle: 'With over 15 awards in the music industry, I share my experience with the next generation.',
     },
-    experience: {
-      badge: 'Experience', title: 'Qualifications and', highlight: 'Experience',
-      items: ['Musical education in vocal pedagogy', 'Quarter-finalist of "The Voice of Germany"', 'Over 15 years of teaching experience', 'Active stage experience as a vocalist', 'Work with adults and children of all ages', 'International and multilingual context (DE/EN/RU)'],
-    },
-    approach: {
-      badge: 'My Approach', title: 'How I', highlight: 'work',
-      items: ['Voice is not just technique — it\'s body, breath and emotion', 'Gentle but professional', 'Individual format and respect for personality', 'Connecting joy and discipline'],
+    qualifications: {
+      badge: 'Qualifications',
+      title: 'Qualifications and',
+      highlight: 'Experience',
+      intro: 'With over 15 international awards in the music industry, I share my experience with the next generation.',
+      items: [
+        'Certified vocal pedagogue',
+        'Certified singer, SMPV recognized',
+        'Over 15 international awards',
+        'Quarter-finalist of "The Voice of Germany"',
+        'Over 20 years of teaching experience',
+        'On stage since age 5',
+        'Work in 3 languages (DE / EN / RU)',
+      ],
     },
     whoIWorkWith: {
-      badge: 'Clients', title: 'Who I', highlight: 'work with',
+      badge: 'Clients',
+      title: 'Who I',
+      highlight: 'work with',
       items: [
-        { title: 'Adults', desc: 'Entrepreneurs, professionals and anyone wanting to find their voice.' },
-        { title: 'Children', desc: 'Ages 6 to 16 — gentle and creative.' },
-        { title: 'Executives', desc: 'Executive Voice & Presence for professionals.' },
-        { title: 'Creatives', desc: 'Artists, musicians and stage people.' },
-        { title: 'Aspiring Performers', desc: 'For anyone who wants to get on stage or simply dare to try.' },
+        { title: 'Adults', desc: 'Professionals from all fields who want to develop and improve their voice.' },
+        { title: 'Children 6–16', desc: 'Gentle and creative voice work that unlocks each child\'s potential.' },
+        { title: 'Executives', desc: 'Executive Voice — for professional voice and presence.' },
+        { title: 'Creative People', desc: 'Artists, musicians and stage performers.' },
+        { title: 'Aspiring Performers', desc: 'Anyone who wants to perform or simply dares to try.' },
       ],
     },
-    whyThree: {
-      badge: 'Three Directions', title: 'Why three directions', highlight: 'naturally connect',
-      p1: 'Teaching adults, gentle work with children and concert work — all naturally connected.',
-      p2: 'The stage is the living foundation of my craft. Teaching gives me depth. Coaching brings both together.',
-      items: ['Adult teaching — voice and confidence', 'Children\'s work — growth and joy', 'Stage — living foundation'],
+    media: {
+      badge: 'Media',
+      title: 'In the',
+      highlight: 'Media',
+      items: [],
     },
-    achievements: {
-      badge: 'Milestones', title: 'Key', highlight: 'Achievements',
-      items: [
-        { value: '15+', label: 'Years Experience' },
-        { value: '500+', label: 'Students' },
-        { value: '100+', label: 'Performances' },
-        { value: '3', label: 'Languages' },
-      ],
+    diplomas: {
+      badge: 'Diplomas & Certificates',
+      title: 'Diplomas and',
+      highlight: 'Awards',
+      intro: 'A selection of my diplomas, certificates and awards from over 20 years on stage and teaching.',
+      empty: 'Diplomas will be added soon.',
+      viewer: {
+        page: 'Page',
+        of: 'of',
+        prev: 'Previous page',
+        next: 'Next page',
+        open: 'Open original PDF',
+        loading: 'Loading PDF…',
+        error: 'Failed to load PDF.',
+      },
     },
-    reviews: {
-      badge: 'Voices', title: 'What others', highlight: 'say',
-      items: [
-        { name: 'Sarah M.', role: 'Client', text: 'Elena helped me completely rediscover my voice — and myself.' },
-        { name: 'Thomas K.', role: 'Parent', text: 'Our children blossom here. Professional yet loving.' },
-        { name: 'Claudia H.', role: 'Event Organizer', text: 'As a singer on stage: simply breathtaking.' },
-      ],
+    cta: {
+      title: 'Ready for a trial lesson?',
+      subtitle: 'Get to know me and discover what your voice can do.',
+      cta: 'Book a Trial Lesson',
     },
-    cta: { title: 'Let\'s work together', cta1: 'Book a Session', cta2: 'View Services' },
   },
+
   ru: {
-    hero: { badge: 'Певица, педагог, вокальный и музыкальный коуч', title: 'Вокальный коучинг', highlight: 'для внутренней свободы', subtitle: 'Я помогаю взрослым и детям раскрыть голос как инструмент внутренней свободы — через профессиональную вокальную работу, коучинг и сценический опыт.' },
-    whoAmI: {
-      badge: 'Кто я', title: 'Обо', highlight: 'мне',
-      p1: 'Моя работа строится вокруг голоса как ключа к самовыражению, уверенности и проявления себя. Я соединяю преподавание, коучинг и опыт сцены в единый трансформирующий процесс.',
-      p2: 'Помимо знаний техники пения — вы получаете свободу звучания, контакт с собой, уверенность в проявлении и радость быть услышанным и увиденным.',
-      p3: 'Работаю как со взрослыми, так и с детьми, включая мягкий и внимательный подход к детям с особыми потребностями. Хотите ли вы усилить свой голос как взрослый или раскрыть творческий потенциал ребёнка — я сопровождаю вас с профессионализмом и душой.',
-      benefits: ['свободу звучания', 'контакт с собой', 'уверенность в проявлении', 'радость быть услышанным и увиденным'],
+    hero: {
+      badge: 'Певица, педагог, вокальный и музыкальный коуч',
+      title: 'Моя жизнь — это музыка,',
+      highlight: 'сцена и преподавание',
+      subtitle: 'Я на сцене с пяти лет и обладатель более 15 наград региональных и международных премий. Также в 2023 году я стала участницей «Голоса Германии», дойдя до четвертьфинала.',
     },
-    experience: {
-      badge: 'Опыт', title: 'Квалификация и', highlight: 'опыт',
-      items: ['Музыкальное образование в области вокала', 'Четвертьфиналистка шоу «Голос Германии» (The Voice of Germany)', 'Более 15 лет преподавания', 'Активная сценическая практика', 'Работа со взрослыми и детьми', 'Международный контекст (DE/EN/RU)'],
-    },
-    approach: {
-      badge: 'Мой подход', title: 'Как я', highlight: 'работаю',
-      items: ['Голос — это не только техника, но и тело, дыхание, эмоции', 'Бережный, но профессиональный стиль', 'Индивидуальный формат и уважение к личности', 'Соединение радости и дисциплины'],
+    qualifications: {
+      badge: 'Обо мне',
+      title: 'Квалификация и',
+      highlight: 'опыт',
+      intro: 'Театр и сцена — моя стихия, и сегодня я передаю свой опыт и знания молодому поколению. Моя работа строится вокруг голоса как ключа к самовыражению, уверенности и проявлению себя. Я соединяю преподавание, коучинг и свой сценический опыт в единый творческий процесс.',
+      items: [
+        'Дипломированный вокальный педагог',
+        'Дипломированная певица, SMPV anerkannt',
+        'Четвертьфиналистка шоу «Голос Германии» (The Voice of Germany, 2023)',
+        'Более 15 международных и региональных премий',
+        'На сцене с 5 лет',
+        'Более 20 лет преподавания',
+        'Вокальные техники от ведущих мировых коучей',
+        'Мягкий подход к детям с особыми потребностями',
+        'Говорю на 3 языках (DE / EN / RU)',
+      ],
     },
     whoIWorkWith: {
-      badge: 'Клиенты', title: 'С кем я', highlight: 'работаю',
+      badge: 'Клиенты',
+      title: 'С кем я',
+      highlight: 'работаю',
       items: [
-        { title: 'Взрослые', desc: 'Предприниматели, специалисты и все, кто хочет найти свой голос.' },
-        { title: 'Дети', desc: 'От 6 до 16 лет — бережно и творчески.' },
-        { title: 'Руководители', desc: 'Executive Voice для профессионалов.' },
+        { title: 'Взрослые', desc: 'Специалисты самых разных профессий, кто стремится раскрыть и улучшить свой голос.' },
+        { title: 'Дети 6–16', desc: 'Бережная и творческая работа с голосом, раскрывающая потенциал каждого ребёнка.' },
+        { title: 'Руководители', desc: 'Executive Voice — для профессионального голоса и присутствия.' },
         { title: 'Творческие люди', desc: 'Артисты, музыканты и люди сцены.' },
-        { title: 'Желающие на сцену', desc: 'Для тех, кто хочет выступать или просто решиться попробовать.' },
+        { title: 'Желающие на сцену', desc: 'Те, кто хочет выступать или просто решиться попробовать.' },
       ],
     },
-    whyThree: {
-      badge: 'Три направления', title: 'Почему три направления', highlight: 'соединяются',
-      p1: 'Преподавание взрослым, бережная работа с детьми и концертная деятельность — всё соединяется естественно.',
-      p2: 'Сцена — живая основа мастерства. Педагогика даёт глубину. Коучинг объединяет оба.',
-      items: ['Взрослые — голос и уверенность', 'Дети — раскрытие и радость', 'Сцена — живое основание'],
+    media: {
+      badge: 'Медиа',
+      title: 'В',
+      highlight: 'прессе',
+      items: [],
     },
-    achievements: {
-      badge: 'Вехи', title: 'Важные', highlight: 'достижения',
-      items: [
-        { value: '15+', label: 'Лет опыта' },
-        { value: '500+', label: 'Учеников' },
-        { value: '100+', label: 'Выступлений' },
-        { value: '3', label: 'Языка' },
-      ],
+    diplomas: {
+      badge: 'Дипломы и сертификаты',
+      title: 'Дипломы и',
+      highlight: 'награды',
+      intro: 'Подборка моих дипломов, сертификатов и наград за более чем 20 лет сценической и педагогической деятельности.',
+      empty: 'Дипломы скоро появятся.',
+      viewer: {
+        page: 'Страница',
+        of: 'из',
+        prev: 'Предыдущая страница',
+        next: 'Следующая страница',
+        open: 'Открыть оригинал PDF',
+        loading: 'Загрузка PDF…',
+        error: 'Не удалось загрузить PDF.',
+      },
     },
-    reviews: {
-      badge: 'Голоса', title: 'Что говорят', highlight: 'о нас',
-      items: [
-        { name: 'Сара М.', role: 'Клиент', text: 'Елена помогла мне заново открыть свой голос — и себя.' },
-        { name: 'Томас К.', role: 'Отец', text: 'Наши дети расцветают. Профессионально и бережно.' },
-        { name: 'Клаудия Х.', role: 'Организатор', text: 'Как певица на сцене — просто потрясающе.' },
-      ],
+    cta: {
+      title: 'Готовы на пробный урок?',
+      subtitle: 'Познакомьтесь со мной и узнайте, на что способен Ваш голос.',
+      cta: 'Записаться на пробный урок',
     },
-    cta: { title: 'Давайте работать вместе', cta1: 'Записаться', cta2: 'Смотреть услуги' },
   },
 };
 
 export default function AboutPage({ lang }: { lang: Lang }) {
   const t = pageT[lang];
   const heroImage = getMediaImage('coach/portrait') || "/images/placeholder.png";
-  const aboutImage = getMediaImage('about/about/01') || heroImage; // Defaulting to heroImage if specific about image is missing
+  const aboutImage = getMediaImage('about/about/01') || heroImage;
+  const diplomas = getDiplomaFiles();
 
   return (
-    <main className="bg-white/20 backdrop-blur-sm relative z-10 min-h-screen">
-      <HeroSection badge={t.hero.badge} badgeIcon={<Mic className="w-3.5 h-3.5" />} title={t.hero.title} titleHighlight={t.hero.highlight} subtitle={t.hero.subtitle}
-        image={heroImage} imageAlt="Alina" />
+    <main className="relative z-10 min-h-screen">
+      {/* ═══════ HERO ═══════ */}
+      <HeroSection
+        badge={t.hero.badge}
+        badgeIcon={<Mic className="w-3.5 h-3.5" />}
+        title={t.hero.title}
+        titleHighlight={t.hero.highlight}
+        subtitle={t.hero.subtitle}
+        image={heroImage}
+        imageAlt="Alina"
+      />
 
-      {/* WHO AM I */}
-      <section className="py-6 md:py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle badge={t.whoAmI.badge} title={t.whoAmI.title} highlight={t.whoAmI.highlight} badgeIcon={<Heart className="w-3.5 h-3.5" />} />
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch mt-12">
-            <Animated delay={200} className="order-1 lg:col-span-5 flex flex-col justify-center w-full max-w-[380px] md:max-w-full mx-auto">
-              <div className="relative group w-full h-full min-h-[400px] lg:min-h-full">
-                <div className="absolute inset-0 bg-primary-100 rounded-3xl -translate-x-4 translate-y-4 -z-10 blur-sm opacity-50 transition-transform duration-500 group-hover:-translate-x-5 group-hover:translate-y-5"></div>
-                <div className="rounded-3xl overflow-hidden shadow-2xl w-full h-full transition-shadow duration-500 group-hover:shadow-primary-900/20">
-                  <img 
-                    src={aboutImage} 
-                    alt="About Teacher" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      {/* ═══════ QUALIFICATIONS & EXPERIENCE ═══════ */}
+      <section className="py-8 md:py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle badge={t.qualifications.badge} title={t.qualifications.title} highlight={t.qualifications.highlight} badgeIcon={<Award className="w-3.5 h-3.5" />} />
+
+          {/* Top: photo + intro */}
+          <div className="grid lg:grid-cols-2 gap-10 items-center mt-10">
+            {/* Photo */}
+            <Animated delay={100}>
+              <div className="relative group">
+                <div className="relative rounded-3xl overflow-hidden">
+                  <img
+                    src={aboutImage}
+                    alt="Alina"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
-                      if(heroImage) {
-                          target.src = heroImage;
-                      } else {
-                          target.src = 'https://images.unsplash.com/photo-1516280440502-86311e6ed53d?auto=format&fit=crop&q=80';
-                      }
+                      target.src = heroImage;
                     }}
                   />
                 </div>
               </div>
             </Animated>
-            <Animated delay={100} className="order-2 lg:col-span-7 flex">
-              <div className="premium-card rounded-2xl p-8 md:p-10 lg:p-12 space-y-6 h-full w-full flex flex-col justify-center">
-                <p className="text-gray-600 text-lg md:text-xl leading-relaxed">{t.whoAmI.p1}</p>
-                <p className="text-gray-600 text-lg md:text-xl leading-relaxed">{t.whoAmI.p2}</p>
-                <ul className="space-y-3 mt-4">
-                  {t.whoAmI.benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-center gap-3 text-gray-700 md:text-lg">
-                      <CheckCircle2 className="w-6 h-6 text-primary-500 shrink-0" />
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-gray-600 text-lg md:text-xl leading-relaxed pt-2">{t.whoAmI.p3}</p>
-              </div>
+
+            {/* Intro paragraph */}
+            <Animated delay={200}>
+              <p className="text-gray-600 text-lg leading-relaxed">{t.qualifications.intro}</p>
             </Animated>
           </div>
-        </div>
-      </section>
 
-      {/* EXPERIENCE */}
-      <section className="py-5 md:py-6">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle badge={t.experience.badge} title={t.experience.title} highlight={t.experience.highlight} badgeIcon={<Award className="w-3.5 h-3.5" />} />
-          <div className="space-y-4">
-            {t.experience.items.map((item, i) => (
-              <Animated key={i} delay={i * 100}>
-                <div className="premium-card rounded-xl p-5 flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center shrink-0"><CheckCircle2 className="w-5 h-5 text-green-500" /></div>
-                  <p className="text-gray-700 font-medium">{item}</p>
+          {/* Bottom: qualifications grid as a separate block */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+            {t.qualifications.items.map((item, i) => (
+              <Animated key={i} delay={i * 60}>
+                <div className="premium-card rounded-xl p-4 flex items-center gap-4 h-full">
+                  <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  </div>
+                  <p className="text-gray-700 font-medium text-sm leading-snug">{item}</p>
                 </div>
               </Animated>
             ))}
@@ -238,73 +271,124 @@ export default function AboutPage({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      {/* APPROACH */}
-      <section className="py-5 md:py-6">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle badge={t.approach.badge} title={t.approach.title} highlight={t.approach.highlight} badgeIcon={<Sparkles className="w-3.5 h-3.5" />} />
-          <Animated delay={100}>
-            <div className="featured-card rounded-2xl p-8 space-y-4">
-              {t.approach.items.map((item, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center shrink-0"><Heart className="w-5 h-5 text-primary-600" /></div>
-                  <p className="text-gray-700 leading-relaxed text-lg">{item}</p>
-                </div>
-              ))}
-            </div>
-          </Animated>
-        </div>
-      </section>
-
-      {/* WHO I WORK WITH */}
-      <section className="py-5 md:py-6">
+      {/* ═══════ WHO I WORK WITH ═══════ */}
+      <section className="py-6 md:py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.whoIWorkWith.badge} title={t.whoIWorkWith.title} highlight={t.whoIWorkWith.highlight} badgeIcon={<Users className="w-3.5 h-3.5" />} />
-          <div className="flex flex-wrap justify-center gap-6">
-            {t.whoIWorkWith.items.map((item, i) => (
-              <Animated key={i} delay={i * 100} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex">
-                <div className="premium-card rounded-2xl p-6 h-full w-full">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-5 mt-8">
+            {t.whoIWorkWith.items.map((item, i) => {
+              const len = t.whoIWorkWith.items.length;
+              const isLastOddSm = i === len - 1 && len % 2 === 1;
+              // When the final lg row has exactly 2 items, shift the first of them
+              // by one slot so the pair is centered under the row above.
+              const startsTrailingPair = len % 3 === 2 && i === len - 2;
+              const itemClasses = [
+                'lg:col-span-2',
+                isLastOddSm ? 'sm:col-span-2' : '',
+                startsTrailingPair ? 'lg:col-start-2' : '',
+              ].filter(Boolean).join(' ');
+              return (
+              <Animated key={i} delay={i * 100} className={itemClasses}>
+                <div className="premium-card rounded-2xl p-6 h-full">
                   <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center text-primary-500 mb-4">
-                    {[<Briefcase className="w-6 h-6" />, <Star className="w-6 h-6" />, <Award className="w-6 h-6" />, <Music className="w-6 h-6" />, <Mic className="w-6 h-6" />][i]}
+                    {[<Briefcase key="b" className="w-6 h-6" />, <Baby key="ba" className="w-6 h-6" />, <Award key="a" className="w-6 h-6" />, <Music key="m" className="w-6 h-6" />, <Mic key="mi" className="w-6 h-6" />][i]}
                   </div>
-                  <h3 className="font-display text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+                  <h3 className="font-display text-lg font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{item.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </Animated>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* WHY THREE DIRECTIONS */}
-      <section className="py-5 md:py-6">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle badge={t.whyThree.badge} title={t.whyThree.title} highlight={t.whyThree.highlight} badgeIcon={<Sparkles className="w-3.5 h-3.5" />} />
+      {/* ═══════ DIPLOMAS / CERTIFICATES ═══════ */}
+      <section className="py-6 md:py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle badge={t.diplomas.badge} title={t.diplomas.title} highlight={t.diplomas.highlight} badgeIcon={<FileText className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
-            <div className="premium-card rounded-2xl p-8 space-y-5">
-              <p className="text-gray-600 text-lg leading-relaxed">{t.whyThree.p1}</p>
-              <p className="text-gray-600 text-lg leading-relaxed">{t.whyThree.p2}</p>
-              <div className="grid sm:grid-cols-3 gap-4 pt-4">
-                {t.whyThree.items.map((item, i) => (
-                  <div key={i} className="bg-primary-50/50 rounded-xl p-4 text-center">
-                    <p className="text-primary-700 font-semibold text-sm">{item}</p>
+            <p className="text-gray-500 text-center max-w-2xl mx-auto mt-4">{t.diplomas.intro}</p>
+          </Animated>
+
+          {diplomas.length === 0 ? (
+            <Animated delay={150}>
+              <div className="premium-card rounded-2xl p-10 mt-8 text-center text-gray-400 max-w-2xl mx-auto">
+                <FileText className="w-10 h-10 mx-auto mb-3 text-gray-300" />
+                <p className="text-sm">{t.diplomas.empty}</p>
+              </div>
+            </Animated>
+          ) : (
+            <Animated delay={150}>
+              <div className="mt-10">
+                <PdfViewer url={diplomas[0].url} labels={t.diplomas.viewer} />
+              </div>
+            </Animated>
+          )}
+        </div>
+      </section>
+
+      {/* ═══════ MEDIA — видео и пресса ═══════ */}
+      <section className="py-6 md:py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionTitle badge={t.media.badge} title={t.media.title} highlight={t.media.highlight} badgeIcon={<Sparkles className="w-3.5 h-3.5" />} />
+          <Animated delay={100}>
+            <div className="premium-card rounded-2xl p-8 md:p-12">
+              <div className="grid md:grid-cols-3 gap-6">
+                {/* YouTube video 1 */}
+                <div className="relative rounded-2xl overflow-hidden aspect-video shadow-md">
+                  <iframe
+                    src="https://www.youtube.com/embed/Yh6FBPDpUW4?rel=0"
+                    title="YouTube video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full rounded-2xl"
+                    loading="lazy"
+                  />
+                </div>
+                {/* YouTube video 2 */}
+                <div className="relative rounded-2xl overflow-hidden aspect-video shadow-md">
+                  <iframe
+                    src="https://www.youtube.com/embed/euz3rvlupeE?rel=0"
+                    title="YouTube video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full rounded-2xl"
+                    loading="lazy"
+                  />
+                </div>
+                {/* Press article — SHN */}
+                <a
+                  href="https://www.shn.ch/sn_video/deshalb-machen-alina-und-patrice-bei-the-voice-of-germany-mit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-primary-50 to-amber-50 aspect-video flex items-center justify-center group cursor-pointer border border-primary-100/50 hover:shadow-lg transition-shadow"
+                >
+                  <div className="text-center p-4">
+                    <div className="w-14 h-14 rounded-full bg-white/80 shadow-lg flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                      <Globe className="w-6 h-6 text-primary-500" />
+                    </div>
+                    <p className="text-primary-600 text-sm font-semibold mb-1">Schaffhauser Nachrichten</p>
+                    <p className="text-gray-400 text-xs flex items-center justify-center gap-1">
+                      {lang === 'de' ? 'Artikel lesen' : lang === 'ru' ? 'Читать статью' : 'Read article'}
+                      <ExternalLink className="w-3 h-3" />
+                    </p>
                   </div>
-                ))}
+                </a>
               </div>
             </div>
           </Animated>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-6 md:py-8">
+      {/* ═══════ CTA ═══════ */}
+      <section className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Animated>
             <div className="featured-card rounded-3xl p-10 md:p-14">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t.cta.title}</h2>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/book" className="btn-primary text-lg">{t.cta.cta1}<ArrowRight className="w-5 h-5" /></Link>
-                <Link to="/adults" className="btn-secondary text-lg">{t.cta.cta2}<ArrowRight className="w-5 h-5" /></Link>
-              </div>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t.cta.title}</h2>
+              <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
+              <Link to="/book" className="btn-primary text-lg inline-flex">{t.cta.cta}<ArrowRight className="w-5 h-5" /></Link>
             </div>
           </Animated>
         </div>

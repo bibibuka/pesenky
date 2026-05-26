@@ -1,4 +1,5 @@
-﻿import { type Lang } from '../i18n';
+﻿import { Link } from 'react-router-dom';
+import { type Lang } from '../i18n';
 import { ArrowRight, MapPin, Mail, Phone, Clock, MessageCircle } from 'lucide-react';
 import Animated from '../components/Animated';
 import SectionTitle from '../components/SectionTitle';
@@ -8,6 +9,12 @@ import FaqItem from '../components/FaqItem';
 const pageT = {
   de: {
     hero: { title: 'Anfrage und', highlight: 'Kontakt', subtitle: 'Wählen Sie Ihre Richtung — wir helfen Ihnen, das passende Format zu finden.' },
+    directionCards: [
+      { title: 'Für Erwachsene', desc: 'Einzelstunden, Abos ab 5 Stunden.', link: '/adults' },
+      { title: 'Für Kinder (6–16)', desc: 'Einzel- und Mini-Gruppen ab 30 Min. Kostenlose Probestunde.', link: '/kids' },
+      { title: 'Konzertauftritt', desc: 'Professionelle Livemusik für Veranstaltungen.', link: '/artist' },
+      { title: 'Beratungsgespräch', desc: 'Unverbindliches Gespräch (15 Min.), um Ihr Ziel und das passende Format zu klären — kostenlos.' },
+    ],
     explanation: {
       badge: 'Anmeldung', title: 'Sie können sich', highlight: 'anmelden für',
     },
@@ -42,6 +49,12 @@ const pageT = {
   },
   en: {
     hero: { title: 'Booking and', highlight: 'Contact', subtitle: 'Choose your direction — we\'ll help you find the right format.' },
+    directionCards: [
+      { title: 'For Adults', desc: 'Individual sessions, subscriptions from 5 sessions.', link: '/adults' },
+      { title: 'For Kids (6–16)', desc: 'Individual and mini-groups from 30 min. Free trial lesson.', link: '/kids' },
+      { title: 'Concert Performance', desc: 'Professional live music for events.', link: '/artist' },
+      { title: 'Consultation', desc: 'Non-binding call (15 min) to discuss your goals and find the right format — free of charge.' },
+    ],
     explanation: {
       badge: 'Registration', title: 'You can sign up', highlight: 'for',
     },
@@ -76,6 +89,12 @@ const pageT = {
   },
   ru: {
     hero: { title: 'Запись и', highlight: 'контакты', subtitle: 'Выберите направление — мы поможем подобрать подходящий формат.' },
+    directionCards: [
+      { title: 'Для взрослых', desc: 'Индивидуальные занятия, абонементы от 5 занятий.', link: '/adults' },
+      { title: 'Для детей (6–16)', desc: 'Индивидуальные и минигруппы от 30 мин. Бесплатное пробное занятие.', link: '/kids' },
+      { title: 'Концертное выступление', desc: 'Профессиональная живая музыка для мероприятий.', link: '/artist' },
+      { title: 'Консультация', desc: 'Бесплатный звонок (15 мин.), чтобы обсудить цель и подобрать формат.' },
+    ],
     explanation: {
       badge: 'Запись', title: 'Вы можете записаться', highlight: 'на',
     },
@@ -101,7 +120,7 @@ const pageT = {
     faq: {
       badge: 'Мини-FAQ', title: 'Часто', highlight: 'спрашивают',
       items: [
-        { q: 'Как быстро вы отвечаете?', a: 'Обычно в течение 24 часов.' },
+        { q: 'Как быстро Вы отвечаете?', a: 'Обычно в течение 24 часов.' },
         { q: 'Можно ли онлайн?', a: 'Да, онлайн-форматы доступны.' },
         { q: 'На каком языке?', a: 'Немецкий, английский и русский.' },
         { q: 'Есть ли подарочные сертификаты?', a: 'Да! Идеальный премиальный подарок.' },
@@ -113,8 +132,29 @@ const pageT = {
 export default function BookPage({ lang }: { lang: Lang }) {
   const t = pageT[lang];
   return (
-    <main className="bg-white/20 backdrop-blur-sm relative z-10 min-h-screen">
+    <main className="relative z-10 min-h-screen">
       <HeroSection title={t.hero.title} titleHighlight={t.hero.highlight} subtitle={t.hero.subtitle} compact />
+
+      {/* DIRECTION CARDS */}
+      <section className="py-5 md:py-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {t.directionCards.map((card, i) => (
+              <Animated key={i} delay={i * 80}>
+                <div className="premium-card rounded-2xl p-5 h-full flex flex-col">
+                  <h3 className="font-display text-base font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{card.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed flex-1">{card.desc}</p>
+                  {card.link && (
+                    <Link to={card.link} className="text-primary-600 text-sm font-medium mt-3 inline-flex items-center gap-1 hover:text-primary-700 transition-colors">
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
+                </div>
+              </Animated>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* FORM */}
       <section className="py-5 md:py-6">
@@ -122,7 +162,7 @@ export default function BookPage({ lang }: { lang: Lang }) {
           <SectionTitle badge={t.explanation.badge} title={t.explanation.title} highlight={t.explanation.highlight} badgeIcon={<Mail className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
             <div className="premium-card rounded-2xl p-8">
-              <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+              <form action="mailto:hello@voicelab-sh.ch" method="POST" encType="text/plain" className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div><label className="text-sm font-medium text-gray-700 mb-1.5 block">{t.form.name}</label><input type="text" className="form-input" /></div>
                   <div><label className="text-sm font-medium text-gray-700 mb-1.5 block">{t.form.email}</label><input type="email" className="form-input" /></div>

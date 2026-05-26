@@ -11,11 +11,14 @@ export default function ImageModal({ isOpen, imageUrl, onClose }: ImageModalProp
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('lightbox-open');
     } else {
       document.body.style.overflow = 'unset';
+      document.body.classList.remove('lightbox-open');
     }
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.classList.remove('lightbox-open');
     };
   }, [isOpen]);
 
@@ -35,6 +38,7 @@ export default function ImageModal({ isOpen, imageUrl, onClose }: ImageModalProp
       <img 
         src={imageUrl} 
         alt="Review fullscreen" 
+        decoding="async"
         className="max-h-full max-w-full object-contain rounded-lg shadow-2xl"
         onClick={(e) => e.stopPropagation()} 
       />
