@@ -48,11 +48,11 @@ export default function ReviewsPage({ lang }: { lang: Lang }) {
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
             {screenshots.map((imgSrc, i) => (
               <Animated key={i} delay={i * 100}>
-                <div 
-                  className="relative group w-full aspect-video sm:aspect-auto sm:h-[300px] md:h-[280px] lg:h-[320px] rounded-2xl overflow-hidden shadow-lg border border-white/40 bg-white/50 cursor-pointer flex justify-center items-center"
+                <div
+                  className="relative group w-full h-[260px] sm:h-[300px] md:h-[280px] lg:h-[320px] rounded-2xl overflow-hidden shadow-lg border border-white/40 bg-white/50 cursor-pointer flex justify-center items-center"
                   onClick={() => setSelectedImage(imgSrc)}
                 >
                   <img 
@@ -72,7 +72,7 @@ export default function ReviewsPage({ lang }: { lang: Lang }) {
       <section className="py-10 md:py-14">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Animated>
-            <div className="relative overflow-hidden rounded-3xl border border-primary-100/60 bg-gradient-to-br from-primary-50 via-white to-amber-50/50 p-8 md:p-12 text-center">
+            <div className="relative overflow-hidden rounded-3xl border border-primary-100/60 bg-gradient-to-br from-primary-50 via-white to-amber-50/50 p-6 sm:p-8 md:p-12 text-center">
               {/* Decorative accents */}
               <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-primary-100/30 to-transparent rounded-bl-full pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-amber-100/30 to-transparent rounded-tr-full pointer-events-none" />
@@ -84,12 +84,12 @@ export default function ReviewsPage({ lang }: { lang: Lang }) {
                 </div>
                 
                 {/* Title */}
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 text-balance">
                   {t.social.title}
                 </h2>
-                
+
                 {/* Description */}
-                <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+                <p className="text-gray-500 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl mx-auto">
                   {t.social.text}
                 </p>
               </div>
@@ -102,11 +102,11 @@ export default function ReviewsPage({ lang }: { lang: Lang }) {
       <section className="py-6 md:py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Animated>
-            <div className="featured-card rounded-3xl p-10 md:p-14">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t.cta.title}</h2>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/book" className="btn-primary text-lg">{t.cta.cta1}<ArrowRight className="w-5 h-5" /></Link>
-                <Link to="/book" className="btn-secondary text-lg">{t.cta.cta2}<ArrowRight className="w-5 h-5" /></Link>
+            <div className="featured-card rounded-3xl p-6 sm:p-10 md:p-14">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-5 sm:mb-6 text-balance">{t.cta.title}</h2>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
+                <Link to="/book" className="btn-primary text-base sm:text-lg justify-center">{t.cta.cta1}<ArrowRight className="w-5 h-5" /></Link>
+                <Link to="/book" className="btn-secondary text-base sm:text-lg justify-center">{t.cta.cta2}<ArrowRight className="w-5 h-5" /></Link>
               </div>
             </div>
           </Animated>

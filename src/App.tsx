@@ -188,10 +188,10 @@ export default function App() {
       <div className="relative" style={{ zIndex: 1 }}>
         {/* ═══════ NAVBAR ═══════ */}
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || location.pathname !== '/' ? 'glass-nav shadow-sm' : 'bg-transparent'}`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16 md:h-18">
-              <Link to="/" className="flex items-center">
-                <img src={`${import.meta.env.BASE_URL}brand/logo.png`} alt="Académie des Talents" decoding="async" className="h-[60px] sm:h-[66px] w-auto object-contain" />
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16 md:h-18 gap-2">
+              <Link to="/" className="flex items-center shrink-0">
+                <img src={`${import.meta.env.BASE_URL}brand/logo.png`} alt="Académie des Talents" decoding="async" className="h-[48px] sm:h-[60px] md:h-[66px] w-auto object-contain" />
               </Link>
 
               <div className="hidden lg:flex items-center gap-5">
@@ -234,24 +234,24 @@ export default function App() {
                 })}
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="lang-toggle">
+              <div className="flex items-center gap-1.5 sm:gap-3">
+                <div className="lang-toggle shrink-0">
                   <button onClick={() => setLang('de')} className={lang === 'de' ? 'active' : ''}>DE</button>
                   <button onClick={() => setLang('en')} className={lang === 'en' ? 'active' : ''}>EN</button>
                   <button onClick={() => setLang('ru')} className={lang === 'ru' ? 'active' : ''}>RU</button>
                 </div>
-                <Link to="/book" className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 bg-primary-700 text-white text-sm font-semibold hover:bg-primary-800 transition-colors shadow-sm">
+                <Link to="/book" className="btn-primary hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold">
                   {t.nav.cta}
                 </Link>
-                <button onClick={() => setMobileMenu(!mobileMenu)} className="lg:hidden p-2 text-gray-700">
-                  {mobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                <button onClick={() => setMobileMenu(!mobileMenu)} aria-label="Menu" className="lg:hidden p-2 text-gray-700 shrink-0">
+                  {mobileMenu ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
               </div>
             </div>
           </div>
 
           {mobileMenu && (
-            <div className="lg:hidden glass-nav border-t border-gray-100 shadow-lg">
+            <div className="lg:hidden glass-nav border-t border-gray-100 shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
               <div className="px-4 py-4 space-y-1">
                 {navItems.map((item) => {
                   if ('children' in item && item.children) {
@@ -261,7 +261,7 @@ export default function App() {
                       <div key={item.key}>
                         <button
                           onClick={() => setMobileExpanded(isExpanded ? null : item.key!)}
-                          className={`w-full flex items-center justify-between py-2.5 px-3 font-medium rounded-lg transition-colors ${isActive ? 'text-primary-700 bg-primary-50' : 'text-gray-700 hover:bg-primary-50'}`}
+                          className={`w-full flex items-center justify-between py-3 px-3 font-medium rounded-lg transition-colors ${isActive ? 'text-primary-700 bg-primary-50' : 'text-gray-700 hover:bg-primary-50'}`}
                         >
                           <span>{item.label}</span>
                           <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
@@ -273,7 +273,7 @@ export default function App() {
                                 key={child.href}
                                 to={child.href}
                                 onClick={() => { setMobileMenu(false); setMobileExpanded(null); }}
-                                className={`block py-2 px-3 text-sm font-medium rounded-lg transition-colors ${location.pathname === child.href ? 'text-primary-700 bg-primary-50' : 'text-gray-500 hover:text-primary-700 hover:bg-primary-50'}`}
+                                className={`block py-2.5 px-3 text-sm font-medium rounded-lg transition-colors ${location.pathname === child.href ? 'text-primary-700 bg-primary-50' : 'text-gray-500 hover:text-primary-700 hover:bg-primary-50'}`}
                               >
                                 {child.label}
                               </Link>
@@ -285,11 +285,11 @@ export default function App() {
                   }
                   return (
                     <Link key={item.href} to={item.href!} onClick={() => setMobileMenu(false)}
-                      className="block py-2.5 px-3 text-gray-700 font-medium rounded-lg hover:bg-primary-50 transition-colors">{item.label}</Link>
+                      className={`block py-3 px-3 font-medium rounded-lg transition-colors ${location.pathname === item.href ? 'text-primary-700 bg-primary-50' : 'text-gray-700 hover:bg-primary-50'}`}>{item.label}</Link>
                   );
                 })}
                 <Link to="/book" onClick={() => setMobileMenu(false)}
-                  className="block py-2.5 px-3 text-primary-700 font-semibold mt-2">{t.nav.cta} →</Link>
+                  className="btn-primary block text-center py-3 px-6 text-white font-semibold mt-3 w-full">{t.nav.cta}</Link>
               </div>
             </div>
           )}
@@ -311,12 +311,12 @@ export default function App() {
         </Suspense>
 
         {/* ═══════ FOOTER ═══════ */}
-        <footer className="bg-white/75 backdrop-blur-md border-t border-primary-100/30 py-12">
+        <footer className="bg-white/75 backdrop-blur-md border-t border-primary-100/30 py-10 sm:py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-4 gap-8 mb-8">
-              <div className="md:col-span-1">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 mb-8">
+              <div className="col-span-2 lg:col-span-1">
                 <div className="mb-4">
-                  <img src={`${import.meta.env.BASE_URL}brand/logo.png`} alt="Académie des Talents" loading="lazy" decoding="async" className="h-[60px] w-auto object-contain" />
+                  <img src={`${import.meta.env.BASE_URL}brand/logo.png`} alt="Académie des Talents" loading="lazy" decoding="async" className="h-[54px] sm:h-[60px] w-auto object-contain" />
                 </div>
                 <p className="text-sm text-gray-400">{t.footer.tagline}</p>
               </div>
@@ -351,7 +351,7 @@ export default function App() {
               </div>
             </div>
             <div className="border-t border-gray-100 pt-6 text-center">
-              <p className="text-sm text-gray-400">© {new Date().getFullYear()} Académie des Talents. {t.footer.rights}</p>
+              <p className="text-xs sm:text-sm text-gray-400">© {new Date().getFullYear()} Académie des Talents. {t.footer.rights}</p>
             </div>
           </div>
         </footer>

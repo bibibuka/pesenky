@@ -545,12 +545,12 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {t.forWhom.cards.map((card, i) => (
               <Animated key={i} delay={i * 150}>
-                <div className="premium-card p-8 h-full">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary-50 to-amber-50 flex items-center justify-center text-primary-600 mb-5">
+                <div className="premium-card p-6 sm:p-8 h-full">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary-50 to-amber-50 flex items-center justify-center text-primary-600 mb-4 sm:mb-5">
                     {cardIconMap[card.icon]}
                   </div>
-                  <h3 className="font-display text-xl font-bold text-gray-900 mb-3 min-h-[2lh] text-balance">{card.title}</h3>
-                  <p className="text-gray-500 text-base leading-relaxed">{card.desc}</p>
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-gray-900 mb-3 min-h-[2lh] text-balance">{card.title}</h3>
+                  <p className="text-gray-500 text-sm sm:text-base leading-relaxed">{card.desc}</p>
                 </div>
               </Animated>
             ))}
@@ -562,11 +562,11 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
       <section className="py-3 md:py-5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Animated>
-            <div className="relative rounded-3xl overflow-hidden shadow-xl group h-64 md:h-80">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-primary-900/40 to-transparent z-10" />
+            <div className="relative rounded-3xl overflow-hidden shadow-xl group h-56 sm:h-64 md:h-80">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-900/80 via-primary-900/50 to-primary-900/20 z-10" />
               <img src={IMG.stage} alt="Stage presence" loading="lazy" decoding="async" className="w-full h-full object-cover object-[center_35%] group-hover:scale-105 transition-transform duration-1000" />
-              <div className="absolute top-1/2 left-8 md:left-12 -translate-y-1/2 z-20 max-w-md">
-                <p className="text-xl md:text-2xl font-display font-bold leading-snug" style={{ color: '#FFFFFF' }}>
+              <div className="absolute top-1/2 left-5 sm:left-8 md:left-12 right-5 sm:right-auto -translate-y-1/2 z-20 max-w-md">
+                <p className="text-lg sm:text-xl md:text-2xl font-display font-bold leading-snug text-balance" style={{ color: '#FFFFFF' }}>
                   {lang === 'de' ? '«Die Stimme verrät, wer wir wirklich sind.»' : lang === 'ru' ? '«Голос раскрывает то, что невозможно выразить словами.»' : '"The voice reveals what words cannot express."'}
                 </p>
               </div>
@@ -585,21 +585,21 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
           {/* Row 1: Single + Online + Events */}
           <div className="grid md:grid-cols-3 gap-6 mb-6">
             <Animated delay={100}>
-              <div className="featured-card rounded-2xl p-7 h-full flex flex-col">
+              <div className="featured-card rounded-2xl p-5 sm:p-7 h-full flex flex-col">
                 <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.pricing.single.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.pricing.single.duration}</p>
                 <div className="font-display text-2xl font-bold gradient-text">{t.pricing.single.price}</div>
               </div>
             </Animated>
             <Animated delay={150}>
-              <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+              <div className="premium-card rounded-2xl p-5 sm:p-7 h-full flex flex-col">
                 <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.packages.online.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.packages.online.desc}</p>
                 <div className="font-display text-2xl font-bold gradient-text">{t.packages.online.price}</div>
               </div>
             </Animated>
             <Animated delay={200}>
-              <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+              <div className="premium-card rounded-2xl p-5 sm:p-7 h-full flex flex-col">
                 <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.packages.events.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.packages.events.desc}</p>
                 <div className="font-display text-2xl font-bold gradient-text whitespace-pre-line">{t.packages.events.price}</div>
@@ -610,9 +610,9 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
 
           {/* Subscriptions header */}
           <Animated delay={100}>
-            <div className="text-center mb-8">
-              <h3 className="font-display text-2xl font-bold text-gray-900 mb-2">{t.pricing.subscriptions.title}</h3>
-              <p className="text-gray-400 max-w-xl mx-auto">{t.pricing.subscriptions.subtitle}</p>
+            <div className="text-center mb-6 sm:mb-8">
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-2">{t.pricing.subscriptions.title}</h3>
+              <p className="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">{t.pricing.subscriptions.subtitle}</p>
             </div>
           </Animated>
 
@@ -620,10 +620,10 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
           <div className="grid sm:grid-cols-3 gap-6 mb-6">
             {t.pricing.subscriptions.items.map((sub, i) => (
               <Animated key={i} delay={200 + i * 100}>
-                <div className={`rounded-2xl p-7 h-full flex flex-col ${i === 2 ? 'featured-card ring-2 ring-primary-200' : 'premium-card'}`}>
+                <div className={`rounded-2xl p-5 sm:p-7 h-full flex flex-col ${i === 2 ? 'featured-card ring-2 ring-primary-200' : 'premium-card'}`}>
                   <h3 className="font-display text-xl font-bold text-gray-900 mb-2">{sub.lessons} {lang === 'de' ? 'Stunden' : lang === 'ru' ? 'занятий' : 'lessons'}</h3>
                   <p className="text-gray-500 text-sm mb-4 flex-1">{sub.perLesson}</p>
-                  <div className="font-display text-2xl font-bold gradient-text">{sub.price}</div>
+                  <div className="font-display text-xl sm:text-2xl font-bold gradient-text break-words">{sub.price}</div>
                   <p className="text-green-600 text-xs font-semibold mt-2">
                     {lang === 'de' ? 'Sparen' : lang === 'ru' ? 'Экономия' : 'Save'} {sub.save}
                   </p>
@@ -640,10 +640,10 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
           <div className="grid md:grid-cols-3 gap-6 mb-6">
             {t.packages.items.map((pkg, i) => (
               <Animated key={i} delay={i * 120}>
-                <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+                <div className="premium-card rounded-2xl p-5 sm:p-7 h-full flex flex-col">
                   <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{pkg.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{pkg.desc}</p>
-                  <div className="font-display text-2xl font-bold gradient-text">{pkg.price}</div>
+                  <div className="font-display text-xl sm:text-2xl font-bold gradient-text break-words">{pkg.price}</div>
                   {pkg.bonus && <p className="text-gray-400 text-xs leading-relaxed mt-2">{pkg.bonus}</p>}
                 </div>
               </Animated>
@@ -652,7 +652,7 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
 
           {/* Row 4: Vouchers */}
           <Animated delay={360}>
-            <div className="premium-card rounded-2xl p-7 max-w-md mx-auto text-center">
+            <div className="premium-card rounded-2xl p-5 sm:p-7 max-w-md mx-auto text-center">
               <h3 className="font-display text-xl font-bold text-gray-900 mb-2">{t.packages.vouchers.title}</h3>
               <p className="text-gray-500 text-sm leading-relaxed mb-4">{t.packages.vouchers.desc}</p>
               <div className="font-display text-2xl font-bold gradient-text">{t.packages.vouchers.price}</div>
@@ -668,7 +668,7 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
           <div className="grid md:grid-cols-3 gap-6">
             {t.whyDifferent.blocks.map((block, i) => (
               <Animated key={i} delay={i * 120}>
-                <div className="featured-card p-7 h-full text-center">
+                <div className="featured-card p-5 sm:p-7 h-full text-center">
                   <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-amber-100 flex items-center justify-center text-primary-600 mx-auto mb-5">
                     {i === 0 ? <Mic className="w-7 h-7" /> : i === 1 ? <Shield className="w-7 h-7" /> : <Heart className="w-7 h-7" />}
                   </div>
@@ -697,12 +697,12 @@ export default function AdultsPage({ lang }: { lang: Lang }) {
       <section className="py-6 md:py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Animated>
-            <div className="featured-card p-10 md:p-14">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t.cta.title}</h2>
-              <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/book" className="btn-primary text-lg">{t.cta.cta1}<ArrowRight className="w-5 h-5" /></Link>
-                <Link to="/book" className="btn-secondary text-lg">{t.cta.cta2}<ArrowRight className="w-5 h-5" /></Link>
+            <div className="featured-card p-6 sm:p-10 md:p-14">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">{t.cta.title}</h2>
+              <p className="text-gray-500 text-base sm:text-lg mb-6 sm:mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
+                <Link to="/book" className="btn-primary text-base sm:text-lg justify-center">{t.cta.cta1}<ArrowRight className="w-5 h-5" /></Link>
+                <Link to="/book" className="btn-secondary text-base sm:text-lg justify-center">{t.cta.cta2}<ArrowRight className="w-5 h-5" /></Link>
               </div>
             </div>
           </Animated>

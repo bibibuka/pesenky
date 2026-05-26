@@ -19,7 +19,7 @@ export default function SectionTitle({ badge, title, highlight, badgeIcon, class
         </Animated>
       )}
       <Animated delay={100}>
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mt-2 text-balance">
+        <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mt-2 text-balance leading-tight">
           {title} <span className="gradient-text">{highlight}</span>
         </h2>
       </Animated>

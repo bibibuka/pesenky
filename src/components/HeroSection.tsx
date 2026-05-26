@@ -36,20 +36,20 @@ export default function HeroSection({
   compact = false,
 }: HeroSectionProps) {
   const btnClass = (variant: string) => {
-    if (variant === 'gold') return 'btn-gold text-lg group';
-    if (variant === 'secondary') return 'btn-secondary text-lg group';
-    return 'btn-primary text-lg group';
+    if (variant === 'gold') return 'btn-gold text-base sm:text-lg group w-full sm:w-auto';
+    if (variant === 'secondary') return 'btn-secondary text-base sm:text-lg group w-full sm:w-auto';
+    return 'btn-primary text-base sm:text-lg group w-full sm:w-auto';
   };
 
   return (
-    <section className={`relative flex items-center ${compact ? 'pt-[44px] pb-4 lg:pt-[60px] lg:pb-5' : 'pt-[44px] pb-5 lg:pt-[60px] lg:pb-6'} overflow-hidden`}>
+    <section className={`relative flex items-center ${compact ? 'pt-20 pb-4 sm:pt-24 lg:pt-[60px] lg:pb-5' : 'pt-20 pb-5 sm:pt-24 lg:pt-[60px] lg:pb-6'} overflow-hidden`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 relative z-10 w-full">
-        <div className={`grid ${image ? 'lg:grid-cols-2' : ''} gap-12 lg:gap-8 items-center`}>
+        <div className={`grid ${image ? 'lg:grid-cols-2' : ''} gap-8 sm:gap-12 lg:gap-8 items-center`}>
           {/* Text Content */}
           <div className={`max-w-3xl mx-auto text-center ${image ? 'lg:mx-0 lg:text-left' : ''}`}>
             {badge && (
               <Animated>
-                <span className="badge mb-6 inline-flex">
+                <span className="badge mb-4 sm:mb-6 inline-flex">
                   {badgeIcon || <Sparkles className="w-3.5 h-3.5" />}
                   {badge}
                 </span>
@@ -57,21 +57,21 @@ export default function HeroSection({
             )}
 
             <Animated delay={150}>
-              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
+              <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-4 sm:mb-6 text-balance">
                 {title}{' '}
                 <span className="gradient-text">{titleHighlight}</span>
               </h1>
             </Animated>
 
             <Animated delay={300}>
-              <p className="text-lg md:text-xl text-gray-500 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+              <p className="text-base sm:text-lg md:text-xl text-gray-500 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0">
                 {subtitle}
               </p>
             </Animated>
 
             {ctas.length > 0 && (
               <Animated delay={450}>
-                <div className={`flex flex-col sm:flex-row items-center ${image ? 'lg:justify-start' : ''} justify-center gap-4`}>
+                <div className={`flex flex-col sm:flex-row items-stretch sm:items-center ${image ? 'lg:justify-start' : ''} justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto`}>
                   {ctas.map((cta, i) =>
                     cta.isRoute ? (
                       <Link key={i} to={cta.href} className={btnClass(cta.variant || 'primary')}>

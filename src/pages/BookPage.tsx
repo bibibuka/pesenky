@@ -161,7 +161,7 @@ export default function BookPage({ lang }: { lang: Lang }) {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.explanation.badge} title={t.explanation.title} highlight={t.explanation.highlight} badgeIcon={<Mail className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
-            <div className="premium-card rounded-2xl p-8">
+            <div className="premium-card rounded-2xl p-5 sm:p-8">
               <form action="mailto:hello@voicelab-sh.ch" method="POST" encType="text/plain" className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div><label className="text-sm font-medium text-gray-700 mb-1.5 block">{t.form.name}</label><input type="text" className="form-input" /></div>
@@ -193,7 +193,7 @@ export default function BookPage({ lang }: { lang: Lang }) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <Animated delay={100}>
-              <div className="premium-card rounded-2xl p-6 h-full">
+              <div className="premium-card rounded-2xl p-5 sm:p-6 h-full">
                 <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mb-4"><MessageCircle className="w-6 h-6 text-primary-500" /></div>
                 <h3 className="font-display text-lg font-bold text-gray-900 mb-3">{t.contactOptions.badge}</h3>
                 <div className="space-y-2 text-sm text-gray-600">
@@ -205,7 +205,7 @@ export default function BookPage({ lang }: { lang: Lang }) {
               </div>
             </Animated>
             <Animated delay={200}>
-              <div className="premium-card rounded-2xl p-6 h-full">
+              <div className="premium-card rounded-2xl p-5 sm:p-6 h-full">
                 <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mb-4"><MapPin className="w-6 h-6 text-primary-500" /></div>
                 <h3 className="font-display text-lg font-bold text-gray-900 mb-3">{t.location.badge}</h3>
                 <p className="font-semibold text-gray-800">{t.location.city}</p>
@@ -214,7 +214,7 @@ export default function BookPage({ lang }: { lang: Lang }) {
               </div>
             </Animated>
             <Animated delay={300}>
-              <div className="premium-card rounded-2xl p-6 h-full">
+              <div className="premium-card rounded-2xl p-5 sm:p-6 h-full">
                 <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mb-4"><Clock className="w-6 h-6 text-primary-500" /></div>
                 <h3 className="font-display text-lg font-bold text-gray-900 mb-3">{t.hours.badge}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{t.hours.text}</p>

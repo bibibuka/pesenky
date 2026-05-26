@@ -1,9 +1,11 @@
 ﻿import { Link } from 'react-router-dom';
+import { useRef, useState } from 'react';
 import { type Lang } from '../i18n';
-import { ArrowRight, CheckCircle2, Music, Star, Award, Play, Video } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Music, Star, Award, Play, Video, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import Animated from '../components/Animated';
 import SectionTitle from '../components/SectionTitle';
 import HeroSection from '../components/HeroSection';
+import ImageModal from '../components/ImageModal';
 import { getMediaImage, getMediaImages } from '../utils/media';
 
 const pageT = {
@@ -16,6 +18,9 @@ const pageT = {
     },
     media: {
       badge: 'Galerie', title: 'Eindrücke von', highlight: 'der Bühne',
+    },
+    reviews: {
+      badge: 'Bewertungen', title: 'Stimmen unserer', highlight: 'Gäste',
     },
     whyInvite: {
       badge: 'Warum wir', title: 'Warum Veranstalter', highlight: 'einladen',
@@ -40,6 +45,9 @@ const pageT = {
       p2: 'The connection between stage and teaching is at the core of my work: the stage nourishes the teaching, and teaching deepens the stage presence.',
     },
     media: { badge: 'Gallery', title: 'Impressions from', highlight: 'the Stage' },
+    reviews: {
+      badge: 'Reviews', title: 'What Our', highlight: 'Guests Say',
+    },
     whyInvite: {
       badge: 'Why Us', title: 'Why organizers', highlight: 'invite us',
       items: ['Professional musical quality', 'Vibrant, emotional delivery', 'Aesthetic and stylish format', 'Years of stage experience', 'Individually adapted program'],
@@ -59,11 +67,14 @@ const pageT = {
     hero: { title: 'Живые выступления', highlight: 'на Ваше мероприятие', subtitle: 'Живые выступления для культурных мероприятий любого уровня, а также для частных и камерных форматов.', cta1: 'Пригласить на выступление', cta2: 'Отправить запрос' },
     about: {
       badge: 'Концертная деятельность', title: 'Обо мне', highlight: 'на сцене',
-      p1: 'Как профессиональная певица и четвертьфиналистка шоу «Голос Германии» (The Voice of Germany), я привношу живую, эмоциональную музыку на сцену — будь то камерные вечера, культурные мероприятия или праздники.',
-      p2: 'Я создаю атмосферу, которая наполняет любое мероприятие красотой, делая его особенным и запоминающимся. Связь между сценой и преподаванием — основа моей работы: сцена питает педагогику, а педагогика углубляет присутствие на сцене.',
+      p1: 'Сцена — моя жизнь. С раннего детства я живу музыкой и сегодня с радостью делюсь этой любовью со зрителем.',
+      p2: 'Я создаю атмосферу, которая наполняет любое мероприятие красотой, делая его особенным и запоминающимся.',
     },
     media: { badge: 'Галерея', title: 'Впечатления', highlight: 'со сцены' },
     interviews: { badge: 'Интервью', title: 'Интервью', highlight: 'и СМИ' },
+    reviews: {
+      badge: 'Отзывы', title: 'Отзывы', highlight: 'о концертах',
+    },
     whyInvite: {
       badge: 'Почему мы', title: 'Почему организаторы', highlight: 'приглашают',
       items: ['Профессиональное музыкальное качество', 'Живая, эмоциональная подача', 'Эстетичный и стильный формат', 'Многолетний сценический опыт', 'Индивидуально адаптированная программа'],
@@ -87,6 +98,8 @@ const mediaImagesBackup = [
 
 export default function ArtistPage({ lang }: { lang: Lang }) {
   const t = pageT[lang];
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const reviewsScrollerRef = useRef<HTMLDivElement | null>(null);
 
   // Load hero and gallery images dynamically
   const heroImage = getMediaImage('artist/hero') || "/images/placeholder.png";
@@ -95,6 +108,19 @@ export default function ArtistPage({ lang }: { lang: Lang }) {
   // Get all images from artist/gallery, or fallback if empty
   const loadedGallery = getMediaImages('artist/gallery');
   const mediaImages = loadedGallery.length > 0 ? loadedGallery : mediaImagesBackup;
+
+  // Load concert review images
+  const concertReviews = getMediaImages('artist/reviews');
+
+  const scrollReviews = (direction: 'left' | 'right') => {
+    const scroller = reviewsScrollerRef.current;
+    if (!scroller) return;
+    const scrollAmount = Math.max(scroller.clientWidth * 0.78, 280);
+    scroller.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <main className="relative z-10 min-h-screen">
@@ -130,7 +156,7 @@ export default function ArtistPage({ lang }: { lang: Lang }) {
               </div>
             </Animated>
             <Animated delay={100} className="order-2 md:order-2">
-              <div className="premium-card rounded-2xl p-8 md:p-10 space-y-5 h-full flex flex-col justify-center">
+              <div className="premium-card rounded-2xl p-6 sm:p-8 md:p-10 space-y-4 sm:space-y-5 h-full flex flex-col justify-center">
                 <p className="text-gray-600 text-lg leading-relaxed">{t.about.p1}</p>
                 <p className="text-gray-600 text-lg leading-relaxed">{t.about.p2}</p>
               </div>
@@ -190,6 +216,60 @@ export default function ArtistPage({ lang }: { lang: Lang }) {
         </section>
       )}
 
+      {/* CONCERT REVIEWS — horizontal scrollable carousel */}
+      {concertReviews.length > 0 && (
+        <section className="py-5 md:py-6 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <SectionTitle badge={t.reviews.badge} title={t.reviews.title} highlight={t.reviews.highlight} badgeIcon={<Quote className="w-3.5 h-3.5" />} />
+          </div>
+
+          <div
+            ref={reviewsScrollerRef}
+            className="flex overflow-x-auto gap-4 sm:gap-6 px-4 sm:px-6 lg:px-8 pb-8 snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {concertReviews.map((imgSrc, i) => (
+              <Animated key={i} delay={i * 100} className="snap-center shrink-0">
+                <div 
+                  className="relative group h-[200px] sm:h-[260px] md:h-[300px] w-auto rounded-3xl overflow-hidden shadow-lg border border-white/40 bg-white/50 cursor-pointer"
+                  onClick={() => setSelectedImage(imgSrc)}
+                >
+                  <img 
+                    src={imgSrc} 
+                    alt={`Review ${i + 1}`}
+                    className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </Animated>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center gap-4 mt-2 mb-2 px-4">
+            {concertReviews.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  aria-label={lang === 'de' ? 'Nach links scrollen' : lang === 'ru' ? 'Прокрутить влево' : 'Scroll left'}
+                  onClick={() => scrollReviews('left')}
+                  className="w-12 h-12 rounded-full border border-black/5 bg-white/80 backdrop-blur-md text-gray-700 flex items-center justify-center shadow-sm transition-all hover:-translate-x-0.5 hover:border-primary-200 hover:text-primary-600 hover:shadow-md"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  type="button"
+                  aria-label={lang === 'de' ? 'Nach rechts scrollen' : lang === 'ru' ? 'Прокрутить вправо' : 'Scroll right'}
+                  onClick={() => scrollReviews('right')}
+                  className="w-12 h-12 rounded-full border border-black/5 bg-white/80 backdrop-blur-md text-gray-700 flex items-center justify-center shadow-sm transition-all hover:translate-x-0.5 hover:border-primary-200 hover:text-primary-600 hover:shadow-md"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* WHY INVITE */}
       <section className="py-5 md:py-6">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -214,10 +294,10 @@ export default function ArtistPage({ lang }: { lang: Lang }) {
           <div className="grid md:grid-cols-3 gap-6">
             {t.packages.items.map((pkg, i) => (
               <Animated key={i} delay={i * 120}>
-                <div className={`rounded-2xl p-7 h-full flex flex-col ${i === 1 ? 'featured-card ring-2 ring-primary-200' : 'premium-card'}`}>
+                <div className={`rounded-2xl p-5 sm:p-7 h-full flex flex-col ${i === 1 ? 'featured-card ring-2 ring-primary-200' : 'premium-card'}`}>
                   <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{pkg.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{pkg.desc}</p>
-                  <div className="font-display text-2xl font-bold gradient-text">{pkg.price}</div>
+                  <div className="font-display text-xl sm:text-2xl font-bold gradient-text break-words">{pkg.price}</div>
                 </div>
               </Animated>
             ))}
@@ -230,17 +310,23 @@ export default function ArtistPage({ lang }: { lang: Lang }) {
       <section className="py-6 md:py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Animated>
-            <div className="featured-card rounded-3xl p-10 md:p-14">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t.cta.title}</h2>
-              <p className="text-gray-500 text-lg mb-8">{t.cta.subtitle}</p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/book" className="btn-primary text-lg">{t.cta.cta1}<ArrowRight className="w-5 h-5" /></Link>
-                <Link to="/book" className="btn-secondary text-lg">{t.cta.cta2}<ArrowRight className="w-5 h-5" /></Link>
+            <div className="featured-card rounded-3xl p-6 sm:p-10 md:p-14">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">{t.cta.title}</h2>
+              <p className="text-gray-500 text-base sm:text-lg mb-6 sm:mb-8">{t.cta.subtitle}</p>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
+                <Link to="/book" className="btn-primary text-base sm:text-lg justify-center">{t.cta.cta1}<ArrowRight className="w-5 h-5" /></Link>
+                <Link to="/book" className="btn-secondary text-base sm:text-lg justify-center">{t.cta.cta2}<ArrowRight className="w-5 h-5" /></Link>
               </div>
             </div>
           </Animated>
         </div>
       </section>
+
+      <ImageModal 
+        isOpen={!!selectedImage} 
+        imageUrl={selectedImage} 
+        onClose={() => setSelectedImage(null)} 
+      />
     </main>
   );
 }

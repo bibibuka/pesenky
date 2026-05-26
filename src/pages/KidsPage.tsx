@@ -519,12 +519,12 @@ export default function KidsPage({ lang }: { lang: Lang }) {
           <div className="grid sm:grid-cols-2 gap-6">
             {t.forWhom.cards.map((card, i) => (
               <Animated key={i} delay={i * 120}>
-                <div className="premium-card rounded-2xl p-7 h-full flex gap-5 items-start">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-50 to-primary-50 flex items-center justify-center text-primary-500 shrink-0">
+                <div className="premium-card rounded-2xl p-5 sm:p-7 h-full flex gap-4 sm:gap-5 items-start">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-pink-50 to-primary-50 flex items-center justify-center text-primary-500 shrink-0">
                     {cardIcons[card.icon]}
                   </div>
-                  <div>
-                    <h3 className="font-display text-lg font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{card.title}</h3>
+                  <div className="min-w-0">
+                    <h3 className="font-display text-base sm:text-lg font-bold text-gray-900 mb-2 text-balance">{card.title}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
                   </div>
                 </div>
@@ -564,7 +564,7 @@ export default function KidsPage({ lang }: { lang: Lang }) {
                   t.benefits.items.length % 3 === 2 && i === t.benefits.items.length - 1 ? 'lg:col-start-7' : '',
                 ].join(' ')}
               >
-                <div className="premium-card rounded-2xl p-6 h-full">
+                <div className="premium-card rounded-2xl p-5 sm:p-6 h-full">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center text-green-500 mb-4">
                     {benefitIcons[item.icon]}
                   </div>
@@ -582,7 +582,7 @@ export default function KidsPage({ lang }: { lang: Lang }) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.lessonFlow.badge} title={t.lessonFlow.title} highlight={t.lessonFlow.highlight} badgeIcon={<Sun className="w-3.5 h-3.5" />} />
           <Animated delay={50}>
-            <p className="text-center text-gray-500 text-lg mb-10 -mt-8 max-w-2xl mx-auto">{t.lessonFlow.intro}</p>
+            <p className="text-center text-gray-500 text-lg mb-10 -mt-6 max-w-2xl mx-auto">{t.lessonFlow.intro}</p>
           </Animated>
           <div className="relative">
             {/* vertical line */}
@@ -590,14 +590,14 @@ export default function KidsPage({ lang }: { lang: Lang }) {
             <div className="space-y-6">
               {t.lessonFlow.steps.map((step, i) => (
                 <Animated key={i} delay={i * 120}>
-                  <div className="flex gap-5 sm:gap-8 items-start">
-                    <div className="relative z-10 w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-pink-400 flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-lg">
+                  <div className="flex gap-3 sm:gap-8 items-start">
+                    <div className="relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary-500 to-pink-400 flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-lg">
                       {i + 1}
                     </div>
-                    <div className="premium-card rounded-2xl p-6 flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-display text-lg font-bold text-gray-900">{step.title}</h3>
-                        <span className="text-xs text-primary-500 font-semibold bg-primary-50 px-3 py-1 rounded-full">{step.time}</span>
+                    <div className="premium-card rounded-2xl p-5 sm:p-6 flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h3 className="font-display text-base sm:text-lg font-bold text-gray-900">{step.title}</h3>
+                        <span className="text-xs text-primary-500 font-semibold bg-primary-50 px-3 py-1 rounded-full whitespace-nowrap">{step.time}</span>
                       </div>
                       <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
                     </div>
@@ -624,7 +624,7 @@ export default function KidsPage({ lang }: { lang: Lang }) {
                   t.formats.items.length % 3 === 2 && i === t.formats.items.length - 1 ? 'lg:col-start-7' : '',
                 ].join(' ')}
               >
-                <div className="package-card p-7 h-full flex flex-col group">
+                <div className="package-card p-5 sm:p-7 h-full flex flex-col group">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-50 to-pink-50 flex items-center justify-center text-primary-500 mb-4 group-hover:scale-105 transition-transform">
                     {formatIcons[f.icon]}
                   </div>
@@ -638,6 +638,27 @@ export default function KidsPage({ lang }: { lang: Lang }) {
         </div>
       </section>
 
+      {/* ═══════ VIDEO ═══════ */}
+      <section className="py-6 md:py-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Animated delay={50}>
+            <p className="text-center text-gray-500 text-lg mb-6 font-medium">
+              {lang === 'de' ? 'Ausschnitt aus einer Online-Stunde' : lang === 'ru' ? 'Отрывок из онлайн занятия' : 'Excerpt from an online lesson'}
+            </p>
+            <div className="relative rounded-3xl overflow-hidden shadow-xl bg-black">
+              <video
+                controls
+                className="w-full"
+                preload="metadata"
+              >
+                <source src={import.meta.env.BASE_URL + 'video/kids/lesson.mp4'} type="video/mp4" />
+                {lang === 'de' ? 'Ihr Browser unterstützt dieses Video nicht.' : lang === 'ru' ? 'Ваш браузер не поддерживает это видео.' : 'Your browser does not support this video.'}
+              </video>
+            </div>
+          </Animated>
+        </div>
+      </section>
+
       {/* ═══════ PRICING ═══════ */}
       <section className="py-6 md:py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -646,21 +667,21 @@ export default function KidsPage({ lang }: { lang: Lang }) {
           {/* Trial + Single + Mini-group */}
           <div className="grid md:grid-cols-3 gap-6 mb-6">
             <Animated delay={100}>
-              <div className="featured-card rounded-2xl p-7 h-full flex flex-col">
+              <div className="featured-card rounded-2xl p-5 sm:p-7 h-full flex flex-col">
                 <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.pricing.trial.label}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.pricing.trial.desc}</p>
                 <div className="font-display text-2xl font-bold gradient-text">{t.pricing.trial.price}</div>
               </div>
             </Animated>
             <Animated delay={150}>
-              <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+              <div className="premium-card rounded-2xl p-5 sm:p-7 h-full flex flex-col">
                 <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.pricing.single.label}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.pricing.single.desc}</p>
                 <div className="font-display text-2xl font-bold gradient-text">{t.pricing.single.price}</div>
               </div>
             </Animated>
             <Animated delay={200}>
-              <div className="premium-card rounded-2xl p-7 h-full flex flex-col">
+              <div className="premium-card rounded-2xl p-5 sm:p-7 h-full flex flex-col">
                 <h3 className="font-display text-xl font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{t.pricing.miniGroup.label}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{t.pricing.miniGroup.desc}</p>
                 <div className="font-display text-2xl font-bold gradient-text">{t.pricing.miniGroup.price}</div>
@@ -672,11 +693,11 @@ export default function KidsPage({ lang }: { lang: Lang }) {
           <div className="grid sm:grid-cols-3 gap-6 mb-6">
             {t.pricing.subscriptions.map((sub, i) => (
               <Animated key={i} delay={250 + i * 100}>
-                <div className={`rounded-2xl p-7 h-full flex flex-col ${i === 1 ? 'featured-card ring-2 ring-primary-200' : 'premium-card'}`}>
+                <div className={`rounded-2xl p-5 sm:p-7 h-full flex flex-col ${i === 1 ? 'featured-card ring-2 ring-primary-200' : 'premium-card'}`}>
                   {sub.badge && <span className="badge mb-3 inline-flex text-xs"><Sparkles className="w-3 h-3" />{sub.badge}</span>}
                   <h3 className="font-display text-xl font-bold text-gray-900 mb-2">{sub.lessons} {lang === 'de' ? 'Stunden' : lang === 'ru' ? 'занятий' : 'lessons'}</h3>
                   <p className="text-gray-500 text-sm mb-4 flex-1">{sub.perLesson}</p>
-                  <div className="font-display text-2xl font-bold gradient-text">{sub.price}</div>
+                  <div className="font-display text-xl sm:text-2xl font-bold gradient-text break-words">{sub.price}</div>
                   {'savings' in sub && sub.savings && <p className="text-green-500 text-xs font-semibold mt-2">{sub.savings}</p>}
                 </div>
               </Animated>
@@ -704,8 +725,8 @@ export default function KidsPage({ lang }: { lang: Lang }) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary-900/40 to-transparent" />
                 </div>
-                <div className="featured-card rounded-2xl p-7">
-                  <h3 className="font-display text-lg font-bold text-gray-900 mb-5">
+                <div className="featured-card rounded-2xl p-5 sm:p-7">
+                  <h3 className="font-display text-base sm:text-lg font-bold text-gray-900 mb-5">
                     {lang === 'de' ? 'Zusätzliche Ergebnisse' : lang === 'ru' ? 'Дополнительные результаты' : 'Additional Results'}
                   </h3>
                   <ul className="space-y-4">
@@ -724,13 +745,13 @@ export default function KidsPage({ lang }: { lang: Lang }) {
             <div className="space-y-6">
               {t.forParents.blocks.map((block, i) => (
                 <Animated key={i}>
-                  <div className="premium-card rounded-2xl p-7">
-                    <div className="flex items-start gap-5">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-50 to-pink-50 flex items-center justify-center text-primary-500 shrink-0">
+                  <div className="premium-card rounded-2xl p-5 sm:p-7">
+                    <div className="flex items-start gap-4 sm:gap-5">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-primary-50 to-pink-50 flex items-center justify-center text-primary-500 shrink-0">
                         {parentIcons[block.icon]}
                       </div>
-                      <div>
-                        <h3 className="font-display text-lg font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{block.title}</h3>
+                      <div className="min-w-0">
+                        <h3 className="font-display text-base sm:text-lg font-bold text-gray-900 mb-2 text-balance">{block.title}</h3>
                         <p className="text-gray-500 text-sm leading-relaxed">{block.text}</p>
                       </div>
                     </div>
@@ -758,10 +779,10 @@ export default function KidsPage({ lang }: { lang: Lang }) {
       <section className="py-6 md:py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Animated>
-            <div className="featured-card rounded-3xl p-10 md:p-14">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t.cta.title}</h2>
-              <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
-              <Link to="/book" className="btn-primary text-lg inline-flex">{t.cta.cta}<ArrowRight className="w-5 h-5" /></Link>
+            <div className="featured-card rounded-3xl p-6 sm:p-10 md:p-14">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">{t.cta.title}</h2>
+              <p className="text-gray-500 text-base sm:text-lg mb-6 sm:mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
+              <Link to="/book" className="btn-primary text-base sm:text-lg inline-flex">{t.cta.cta}<ArrowRight className="w-5 h-5" /></Link>
             </div>
           </Animated>
         </div>

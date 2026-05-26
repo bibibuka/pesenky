@@ -1,13 +1,15 @@
 {/* eslint-disable @typescript-eslint/no-unused-vars */}
 import { Link } from 'react-router-dom';
+import { useState, useMemo } from 'react';
 import { type Lang } from '../i18n';
 import {
-  ArrowRight, Heart, Music, Sparkles, Star, Calendar, ExternalLink, Newspaper, Video
+  ArrowRight, Heart, Sparkles, Newspaper, Video, ImageIcon
 } from 'lucide-react';
 import Animated from '../components/Animated';
 import SectionTitle from '../components/SectionTitle';
 import HeroSection from '../components/HeroSection';
-import { getMediaImage } from '../utils/media';
+import GalleryLightbox from '../components/GalleryLightbox';
+import { getMediaImage, getMediaImages } from '../utils/media';
 
 /* ─── translations ─── */
 const pageT = {
@@ -173,10 +175,44 @@ const pageT = {
   },
 };
 
+/* ─── gallery text by lang ─── */
+const galleryText: Record<string, string> = {
+  de: 'Klicken um die Galerie zu sehen',
+  en: 'Click to view the gallery',
+  ru: 'Нажмите для просмотра всей галереи',
+};
+
 /* ─── component ─── */
 export default function ProjectsPage({ lang }: { lang: Lang }) {
   const t = pageT[lang];
   const heroImage = getMediaImage('projects/hero') || "/images/placeholder.png";
+
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [galleryTitle, setGalleryTitle] = useState('');
+
+  // Pre-compute gallery images for each project
+  const projectGalleries = useMemo(() => {
+    const map = new Map<string, string[]>();
+    for (const item of t.projects.items) {
+      const images = getMediaImages(`projects/gallery-${item.year}`);
+      if (images.length > 0) {
+        map.set(item.year, images);
+      }
+    }
+    return map;
+  }, [t.projects.items]);
+
+  const openGallery = (year: string, title: string) => {
+    const images = projectGalleries.get(year);
+    if (images && images.length > 0) {
+      setGalleryImages(images);
+      setGalleryTitle(title);
+      setGalleryOpen(true);
+    }
+  };
+
+  const hasGallery = (year: string) => projectGalleries.has(year);
 
   return (
     <main className="relative z-10 min-h-screen">
@@ -197,10 +233,10 @@ export default function ProjectsPage({ lang }: { lang: Lang }) {
       <section className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Animated delay={100}>
-            <div className="featured-card rounded-3xl p-8 md:p-12 text-center">
+            <div className="featured-card rounded-3xl p-6 sm:p-8 md:p-12 text-center">
               <SectionTitle badge={t.mission.badge} title="" highlight="" badgeIcon={<Heart className="w-3.5 h-3.5" />} />
-              <p className="text-gray-600 text-lg leading-relaxed mb-6">{t.mission.text}</p>
-              <blockquote className="text-xl md:text-2xl font-display font-bold gradient-text italic leading-relaxed">
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">{t.mission.text}</p>
+              <blockquote className="text-lg sm:text-xl md:text-2xl font-display font-bold gradient-text italic leading-relaxed text-balance">
                 «{t.mission.quote}»
               </blockquote>
             </div>
@@ -220,19 +256,19 @@ export default function ProjectsPage({ lang }: { lang: Lang }) {
             <div className="space-y-10">
               {t.projects.items.map((project, i) => (
                 <Animated key={i} delay={i * 150}>
-                  <div className="flex gap-5 sm:gap-8 items-start">
+                  <div className="flex gap-3 sm:gap-8 items-start">
                     {/* Year badge */}
-                    <div className="relative z-10 w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-pink-400 flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-lg">
+                    <div className="relative z-10 w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-pink-400 flex items-center justify-center text-white font-bold text-xs sm:text-sm shrink-0 shadow-lg">
                       {project.year}
                     </div>
 
                     {/* Project card */}
-                    <div className="premium-card rounded-2xl p-6 md:p-8 flex-1">
-                      <div className="grid md:grid-cols-2 gap-6">
+                    <div className="premium-card rounded-2xl p-5 sm:p-6 md:p-8 flex-1 min-w-0">
+                      <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
                         {/* Left: info */}
                         <div>
-                          <h3 className="font-display text-2xl font-bold text-gray-900 mb-3">{project.title}</h3>
-                          <p className="text-gray-500 leading-relaxed mb-4">{project.desc}</p>
+                          <h3 className="font-display text-xl sm:text-2xl font-bold text-gray-900 mb-3 text-balance">{project.title}</h3>
+                          <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-4">{project.desc}</p>
 
                           <div className="flex flex-wrap gap-3">
                             {project.youtubeUrls.length > 0 && project.youtubeUrls.map((url: string, vi: number) => (
@@ -256,8 +292,14 @@ export default function ProjectsPage({ lang }: { lang: Lang }) {
                           </div>
                         </div>
 
-                        {/* Right: image */}
-                        <div className="relative rounded-2xl overflow-hidden shadow-lg group">
+                        {/* Right: image with gallery overlay */}
+                        <button
+                          type="button"
+                          onClick={() => hasGallery(project.year) && openGallery(project.year, project.title)}
+                          className={`relative rounded-2xl overflow-hidden shadow-lg group w-full text-left ${
+                            hasGallery(project.year) ? 'cursor-pointer' : 'cursor-default'
+                          }`}
+                        >
                           <img
                             src={getMediaImage(`projects/${project.year}`) || '/images/placeholder.png'}
                             alt={project.title}
@@ -274,8 +316,19 @@ export default function ProjectsPage({ lang }: { lang: Lang }) {
                               }
                             }}
                           />
+                          {/* Gallery overlay */}
+                          {hasGallery(project.year) && (
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300 flex flex-col items-center justify-end pb-5">
+                              <div className="flex items-center gap-2 text-white/90">
+                                <ImageIcon className="w-5 h-5" />
+                                <span className="text-sm font-medium drop-shadow-lg">
+                                  {galleryText[lang]}
+                                </span>
+                              </div>
+                            </div>
+                          )}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                        </div>
+                        </button>
                       </div>
 
                       {/* Press reviews section (placeholder) */}
@@ -308,14 +361,22 @@ export default function ProjectsPage({ lang }: { lang: Lang }) {
       <section className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Animated>
-            <div className="featured-card rounded-3xl p-10 md:p-14">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t.cta.title}</h2>
-              <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
-              <Link to="/book" className="btn-primary text-lg inline-flex">{t.cta.cta}<ArrowRight className="w-5 h-5" /></Link>
+            <div className="featured-card rounded-3xl p-6 sm:p-10 md:p-14">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">{t.cta.title}</h2>
+              <p className="text-gray-500 text-base sm:text-lg mb-6 sm:mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
+              <Link to="/book" className="btn-primary text-base sm:text-lg inline-flex">{t.cta.cta}<ArrowRight className="w-5 h-5" /></Link>
             </div>
           </Animated>
         </div>
       </section>
+
+      {/* ═══════ GALLERY LIGHTBOX ═══════ */}
+      <GalleryLightbox
+        isOpen={galleryOpen}
+        images={galleryImages}
+        title={galleryTitle}
+        onClose={() => setGalleryOpen(false)}
+      />
     </main>
   );
 }

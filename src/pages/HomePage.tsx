@@ -354,7 +354,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
   return (
     <main className="relative z-10 min-h-screen">
       {/* ═══════ 1. HERO ═══════ */}
-      <section className="relative flex items-center min-h-screen pt-24 pb-8 lg:pt-32 lg:pb-10 overflow-hidden">
+      <section className="relative flex items-center min-h-[100svh] pt-20 pb-8 sm:pt-24 lg:pt-32 lg:pb-10 overflow-hidden">
         {/* Background Video */}
         <div
           className="absolute inset-0 z-0"
@@ -376,21 +376,21 @@ export default function HomePage({ lang }: { lang: Lang }) {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-            <Animated><span className="badge mb-6 inline-flex shadow-sm bg-white/90 backdrop-blur-md border border-black/5"><Sparkles className="w-3.5 h-3.5" />{t.hero.badge}</span></Animated>
+            <Animated><span className="badge mb-4 sm:mb-6 inline-flex shadow-sm bg-white/90 backdrop-blur-md border border-black/5 max-w-[90vw] text-center"><Sparkles className="w-3.5 h-3.5 shrink-0" />{t.hero.badge}</span></Animated>
             <Animated delay={150}>
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#1D1D1F] leading-tight mb-8 tracking-tight drop-shadow-sm text-outline-white">
+              <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-[#1D1D1F] leading-[1.1] sm:leading-tight mb-5 sm:mb-8 tracking-tight drop-shadow-sm text-outline-white text-balance">
                 <span className={lang === 'ru' ? 'hero-title-outline' : undefined}>{t.hero.title}</span>{' '}<span className="gradient-text">{t.hero.highlight}</span>
               </h1>
             </Animated>
             <Animated delay={300}>
-              <p className="text-xl md:text-2xl text-white/90 font-light leading-relaxed mb-10 max-w-2xl mx-auto drop-shadow-sm text-outline-black whitespace-pre-line">
+              <p className="text-base sm:text-xl md:text-2xl text-white/90 font-light leading-relaxed mb-8 sm:mb-10 max-w-2xl mx-auto drop-shadow-sm text-outline-black whitespace-pre-line px-2">
                 {t.hero.subtitle}
               </p>
             </Animated>
             <Animated delay={450}>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 -translate-y-[10px]">
-                <Link to="/book" className="btn-primary text-lg px-8 py-4 shadow-lg shadow-primary-700/20">{t.hero.cta1}</Link>
-                <a href="#directions" className="btn-secondary text-lg px-8 py-4 bg-white/20 backdrop-blur-md shadow-sm border-white/60 text-[#1D1D1F] text-outline-white hover:bg-white/30 transition-all">{t.hero.cta2}</a>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 sm:-translate-y-[10px] w-full max-w-xs sm:max-w-none">
+                <Link to="/book" className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3.5 sm:py-4 shadow-lg shadow-primary-700/20 w-full sm:w-auto justify-center">{t.hero.cta1}</Link>
+                <a href="#directions" className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3.5 sm:py-4 bg-white/20 backdrop-blur-md shadow-sm border-white/60 text-[#1D1D1F] text-outline-white hover:bg-white/30 transition-all w-full sm:w-auto justify-center">{t.hero.cta2}</a>
               </div>
             </Animated>
           </div>
@@ -401,11 +401,11 @@ export default function HomePage({ lang }: { lang: Lang }) {
       <section className="py-6 md:py-8">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Animated>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-5 sm:gap-6 md:gap-8">
               {t.proofBar.map((item, i) => (
                 <div key={i} className="text-center">
-                  <div className="font-display text-3xl md:text-4xl font-bold gradient-text mb-1">{item.value}</div>
-                  <div className="text-gray-500 text-sm md:text-base">{item.label}</div>
+                  <div className="font-display text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1 break-words leading-tight">{item.value}</div>
+                  <div className="text-gray-500 text-xs sm:text-sm md:text-base">{item.label}</div>
                 </div>
               ))}
             </div>
@@ -418,7 +418,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.about.badge} title={t.about.title} highlight={t.about.highlight} badgeIcon={<Heart className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
-            <div className="premium-card rounded-2xl p-8 md:p-10 space-y-5">
+            <div className="premium-card rounded-2xl p-6 sm:p-8 md:p-10 space-y-4 sm:space-y-5">
               <p className="text-gray-600 text-lg leading-relaxed">{t.about.p1}</p>
               <p className="text-gray-600 text-lg leading-relaxed">{t.about.p2}</p>
             </div>
@@ -441,7 +441,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
                       {directionIcons[i]}
                     </div>
                   </div>
-                  <div className="p-8 flex-1 flex flex-col">
+                  <div className="p-6 sm:p-8 flex-1 flex flex-col">
                     <h3 className="font-display text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-600 transition-colors min-h-[2lh] text-balance">{dir.title}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed flex-1 mb-5">{dir.desc}</p>
                     <Link to={directionLinks[i]} className="btn-secondary text-sm inline-flex w-fit">{dir.cta}<ArrowRight className="w-4 h-4" /></Link>
@@ -459,7 +459,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
           <SectionTitle badge={t.adultsPreview.badge} title={t.adultsPreview.title} highlight={t.adultsPreview.highlight} badgeIcon={<Briefcase className="w-3.5 h-3.5" />} />
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <Animated delay={100}>
-              <div className="premium-card rounded-2xl p-8">
+              <div className="premium-card rounded-2xl p-6 sm:p-8">
                 <p className="text-gray-600 text-lg leading-relaxed mb-6">{t.adultsPreview.text}</p>
                 <ul className="space-y-3 mb-6">
                   {t.adultsPreview.items.map((item, i) => (
@@ -489,7 +489,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
               </div>
             </Animated>
             <Animated delay={100}>
-              <div className="premium-card rounded-2xl p-8">
+              <div className="premium-card rounded-2xl p-6 sm:p-8">
                 <p className="text-gray-600 text-lg leading-relaxed mb-6">{t.kidsPreview.text}</p>
                 <ul className="space-y-3 mb-6">
                   {t.kidsPreview.items.map((item, i) => (
@@ -508,9 +508,9 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.concertPreview.badge} title={t.concertPreview.title} highlight={t.concertPreview.highlight} badgeIcon={<Volume2 className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
-            <div className="relative rounded-3xl overflow-hidden shadow-xl group h-80 md:h-96">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 flex flex-col justify-end p-10">
-                <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-2xl mb-6">{t.concertPreview.text}</p>
+            <div className="relative rounded-3xl overflow-hidden shadow-xl group h-72 sm:h-80 md:h-96">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10 flex flex-col justify-end p-6 sm:p-10">
+                <p className="text-white/90 text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mb-5 sm:mb-6">{t.concertPreview.text}</p>
                 <Link to="/artist" className="btn-gold inline-flex w-fit">{t.concertPreview.cta}<ArrowRight className="w-4 h-4" /></Link>
               </div>
               <img src={HOME_IMAGES.concertPreview} alt="Concert" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
@@ -526,9 +526,9 @@ export default function HomePage({ lang }: { lang: Lang }) {
           <div className="space-y-4">
             {t.whyUs.items.map((item, i) => (
               <Animated key={i} delay={i * 120}>
-                <div className="premium-card rounded-xl p-5 flex items-start gap-4">
+                <div className="premium-card rounded-xl p-4 sm:p-5 flex items-start gap-3 sm:gap-4">
                   <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center shrink-0"><CheckCircle2 className="w-5 h-5 text-green-500" /></div>
-                  <p className="text-gray-700 leading-relaxed">{item}</p>
+                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">{item}</p>
                 </div>
               </Animated>
             ))}
@@ -605,15 +605,15 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.aboutMe.badge} title={t.aboutMe.title} highlight={t.aboutMe.highlight} badgeIcon={<Award className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
-            <div className="premium-card rounded-[2.5rem] p-8 md:p-12 relative overflow-hidden">
-              <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 relative z-10">
+            <div className="premium-card rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 md:p-12 relative overflow-hidden">
+              <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-10 md:gap-16 relative z-10">
                 <div className="relative shrink-0 group">
-                  <div className="w-[230px] h-[270px] md:w-[270px] md:h-[315px] relative rounded-3xl overflow-hidden">
+                  <div className="w-[200px] h-[240px] sm:w-[230px] sm:h-[270px] md:w-[270px] md:h-[315px] relative rounded-3xl overflow-hidden">
                     <img src={HOME_IMAGES.coachPortrait} alt="Alina" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                   </div>
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <p className="text-gray-600 leading-relaxed mb-6 text-lg">{t.aboutMe.bio}</p>
+                  <p className="text-gray-600 leading-relaxed mb-5 sm:mb-6 text-base sm:text-lg">{t.aboutMe.bio}</p>
                   <ul className="space-y-3 mb-6">
                     {t.aboutMe.points.map((p, i) => (
                       <li key={i} className="flex items-center gap-3 text-gray-700 justify-center md:justify-start"><CheckCircle2 className="w-4 h-4 text-primary-500 shrink-0" /><span className="font-medium">{p}</span></li>
@@ -631,12 +631,12 @@ export default function HomePage({ lang }: { lang: Lang }) {
       <section className="py-6 md:py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Animated>
-            <div className="featured-card rounded-3xl p-10 md:p-14">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t.finalCta.title}</h2>
-              <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">{t.finalCta.subtitle}</p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/book" className="btn-primary text-lg">{t.finalCta.cta}<ArrowRight className="w-5 h-5" /></Link>
-                <Link to="/book" className="btn-secondary text-lg">{t.finalCta.cta2}<ArrowRight className="w-5 h-5" /></Link>
+            <div className="featured-card rounded-3xl p-6 sm:p-10 md:p-14">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">{t.finalCta.title}</h2>
+              <p className="text-gray-500 text-base sm:text-lg mb-6 sm:mb-8 max-w-xl mx-auto">{t.finalCta.subtitle}</p>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
+                <Link to="/book" className="btn-primary text-base sm:text-lg justify-center">{t.finalCta.cta}<ArrowRight className="w-5 h-5" /></Link>
+                <Link to="/book" className="btn-secondary text-base sm:text-lg justify-center">{t.finalCta.cta2}<ArrowRight className="w-5 h-5" /></Link>
               </div>
             </div>
           </Animated>
@@ -648,7 +648,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.contactInfo.badge} title={t.contactInfo.title} highlight={t.contactInfo.highlight} badgeIcon={<MapPin className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
-            <div className="premium-card rounded-2xl p-8 grid sm:grid-cols-3 gap-6 text-center">
+            <div className="premium-card rounded-2xl p-6 sm:p-8 grid sm:grid-cols-3 gap-6 text-center">
               <div>
                 <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mx-auto mb-3"><MapPin className="w-6 h-6 text-primary-500" /></div>
                 <p className="font-semibold text-gray-800">{t.contactInfo.location}</p>

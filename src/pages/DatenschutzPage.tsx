@@ -49,14 +49,14 @@ export default function DatenschutzPage({ lang }: { lang: Lang }) {
     <main className="relative z-10 min-h-screen pt-24 pb-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <Animated>
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-10 text-center">{t.title}</h1>
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-8 sm:mb-10 text-center">{t.title}</h1>
         </Animated>
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {t.sections.map((s, i) => (
             <Animated key={i} delay={i * 80}>
-              <div className="premium-card rounded-2xl p-6 md:p-8">
-                <h2 className="font-display text-xl font-bold text-gray-900 mb-4">{s.title}</h2>
-                <p className="text-gray-600 leading-relaxed whitespace-pre-line">{s.content}</p>
+              <div className="premium-card rounded-2xl p-5 sm:p-6 md:p-8">
+                <h2 className="font-display text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{s.title}</h2>
+                <p className="text-gray-600 text-sm sm:text-base leading-relaxed whitespace-pre-line break-words">{s.content}</p>
               </div>
             </Animated>
           ))}

@@ -1,14 +1,16 @@
 ﻿{/* eslint-disable @typescript-eslint/no-unused-vars */}
 import { Link } from 'react-router-dom';
+import { useRef, useState } from 'react';
 import { type Lang } from '../i18n';
 import {
-  ArrowRight, CheckCircle2, Award, Heart, Users, Mic, Sparkles, Star, Music, Briefcase, Globe, Baby, Play, FileText, ExternalLink
+  ArrowRight, CheckCircle2, Award, Heart, Users, Mic, Sparkles, Star, Music, Briefcase, Globe, Baby, Play, FileText, ExternalLink, Quote, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import Animated from '../components/Animated';
 import SectionTitle from '../components/SectionTitle';
 import HeroSection from '../components/HeroSection';
+import ImageModal from '../components/ImageModal';
 import PdfViewer from '../components/PdfViewer';
-import { getMediaImage, getDiplomaFiles } from '../utils/media';
+import { getMediaImage, getDiplomaFiles, getMediaImages } from '../utils/media';
 
 const pageT = {
   de: {
@@ -66,6 +68,11 @@ const pageT = {
         loading: 'PDF wird geladen…',
         error: 'PDF konnte nicht geladen werden.',
       },
+    },
+    reviews: {
+      badge: 'Bewertungen',
+      title: 'Stimmen meiner',
+      highlight: 'Kunden',
     },
     cta: {
       title: 'Bereit für eine Probe-Stunde?',
@@ -129,6 +136,11 @@ const pageT = {
         loading: 'Loading PDF…',
         error: 'Failed to load PDF.',
       },
+    },
+    reviews: {
+      badge: 'Reviews',
+      title: 'What My Clients',
+      highlight: 'Say',
     },
     cta: {
       title: 'Ready for a trial lesson?',
@@ -195,6 +207,11 @@ const pageT = {
         error: 'Не удалось загрузить PDF.',
       },
     },
+    reviews: {
+      badge: 'Отзывы',
+      title: 'Отзывы моих',
+      highlight: 'клиентов',
+    },
     cta: {
       title: 'Готовы на пробный урок?',
       subtitle: 'Познакомьтесь со мной и узнайте, на что способен Ваш голос.',
@@ -205,9 +222,24 @@ const pageT = {
 
 export default function AboutPage({ lang }: { lang: Lang }) {
   const t = pageT[lang];
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const reviewsScrollerRef = useRef<HTMLDivElement | null>(null);
   const heroImage = getMediaImage('coach/portrait') || "/images/placeholder.png";
   const aboutImage = getMediaImage('about/about/01') || heroImage;
   const diplomas = getDiplomaFiles();
+
+  // Load review images
+  const reviewImages = getMediaImages('reviews');
+
+  const scrollReviews = (direction: 'left' | 'right') => {
+    const scroller = reviewsScrollerRef.current;
+    if (!scroller) return;
+    const scrollAmount = Math.max(scroller.clientWidth * 0.78, 280);
+    scroller.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <main className="relative z-10 min-h-screen">
@@ -238,7 +270,7 @@ export default function AboutPage({ lang }: { lang: Lang }) {
                     alt="Alina"
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-72 sm:h-96 lg:h-[450px] object-cover group-hover:scale-105 transition-transform duration-700"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
@@ -289,11 +321,11 @@ export default function AboutPage({ lang }: { lang: Lang }) {
               ].filter(Boolean).join(' ');
               return (
               <Animated key={i} delay={i * 100} className={itemClasses}>
-                <div className="premium-card rounded-2xl p-6 h-full">
+                <div className="premium-card rounded-2xl p-5 sm:p-6 h-full">
                   <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center text-primary-500 mb-4">
                     {[<Briefcase key="b" className="w-6 h-6" />, <Baby key="ba" className="w-6 h-6" />, <Award key="a" className="w-6 h-6" />, <Music key="m" className="w-6 h-6" />, <Mic key="mi" className="w-6 h-6" />][i]}
                   </div>
-                  <h3 className="font-display text-lg font-bold text-gray-900 mb-2 min-h-[2lh] text-balance">{item.title}</h3>
+                  <h3 className="font-display text-base sm:text-lg font-bold text-gray-900 mb-2 text-balance">{item.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </Animated>
@@ -333,8 +365,8 @@ export default function AboutPage({ lang }: { lang: Lang }) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle badge={t.media.badge} title={t.media.title} highlight={t.media.highlight} badgeIcon={<Sparkles className="w-3.5 h-3.5" />} />
           <Animated delay={100}>
-            <div className="premium-card rounded-2xl p-8 md:p-12">
-              <div className="grid md:grid-cols-3 gap-6">
+            <div className="premium-card rounded-2xl p-5 sm:p-8 md:p-12">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
                 {/* YouTube video 1 */}
                 <div className="relative rounded-2xl overflow-hidden aspect-video shadow-md">
                   <iframe
@@ -381,18 +413,78 @@ export default function AboutPage({ lang }: { lang: Lang }) {
         </div>
       </section>
 
+      {/* ═══════ REVIEWS — horizontal scrollable carousel ═══════ */}
+      {reviewImages.length > 0 && (
+        <section className="py-5 md:py-6 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <SectionTitle badge={t.reviews.badge} title={t.reviews.title} highlight={t.reviews.highlight} badgeIcon={<Quote className="w-3.5 h-3.5" />} />
+          </div>
+
+          <div
+            ref={reviewsScrollerRef}
+            className="flex overflow-x-auto gap-4 sm:gap-6 px-4 sm:px-6 lg:px-8 pb-8 snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {reviewImages.map((imgSrc, i) => (
+              <Animated key={i} delay={i * 100} className="snap-center shrink-0">
+                <div 
+                  className="relative group h-[200px] sm:h-[260px] md:h-[300px] w-auto rounded-3xl overflow-hidden shadow-lg border border-white/40 bg-white/50 cursor-pointer"
+                  onClick={() => setSelectedImage(imgSrc)}
+                >
+                  <img 
+                    src={imgSrc} 
+                    alt={`Review ${i + 1}`}
+                    className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </Animated>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center gap-4 mt-2 mb-2 px-4">
+            {reviewImages.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  aria-label={lang === 'de' ? 'Nach links scrollen' : lang === 'ru' ? 'Прокрутить влево' : 'Scroll left'}
+                  onClick={() => scrollReviews('left')}
+                  className="w-12 h-12 rounded-full border border-black/5 bg-white/80 backdrop-blur-md text-gray-700 flex items-center justify-center shadow-sm transition-all hover:-translate-x-0.5 hover:border-primary-200 hover:text-primary-600 hover:shadow-md"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  type="button"
+                  aria-label={lang === 'de' ? 'Nach rechts scrollen' : lang === 'ru' ? 'Прокрутить вправо' : 'Scroll right'}
+                  onClick={() => scrollReviews('right')}
+                  className="w-12 h-12 rounded-full border border-black/5 bg-white/80 backdrop-blur-md text-gray-700 flex items-center justify-center shadow-sm transition-all hover:translate-x-0.5 hover:border-primary-200 hover:text-primary-600 hover:shadow-md"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* ═══════ CTA ═══════ */}
       <section className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Animated>
-            <div className="featured-card rounded-3xl p-10 md:p-14">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">{t.cta.title}</h2>
-              <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
-              <Link to="/book" className="btn-primary text-lg inline-flex">{t.cta.cta}<ArrowRight className="w-5 h-5" /></Link>
+            <div className="featured-card rounded-3xl p-6 sm:p-10 md:p-14">
+              <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">{t.cta.title}</h2>
+              <p className="text-gray-500 text-base sm:text-lg mb-6 sm:mb-8 max-w-xl mx-auto">{t.cta.subtitle}</p>
+              <Link to="/book" className="btn-primary text-base sm:text-lg inline-flex">{t.cta.cta}<ArrowRight className="w-5 h-5" /></Link>
             </div>
           </Animated>
         </div>
       </section>
+
+      <ImageModal 
+        isOpen={!!selectedImage} 
+        imageUrl={selectedImage} 
+        onClose={() => setSelectedImage(null)} 
+      />
     </main>
   );
 }
